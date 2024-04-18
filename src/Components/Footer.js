@@ -8,7 +8,7 @@ let urlSettingButton = "https://www.iconpacks.net/icons/1/free-settings-icon-778
 export default function Footer() {
 
   return (
-    <View className="h-full flex flex-row justify-around bg-[#002B0F] py-2">
+    <View className="flex flex-row justify-around bg-primary py-2  border-t-2 border-secondary">
         <View className="w-1/4 flex flex-row justify-center">
             <View>
                 <Image source={{ uri: urlHomeButton }} className="h-10 w-10 object-cover self-center" />
