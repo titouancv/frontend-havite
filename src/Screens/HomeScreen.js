@@ -19,7 +19,7 @@ const data = [
   { id: '12', name: 'Mike Johnson', imageUrl: '' },
 ];
 
-export default function HomePage() {
+export default function HomeScreen() {
   const renderItem = ({ item }) => (
     <Article name={item.name} imageUrl={item.imageUrl} text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies diam non mi rutrum vulputate. Proin nec mi elit. Suspendisse eget faucibus purus, ut egestas sapien. Mauris egestas metus vestibulum, fermentum magna non, dignissim dui. Donec viverra imperdiet libero, non volutpat ante consectetur in. Ut eleifend purus felis. Phasellus quis egestas nunc. Proin fermentum est nec eros iaculis blandit. Nam tempus tellus odio, at vulputate justo tincidunt eu. Nam tortor odio, interdum eget ligula nec, rhoncus gravida risus. Phasellus suscipit ac massa ut cursus. Cras sem odio, porttitor ac nisl id, molestie suscipit urna. Quisque non augue felis.
     Aenean congue metus nec dolor porta, faucibus facilisis magna tincidunt.
@@ -29,7 +29,7 @@ export default function HomePage() {
   return (
     <SafeAreaProvider>
       <View className="bg-primary h-full">
-        <View className="flex h-[90%] flex-col w-full">
+        <View className="flex h-full flex-col w-full">
             <View className="w-full h-[6%] bg-primary border-b-2 border-secondary"></View>
             <View className="w-full bg-light-1 flex justify-center">
                 <FlatList
@@ -38,9 +38,6 @@ export default function HomePage() {
                 keyExtractor={(item) => item.id}
                 />
             </View>
-        </View>
-        <View>
-          <Footer/>
         </View>
       </View>
     </SafeAreaProvider>

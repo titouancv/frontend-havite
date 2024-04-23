@@ -1,9 +1,13 @@
-import Login from "./LogInPage";
-import SignUp from "./SignUpPage";
-import HomePage from "./HomePage";
+import ProfilHomePage from "./ProfileHomePage";
+import AccountSettingsPage from "./AccountSettingsPage";
+import AboutPage from "./AboutPage";
+import HelpPage from "./HelpPage";
+import OtherPage from "./OtherPage";
 
 export {
-    Login,
-    SignUp,
-    HomePage
+    ProfilHomePage,
+    AccountSettingsPage,
+    AboutPage,
+    HelpPage,
+    OtherPage
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Button, Image, TouchableOpacity, FlatList } from 'react-native';
-import { CoverFrame, SourceFrame } from '../Units';
+import { CoverFrame, SourceFrame } from '../Frames';
 
 let logomedia = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Le_monde_logo.svg/1280px-Le_monde_logo.svg.png"
 
@@ -22,7 +22,7 @@ const Article = ({ name, imageUrl, text }) => {
   
     const renderItem = ({ item }) => {
       return (
-        <View className="w-[345px]">
+        <View className="h-[95%] w-[370px] p-3">
           {item}
         </View>
       );
@@ -30,12 +30,15 @@ const Article = ({ name, imageUrl, text }) => {
   
     return (
         <View className="flex-col bg-light-2 rounded-2xl border-2 border-secondary mx-2 my-3">
-            <View className="flex items-center space-y-4">
-                <View className="w-full h-12 flex justify-center items-center bg-secondary rounded-t-xl">
-                    <Image source={{ uri: logomedia }} className="w-1/2 h-3/4 object-contain" />
+            <View className="flex items-center">
+                <View className="w-full h-10 flex justify-center items-center bg-secondary rounded-t-xl">
+                    <Image source={{ uri: logomedia }} className="w-1/2 h-[80%]" />
                 </View>
-                <View className="m-3 h-[450px]">
-                    <View>
+                <View className="pb-3 h-[475px]">
+                    <View className="bg-light-3 py-1 justify-center flex mb-1">
+                        <Text className="self-center text-caption-text font-bold">Communiqué</Text>
+                    </View>
+                    <View className="">
                         <FlatList
                         data={data}
                         renderItem={renderItem}
@@ -50,11 +53,11 @@ const Article = ({ name, imageUrl, text }) => {
                         />
                         <View className="w-full flex justify-center">
                             <View className="w-3/4 self-center">
-                                <View className="flex-row justify-center items-center absolute bottom-0 left-0 right-0">
+                                <View className="flex-row justify-center items-center absolute bottom-6 left-0 right-0">
                                     {data.map((_, index) => (
                                     <View
                                         key={index}
-                                        className={`w-1/3 h-1 rounded-sm ${index === activeIndex && "bg-primary" || "bg-light-3"} mx-1`}
+                                        className={`w-1/3 h-1 rounded-sm ${index === activeIndex && "bg-secondary" || "bg-light-3"} mx-1`}
                                     />
                                     ))}
                                 </View>
