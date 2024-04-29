@@ -1,5 +1,5 @@
 import React from 'react';
-import { HomeScreen, UsersProfilScreen } from './Screens';
+import { HomeRoute, UsersProfilRoute } from './Routes';
 
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
 
-function Main() {
+function MainScreen() {
   return (
     <SafeAreaProvider className="">
         <Tab.Navigator
@@ -22,15 +22,22 @@ function Main() {
                     paddingTop: 0,
                     backgroundColor: '#305536',
                     position: 'absolute',
-                    borderTopWidth: 0,
+                    borderTopWidth: 4,
+                    borderBlockColor: '#ff7d72',
                 }
             })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Profil" component={UsersProfilScreen} />
+            <Tab.Screen 
+            name="Home" 
+            component={HomeRoute} 
+            />
+            <Tab.Screen 
+            name="Profil" 
+            component={UsersProfilRoute} 
+            />
         </Tab.Navigator>
     </SafeAreaProvider>
   );
 }
 
-export default Main
+export default MainScreen

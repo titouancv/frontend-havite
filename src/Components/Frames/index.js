@@ -1,7 +1,7 @@
 import CoverFrame from "./CoverFrame";
-import SourceFrame from "./SourceFrame";
+import CreditFrame from "./CreditFrame";
 
 export {
     CoverFrame,
-    SourceFrame
+    CreditFrame
 }

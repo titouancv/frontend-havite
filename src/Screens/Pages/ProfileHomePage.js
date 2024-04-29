@@ -10,14 +10,14 @@ export default function ProfilHomePage() {
     <SafeAreaProvider>
       <View className="bg-light-1 h-full">
         <View className="h-full flex-col w-full space-y-4">
-            <View className="w-full h-[6%] bg-primary border-b-2 border-secondary"></View>
-            <View className="w-[95%] self-center py-2">
-              <View className="w-full bg-primary flex-row justify-stretch rounded-lg p-4 py-6 space-x-2">
-                <View className="rounded-lg w-[18%] flex justify-center">
-                  <Image source={{ uri: "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" }} className="h-14 w-14 rounded-lg self-center" />
+            <View className="w-full h-[6%] bg-primary"></View>
+            <View className="w-[95%] self-center">
+              <View className="w-full bg-primary flex-col justify-center items-center rounded-lg p-4 py-6 space-y-4">
+                <View className="rounded-lg w-[25%] flex justify-center">
+                  <Image source={{ uri: "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" }} className="h-20 w-20 rounded-lg self-center" />
                 </View>
-                <View className="w-[80%] space-y-2">
-                  <View className="flex-row space-x-2 w-full justify-left">
+                <View className="w-full space-y-2">
+                  <View className="flex-row space-x-2 w-full justify-center">
                     <Text className="text-h5 text-light-1">Titouan</Text>
                     <Text className="text-h5 font-bold text-light-1">Carion-Vignaud</Text>
                   </View>

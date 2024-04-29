@@ -41,8 +41,10 @@ const Login = ({ navigation }) => {
                 <View className="border-2 border-light-3 rounded-lg px-2">
                     <TextInput 
                     placeholder='Enter your password' 
-                    placeholderTextColor={"#ff7d72"} 
+                    placeholderTextColor={"#ff7d72"}
+                    secureTextEntry={true} 
                     onChangeText={password => onChangePassword(password)}
+                    autoComplete='current-password'
                     className="text-body-text color-secondary my-2"/>
                 </View>
                 <View className="flex-row my-1">

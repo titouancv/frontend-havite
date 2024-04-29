@@ -12,42 +12,48 @@ const SignUp = ({ navigation }) => {
             <Text className="text-body-text text-center font-bold color-light-2">Are you ready to see the latest news?</Text>
         </View>
         <View className="space-y-4">
-        <View className=" w-[90%] self-center">
-                <Text className="text-h5 font-bold color-light-2 mb-1">First Name</Text>
-                <View className="border-2 border-light-3 rounded-lg px-2">
-                <TextInput placeholder='Enter your first name' placeholderTextColor={"#ff7d72"} className="text-body-text color-secondary my-2"/>
-                </View>
-            </View>
-            <View className=" w-[90%] self-center">
-                <Text className="text-h5 font-bold color-light-2 mb-1">Last Name</Text>
-                <View className="border-2 border-light-3 rounded-lg px-2">
-                    <TextInput placeholder='Enter your last name' placeholderTextColor={"#ff7d72"} className="text-body-text color-secondary my-2"/>
-                </View>
-            </View>
             <View className=" w-[90%] self-center">
                 <Text className="text-h5 font-bold color-light-2 mb-1">Email Address</Text>
                 <View className="border-2 border-light-3 rounded-lg px-2">
-                <TextInput placeholder='Enter your email address' placeholderTextColor={"#ff7d72"} className="text-body-text color-secondary my-2"/>
+                <TextInput 
+                placeholder='Enter your email address' 
+                placeholderTextColor={"#ff7d72"} 
+                className="text-body-text color-secondary my-2" 
+                autoComplete='email'/>
                 </View>
             </View>
             <View className=" w-[90%] self-center">
                 <Text className="text-h5 font-bold color-light-2 mb-1">Password</Text>
                 <View className="border-2 border-light-3 rounded-lg px-2">
-                    <TextInput placeholder='Enter your password' placeholderTextColor={"#ff7d72"} className="text-body-text color-secondary my-2"/>
+                    <TextInput 
+                    placeholder='Enter your password' 
+                    secureTextEntry={true} 
+                    placeholderTextColor={"#ff7d72"} 
+                    className="text-body-text color-secondary my-2" 
+                    autoComplete='new-password'/>
                 </View>
                 <View className="flex-row my-1">
                     <Text className="text-tiny-text color-light-2 mr-1">There must be at least 8 characters including 1 uppercase, 1 lowercase, 1 number and a special character (ex: ?./$)</Text>
                 </View>
+                <Text className="text-h5 font-bold color-light-2 mb-1">Confirm Password</Text>
+                <View className="border-2 border-light-3 rounded-lg px-2">
+                    <TextInput 
+                    placeholder='Enter your password' 
+                    secureTextEntry={true} 
+                    placeholderTextColor={"#ff7d72"} 
+                    className="text-body-text color-secondary my-2" 
+                    autoComplete='new-password'/>
+                </View>
             </View>
-            <View className=" w-[90%] self-center mt-4">
-                <TouchableOpacity className="bg-light-2 border-2 border-light-3 rounded-lg px-2">
-                    <Text className="text-h5 text-center font-bold color-primary my-2">Sign Up</Text>
+            <View className=" w-[90%] self-center pt-2">
+                <TouchableOpacity className="bg-light-2 border-2 border-light-3 rounded-lg px-2" onPress={() => navigation.navigate("Information")}>
+                    <Text className="text-h5 text-center font-bold color-primary my-2">Next</Text>
                 </TouchableOpacity>
             </View>
         </View>
-        <View className="w-[90%] self-center justify-between flex-row my-6">
+        <View className="w-[90%] self-center justify-between flex-row my-6 pt-2">
             <View className="h-1 w-1/3 bg-light-2 flex self-center"></View>
-            <Text className="text-caption-text color-light-2 mx-2">Or sing up with</Text>
+            <Text className="text-caption-text color-light-2 mx-2">Or sign up with</Text>
             <View className="h-1 w-1/3 bg-light-2 flex self-center"></View>
         </View>
         <View className="w-[90%] self-center justify-between flex-row">

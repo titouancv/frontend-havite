@@ -1,6 +1,5 @@
 import React from 'react';
-import { Login, SignUp} from './src/Screens';
-import Main from './src/Main';
+import { Login, SignUp, InformationsScreen, MainScreen} from './src/Screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
@@ -11,11 +10,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='Main'
+        initialRouteName='Home'
       >
         <Stack.Screen
           name="Main"
-          component={Main}
+          component={MainScreen}
           options={{
             headerShown: false
           }}
@@ -32,6 +31,17 @@ export default function App() {
           component={SignUp}
           options={{
             headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="Information"
+          component={InformationsScreen}
+          options={{
+            headerShown: true,
+            title: "",
+            headerBackTitleVisible: false,
+            headerStyle: {backgroundColor: '#305536'},
+            headerTintColor: "#f9f4ea",
           }}
         />
       </Stack.Navigator>

@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
 const ProfileStack = createNativeStackNavigator();
 
-export default function App() {
+export default function UsersProfilRoute() {
 
   return (
     <ProfileStack.Navigator
