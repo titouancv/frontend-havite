@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, FlatList, Image, TouchableOpacity, Pressable } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { TextInputButton } from '../Components';
 
 const SignUp = ({ navigation }) => {
 
@@ -13,36 +14,17 @@ const SignUp = ({ navigation }) => {
         </View>
         <View className="space-y-4">
             <View className=" w-[90%] self-center">
-                <Text className="text-h5 font-bold color-light-2 mb-1">Email Address</Text>
-                <View className="border-2 border-light-3 rounded-lg px-2">
-                <TextInput 
-                placeholder='Enter your email address' 
-                placeholderTextColor={"#ff7d72"} 
-                className="text-body-text color-secondary my-2" 
-                autoComplete='email'/>
-                </View>
+                <TextInputButton title="Email Address" placeholder="Enter your email address" autoComplete='email'/>
             </View>
-            <View className=" w-[90%] self-center">
-                <Text className="text-h5 font-bold color-light-2 mb-1">Password</Text>
-                <View className="border-2 border-light-3 rounded-lg px-2">
-                    <TextInput 
-                    placeholder='Enter your password' 
-                    secureTextEntry={true} 
-                    placeholderTextColor={"#ff7d72"} 
-                    className="text-body-text color-secondary my-2" 
-                    autoComplete='new-password'/>
+            <View className=" w-[90%] self-center space-y-2">
+                <View>
+                    <TextInputButton title="Password" placeholder="Enter your password" autoComplete='new-password'/>
                 </View>
-                <View className="flex-row my-1">
+                <View>
+                    <TextInputButton title="Confirm Password" placeholder="Confirm your password" autoComplete='new-password'/>
+                </View>
+                <View className="flex-row ">
                     <Text className="text-tiny-text color-light-2 mr-1">There must be at least 8 characters including 1 uppercase, 1 lowercase, 1 number and a special character (ex: ?./$)</Text>
-                </View>
-                <Text className="text-h5 font-bold color-light-2 mb-1">Confirm Password</Text>
-                <View className="border-2 border-light-3 rounded-lg px-2">
-                    <TextInput 
-                    placeholder='Enter your password' 
-                    secureTextEntry={true} 
-                    placeholderTextColor={"#ff7d72"} 
-                    className="text-body-text color-secondary my-2" 
-                    autoComplete='new-password'/>
                 </View>
             </View>
             <View className=" w-[90%] self-center pt-2">

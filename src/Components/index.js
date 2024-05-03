@@ -1,6 +1,9 @@
 
 import Article from "./Article";
-
+import PageButton from "./PageButton";
+import TextInputButton from "./TextInputButton";
 export {
-    Article
+    Article,
+    PageButton,
+    TextInputButton,
 }

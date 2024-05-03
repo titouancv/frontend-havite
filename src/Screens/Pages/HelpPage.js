@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import { PageButton } from '../../Components';
 
 
 export default function HelpPage() {
@@ -11,22 +12,18 @@ export default function HelpPage() {
       <View className="bg-light-1 h-full">
         <View className="h-full flex-col w-full pt-4">
             <View className="w-[95%] self-center space-y-2">
-              <TouchableOpacity className="w-full bg-primary flex-row rounded-lg p-2 space-x-2 justify-between" onPress={() => navigation.navigate("HelpPage") }>
-                <Text className="text-body-text font-bold text-light-1">Contact Us</Text>
-                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/32/32213.png" }} className="h-5 w-5 self-center" />
-              </TouchableOpacity>
-              <TouchableOpacity className="w-full bg-primary flex-row rounded-lg p-2 space-x-2 justify-between" onPress={() => navigation.navigate("HelpPage") }>
-                <Text className="text-body-text font-bold text-light-1">Help Center</Text>                
-                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/32/32213.png" }} className="h-5 w-5 self-center" />
-              </TouchableOpacity>
-              <TouchableOpacity className="w-full bg-primary flex-row rounded-lg p-2 space-x-2 justify-between" onPress={() => navigation.navigate("HelpPage") }>
-                <Text className="text-body-text font-bold text-light-1">Join the beta</Text>                
-                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/32/32213.png" }} className="h-5 w-5 self-center" />
-              </TouchableOpacity>
-              <TouchableOpacity className="w-full bg-primary flex-row rounded-lg p-2 space-x-2 justify-between" onPress={() => navigation.navigate("HelpPage") }>
-                <Text className="text-body-text font-bold text-light-1">Make a suggestion</Text>                
-                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/32/32213.png" }} className="h-5 w-5 self-center" />
-              </TouchableOpacity>
+              <View>
+                <PageButton title="Contact Us" nextPage="HelpPage"/>
+              </View>
+              <View>
+                <PageButton title="Help Center" nextPage="HelpPage"/>
+              </View>
+              <View>
+                <PageButton title="Join the beta" nextPage="HelpPage"/>
+              </View>
+              <View>
+                <PageButton title="Make a suggestion" nextPage="HelpPage"/>
+              </View>
             </View>
         </View>
       </View>

@@ -22,7 +22,7 @@ function MainScreen() {
                     paddingTop: 0,
                     backgroundColor: '#305536',
                     position: 'absolute',
-                    borderTopWidth: 4,
+                    borderTopWidth: 2,
                     borderBlockColor: '#ff7d72',
                 }
             })}

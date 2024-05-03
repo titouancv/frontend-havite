@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import { PageButton } from '../../Components';
 
 
 export default function ProfilHomePage() {
@@ -29,44 +30,36 @@ export default function ProfilHomePage() {
             </View>
             <View className="w-[95%] self-center space-y-1">
               <Text className="text-caption-text text-primary">FONCTIONALITY</Text>
-              <TouchableOpacity className="w-full bg-primary flex-row rounded-lg p-2 space-x-2 justify-between" onPress={() => navigation.navigate("HelpPage") }>
-                <Text className="text-body-text font-bold text-light-1">Followed media</Text>
-                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/32/32213.png" }} className="h-5 w-5 self-center" />
-              </TouchableOpacity>
-              <TouchableOpacity className="w-full bg-primary flex-row rounded-lg p-2 space-x-2 justify-between" onPress={() => navigation.navigate("HelpPage") }>
-                <Text className="text-body-text font-bold text-light-1">Messages</Text>                
-                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/32/32213.png" }} className="h-5 w-5 self-center" />
-              </TouchableOpacity>
+              <View>
+                <PageButton title="Followed media" nextPage="HelpPage"/>
+              </View>
+              <View>
+                <PageButton title="Message" nextPage="HelpPage"/>
+              </View>
             </View>
             <View className="w-[95%] self-center space-y-1">
               <Text className="text-caption-text text-primary">SETTINGS</Text>
-              <TouchableOpacity className="w-full bg-primary flex-row rounded-lg p-2 space-x-2 justify-between" onPress={() => navigation.navigate("HelpPage") }>
-                <Text className="text-body-text font-bold text-light-1">Notifications</Text>
-                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/32/32213.png" }} className="h-5 w-5 self-center" />
-              </TouchableOpacity>
-              <TouchableOpacity className="w-full bg-primary flex-row rounded-lg p-2 space-x-2 justify-between" onPress={() => navigation.navigate("HelpPage") }>
-                <Text className="text-body-text font-bold text-light-1">Privacy</Text>                
-                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/32/32213.png" }} className="h-5 w-5 self-center" />
-              </TouchableOpacity>
-              <TouchableOpacity className="w-full bg-primary flex-row rounded-lg p-2 space-x-2 justify-between" onPress={() => navigation.navigate("OtherPage") }>
-                <Text className="text-body-text font-bold text-light-1">Others</Text>                
-                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/32/32213.png" }} className="h-5 w-5 self-center" />
-              </TouchableOpacity>
+              <View>
+                <PageButton title="Notifications" nextPage="HelpPage"/>
+              </View>
+              <View>
+                <PageButton title="Privacy" nextPage="HelpPage"/>
+              </View>
+              <View>
+                <PageButton title="Others" nextPage="OtherPage"/>
+              </View>
             </View>
             <View className="w-[95%] self-center space-y-1">
               <Text className="text-caption-text text-primary">ABOUT</Text>
-              <TouchableOpacity className="w-full bg-primary flex-row rounded-lg p-2 space-x-2 justify-between" onPress={() => navigation.navigate("HelpPage") }>
-                <Text className="text-body-text font-bold text-light-1">Share Havite</Text>
-                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/32/32213.png" }} className="h-5 w-5 self-center" />
-              </TouchableOpacity>
-              <TouchableOpacity className="w-full bg-primary flex-row rounded-lg p-2 space-x-2 justify-between" onPress={() => navigation.navigate("HelpPage") } >
-                <Text className="text-body-text font-bold text-light-1">Help</Text>                
-                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/32/32213.png" }} className="h-5 w-5 self-center"/>
-              </TouchableOpacity>
-              <TouchableOpacity className="w-full bg-primary flex-row rounded-lg p-2 space-x-2 justify-between" onPress={() => navigation.navigate("AboutPage") }>
-                <Text className="text-body-text font-bold text-light-1">About</Text>                
-                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/32/32213.png" }} className="h-5 w-5 self-center" />
-              </TouchableOpacity>
+              <View>
+                <PageButton title="Share Havite" nextPage="HelpPage"/>
+              </View>
+              <View>
+                <PageButton title="Help" nextPage="HelpPage"/>
+              </View>
+              <View>
+                <PageButton title="About" nextPage="AboutPage"/>
+              </View>
             </View>
         </View>
       </View>

@@ -1,37 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, Button, Image, TouchableOpacity, FlatList } from 'react-native';
+import ListOfButton from '../ListOfButton';
 
-const CreditFrame = () => (
+
+const CreditFrame = (props) => {
+    return (
     <View className="space-y-2">
         <View className="w-full">
-            <Text className="text-body-text text-primary font-bold mb-1">Autor(s):</Text>
-            <Text className="text-caption-text text-primary">Jean-Michel AZERTY</Text>
+            <ListOfButton data={props.authors} title="Author(s):" textColor={props.textColor}/>
         </View>
         <View className="w-full">
-            <Text className="text-body-text text-primary font-bold mb-1">Date:</Text>
-            <Text className="text-caption-text text-primary">12 mars 2024 - 12h35</Text>
+            <Text className="text-body-text font-bold mb-1" style={{color: props.textColor}}>Date:</Text>
+            <Text className="text-caption-text" style={{color: props.textColor}}>{props.date}</Text>
         </View>
         <View className="w-full">
-            <Text className="text-body-text text-primary font-bold mb-1">Source(s):</Text>
-            <TouchableOpacity className="border-2 border-primary rounded-lg p-1">
-                <Text className="text-caption-text text-primary">https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal</Text>
-            </TouchableOpacity>
+            <ListOfButton data={props.sources} title="Source(s):" textColor={props.textColor}/>
         </View>
         <View className="w-full">
-            <Text className="text-body-text text-primary font-bold mb-1">Tag(s):</Text>
-            <View className="flex-row space-x-2">
-                <TouchableOpacity className="flex border-2 border-primary rounded-lg p-1">
-                    <Text className="text-caption-text text-primary">#France</Text>
-                </TouchableOpacity>
-                <TouchableOpacity className="flex border-2 border-primary rounded-lg p-1">
-                    <Text className="text-caption-text text-primary">#Ecologie</Text>
-                </TouchableOpacity>
-                <TouchableOpacity className="flex border-2 border-primary rounded-lg p-1">
-                    <Text className="text-caption-text text-primary">#Santé</Text>
-                </TouchableOpacity>
-            </View>
+            <ListOfButton data={props.tags} title="Tag(s):" textColor={props.textColor}/>
         </View>
     </View>
-);
+)};
 
 export default CreditFrame

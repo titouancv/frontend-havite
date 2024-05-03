@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, FlatList, Image, TouchableOpacity, Pressable } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { TextInputButton } from '../Components';
 
 
 const Login = ({ navigation }) => {
@@ -26,27 +27,10 @@ const Login = ({ navigation }) => {
         </View>
         <View className="space-y-4">
             <View className=" w-[90%] self-center">
-                <Text className="text-h5 font-bold color-light-2 mb-1">Email Address</Text>
-                <View className="border-2 border-light-3 rounded-lg px-2">
-                <TextInput 
-                placeholder='Enter your email address' 
-                placeholderTextColor={"#ff7d72"} 
-                onChangeText={email => onChangeEmailAddress(email)}
-                autoComplete='email'
-                className="text-body-text color-secondary my-2"/>
-                </View>
+            <TextInputButton title="Email Address" placeholder="Enter your email" autoComplete='email'/>
             </View>
             <View className=" w-[90%] self-center">
-                <Text className="text-h5 font-bold color-light-2 mb-1">Password</Text>
-                <View className="border-2 border-light-3 rounded-lg px-2">
-                    <TextInput 
-                    placeholder='Enter your password' 
-                    placeholderTextColor={"#ff7d72"}
-                    secureTextEntry={true} 
-                    onChangeText={password => onChangePassword(password)}
-                    autoComplete='current-password'
-                    className="text-body-text color-secondary my-2"/>
-                </View>
+                <TextInputButton title="Password" placeholder="Enter your password" autoComplete='current-password'/>
                 <View className="flex-row my-1">
                     <Text className="text-tiny-text color-light-2 mr-1">You don't remember your password?</Text>
                     <Pressable>
