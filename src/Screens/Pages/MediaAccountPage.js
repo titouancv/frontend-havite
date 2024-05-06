@@ -6,6 +6,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import HelpPage from './HelpPage';
 import AboutPage from './AboutPage';
 import AccountSettingsPage from './AccountSettingsPage';
+import HomePage from './HomePage';
+import { ArticleList } from '../../Components';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -18,7 +20,7 @@ export default function MediaAccountPage() {
 
     let logomedia = "https://assets.website-files.com/5c1922e22200fb24773c7093/5e8c510ac6500478b24f7161_547c2379c91499027c75e3c3_logo-_0004_defonce.png"
 
-    let data = { id: '1', 
+    let data = { id: '0', 
     name: 'Le Monde',
     email: 'lemonde@gmail.com', 
     password: 'Ghyftr4678!', 
@@ -37,6 +39,18 @@ export default function MediaAccountPage() {
     complimentaryColor: "#ED2939",
     textColor: "#002654",
     }
+
+    const dataArticle = [
+        { id: '0', name: 'John Doe', imageUrl: '',  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty", "elisabeth WXCVB"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#002654", primaryColor: "#002654", secondaryColor: "#ffffff", complimentaryColor: "#ED2939"},
+        { id: '1', name: 'John Doe', imageUrl: '',  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complimentaryColor: "#e8d5ae"},
+        { id: '2', name: 'John Doe', imageUrl: '',  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complimentaryColor: "#e8d5ae"},
+        { id: '3', name: 'John Doe', imageUrl: '',  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complimentaryColor: "#e8d5ae"},
+        { id: '4', name: 'John Doe', imageUrl: '',  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complimentaryColor: "#e8d5ae"},
+        { id: '5', name: 'John Doe', imageUrl: '',  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complimentaryColor: "#e8d5ae"},
+        { id: '6', name: 'John Doe', imageUrl: '',  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complimentaryColor: "#e8d5ae"},
+        { id: '7', name: 'John Doe', imageUrl: '',  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complimentaryColor: "#e8d5ae"},
+      ];
+      
   return (
     <SafeAreaProvider>
       <View className="h-full" style={{ backgroundColor: data.secondaryColor}}>
@@ -75,7 +89,7 @@ export default function MediaAccountPage() {
                     <Text className="text-caption-text" style={{ color: data.primaryColor}}>{data.bio}</Text>
                 </View>
             </View>
-            <View className="h-full w-full">
+            <View className="h-[55%] w-full">
                 <Tab.Navigator
                     initialRouteName='publication'
                     screenOptions={({ route }) => ({
@@ -95,8 +109,7 @@ export default function MediaAccountPage() {
                             },
                     })}
                 >
-                    <Tab.Screen name="Publications" component={AboutPage} />
-                    <Tab.Screen name="Categories" component={HelpPage} />
+                    <Tab.Screen name="Publications" children={() => (<ArticleList data={dataArticle} primaryColor={data.primaryColor} secondaryColor={data.secondaryColor} complimentaryColor={data.complimentaryColor} textColor={data.textColor}/>)} />
                     <Tab.Screen name="Informations" component={AccountSettingsPage} />
                 </Tab.Navigator>
             </View>

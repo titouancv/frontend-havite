@@ -67,8 +67,8 @@ const Article = (props) => {
                                         ) || (
                                             <View
                                                 key={index}
-                                                className={`w-[6%] h-1 rounded-sm mx-1`}
-                                                style={{ backgroundColor: props.complimentaryColor}}
+                                                className={`w-[6%] h-1 rounded-sm mx-1 opacity-30`}
+                                                style={{ backgroundColor: props.primaryColor}}
                                             />
                                         )
                                     ))}
