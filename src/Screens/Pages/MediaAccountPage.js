@@ -7,6 +7,7 @@ import HelpPage from './HelpPage';
 import AboutPage from './AboutPage';
 import AccountSettingsPage from './AccountSettingsPage';
 import HomePage from './HomePage';
+import MediaInformationPage from './MediaInformationPage';
 import { ArticleList } from '../../Components';
 
 const Tab = createMaterialTopTabNavigator();
@@ -28,10 +29,14 @@ export default function MediaAccountPage() {
     bio: "Bienvenue sur la chaîne YouTube du Monde. Chaque jour, des vidéos pour comprendre l'actualité. Sciences, géopolitique, histoire, pop culture... Rejoignez-nous !",
     followers: ['272652678252', '14272435627'], 
     numberOfFollowers: 123567,
-    articles: ['272652678252', '14272435627'],
+    articles: ["272652678252", "14272435627"],
     numberOfArticles: 124,
-    mediaCreationDate: '12/04/2000',
+    foundationDate: '12/04/1944',
     website: 'lemonde.fr',
+	owner: ['Groupe Le Monde'],
+	founder: ['Hubert Beuve-Méry'],
+	managingEditor: ['Caroline Monnot'],
+	publishingDirector: [' Louis Dreyfus', 'Jérôme Fenoglio'],
     editorialAddress: '67, avenue Pierre-Mendès-France; Paris; France',
     numberOfJournalist: 76,
     primaryColor: "#002654", 
@@ -110,7 +115,7 @@ export default function MediaAccountPage() {
                     })}
                 >
                     <Tab.Screen name="Publications" children={() => (<ArticleList data={dataArticle} primaryColor={data.primaryColor} secondaryColor={data.secondaryColor} complimentaryColor={data.complimentaryColor} textColor={data.textColor}/>)} />
-                    <Tab.Screen name="Informations" component={AccountSettingsPage} />
+                    <Tab.Screen name="Informations" children={() => (<MediaInformationPage data={data}/>)} />
                 </Tab.Navigator>
             </View>
         </View>

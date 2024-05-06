@@ -38,7 +38,7 @@ export default function HomePage() {
       <View className="bg-primary h-full">
         <View className="flex h-full flex-col w-full">
             <View className="w-full h-[6%] bg-primary"></View>
-            <View className="w-full bg-light-1 flex justify-center">
+            <View className="w-full h-[84%] pb-2 bg-light-1 flex justify-center">
                 <FlatList
                 data={data}
                 renderItem={renderItem}

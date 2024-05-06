@@ -15,7 +15,7 @@ const ImageFullScreen = ({ imageUri }) => {
     <View className="h-full w-full">
     { !isImageFullScreen && (
     <TouchableOpacity className="w-full h-full" onPress={changeIsImageFullScreen}>
-      <Image source={{ uri: "https://img.lemde.fr/2024/04/24/0/0/4000/2667/700/0/75/0/455a408_1713974577626-gettyimages-801749140.jpg" }} className="h-full w-full rounded-lg"/>
+      <Image source={{ uri: imageUri }} className="h-full w-full rounded-lg"/>
     </TouchableOpacity>
     ) || (
     <Modal transparent={true}>
