@@ -1,6 +1,6 @@
 import React from 'react';
 import { HomeRoute, UsersProfilRoute } from './Routes';
-
+import { AddArticlePage } from './Pages';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -32,6 +32,10 @@ function MainScreen() {
             component={HomeRoute} 
             />
             <Tab.Screen 
+            name="Post" 
+            component={AddArticlePage} 
+            />
+                        <Tab.Screen 
             name="Profil" 
             component={UsersProfilRoute} 
             />

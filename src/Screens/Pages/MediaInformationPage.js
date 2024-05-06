@@ -15,7 +15,11 @@ const MediaInformationPage = (props) => {
             </View>
             <View className="w-full">
                 <Text className="text-body-text font-bold mb-1" style={{color: datas.textColor}}>Website:</Text>
-                <Text className="text-caption-text" style={{color: datas.textColor}}>{datas.website}</Text>
+                <View className="flex-row">
+                    <TouchableOpacity className="border-2 rounded-lg p-1" style={{borderColor: datas.textColor}}>
+                        <Text className="text-caption-text" style={{color: datas.textColor}}>{datas.website}</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
             <View className="w-full">
                 <Text className="text-body-text font-bold mb-1" style={{color: datas.textColor}}>Foundation Date:</Text>

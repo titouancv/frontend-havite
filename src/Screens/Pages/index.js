@@ -6,6 +6,7 @@ import OtherPage from "./OtherPage";
 import HomePage from "./HomePage";
 import MediaAccountPage from "./MediaAccountPage";
 import MediaInformationPage from "./MediaInformationPage";
+import AddArticlePage from "./AddArticlePage";
 
 export {
     ProfilHomePage,
@@ -16,4 +17,5 @@ export {
     HomePage,
     MediaAccountPage,
     MediaInformationPage,
+    AddArticlePage,
 }

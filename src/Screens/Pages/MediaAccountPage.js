@@ -37,7 +37,7 @@ export default function MediaAccountPage() {
 	founder: ['Hubert Beuve-Méry'],
 	managingEditor: ['Caroline Monnot'],
 	publishingDirector: [' Louis Dreyfus', 'Jérôme Fenoglio'],
-    editorialAddress: '67, avenue Pierre-Mendès-France; Paris; France',
+    editorialAddress: '67, avenue Pierre-Mendès-France, Paris, France',
     numberOfJournalist: 76,
     primaryColor: "#002654", 
     secondaryColor: "#ffffff", 

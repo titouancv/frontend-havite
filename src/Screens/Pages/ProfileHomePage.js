@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, FlatList, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { PageButton } from '../../Components';
@@ -12,6 +12,7 @@ export default function ProfilHomePage() {
       <View className="bg-light-1 h-full">
         <View className="h-full flex-col w-full space-y-4">
             <View className="w-full h-[6%] bg-primary"></View>
+            <ScrollView className="space-y-4">
             <View className="w-[95%] self-center">
               <View className="w-full bg-primary flex-col justify-center items-center rounded-lg p-4 py-6 space-y-4">
                 <View className="rounded-lg w-[25%] flex justify-center">
@@ -32,6 +33,9 @@ export default function ProfilHomePage() {
               <Text className="text-caption-text text-primary">FONCTIONALITY</Text>
               <View>
                 <PageButton title="Followed media" nextPage="HelpPage"/>
+              </View>
+              <View>
+                <PageButton title="Post Liked" nextPage="HelpPage"/>
               </View>
               <View>
                 <PageButton title="Message" nextPage="HelpPage"/>
@@ -61,6 +65,7 @@ export default function ProfilHomePage() {
                 <PageButton title="About" nextPage="AboutPage"/>
               </View>
             </View>
+            </ScrollView>
         </View>
       </View>
     </SafeAreaProvider>
