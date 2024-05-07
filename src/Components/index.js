@@ -6,6 +6,7 @@ import ListOfButton from "./ListOfButton";
 import ArticleList from "./ArticleList";
 import ImageFullScreen from "./ImageFullScreen";
 import ImageManager from "./ImageManager";
+import MediaAccountHeader from "./MediaAccountHeader";
 
 export {
     Article,
@@ -15,4 +16,5 @@ export {
     ArticleList,
     ImageFullScreen,
     ImageManager,
+    MediaAccountHeader,
 }
