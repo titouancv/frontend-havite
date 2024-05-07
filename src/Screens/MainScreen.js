@@ -1,8 +1,9 @@
 import React from 'react';
+import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import { HomeRoute, UsersProfilRoute } from './Routes';
 import { AddArticlePage } from './Pages';
+import { BottomTabBar } from '../Components';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
@@ -11,20 +12,9 @@ function MainScreen() {
   return (
     <SafeAreaProvider className="">
         <Tab.Navigator
+            tabBar={props => <BottomTabBar {...props} />}
             screenOptions={() => ({
                 headerShown: false,
-                tabBarActiveTintColor: '#ff7d72',
-                tabBarInactiveTintColor: '#eedfc2',
-                tabBarShowLabel: true,
-                tabBarStyle: {
-                    height: 90,
-                    paddingHorizontal: 5,
-                    paddingTop: 0,
-                    backgroundColor: '#305536',
-                    position: 'absolute',
-                    borderTopWidth: 2,
-                    borderBlockColor: '#ff7d72',
-                }
             })}
         >
             <Tab.Screen 

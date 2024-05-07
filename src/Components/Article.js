@@ -3,8 +3,6 @@ import { View, Text, Button, Image, TouchableOpacity, FlatList } from 'react-nat
 import { CoverFrame, CreditFrame, TextImageFrame, ImageTextFrame, TextFrame, ImageFrame, TextImageTextFrame } from './Frames';
 import { useNavigation } from '@react-navigation/native';
 
-let logomedia = "https://assets.website-files.com/5c1922e22200fb24773c7093/5e8c510ac6500478b24f7161_547c2379c91499027c75e3c3_logo-_0004_defonce.png";
-
 let dataFrames = [
     { id: '0', 
 	typeOfFrame:'coverFrame', 
@@ -139,11 +137,13 @@ const Article = (props) => {
       );
     };
 
+    let logo = props.logoMedia;
+
     return (
         <View className="flex-col rounded-2xl border-4 mx-2 my-2" style={{backgroundColor: props.secondaryColor, borderColor: props.primaryColor}}>
             <View className="flex items-center">
                 <TouchableOpacity className="w-full h-10 flex justify-center items-center rounded-t-xl" onPress={() => navigation.navigate("MediaAccountPage") } style={{backgroundColor: props.primaryColor}}>
-                    <Image source={{ uri: logomedia }} className="w-1/2 h-[80%]" />
+                    <Image source={{ uri: props.logoMedia }} className="w-1/2 h-[80%]" />
                 </TouchableOpacity>
                 <View className="pb-3 h-[550px]">
                     <View className=" py-1 justify-center flex mb-1" style={{ backgroundColor: props.complimentaryColor}}>
@@ -170,13 +170,13 @@ const Article = (props) => {
                                             <View
                                                 key={index}
                                                 className={`w-[6%] h-1 rounded-sm mx-1`}
-                                                style={{ backgroundColor: props.primaryColor}}
+                                                style={{ backgroundColor: props.complimentaryColor}}
                                             /> 
                                         ) || (
                                             <View
                                                 key={index}
                                                 className={`w-[6%] h-1 rounded-sm mx-1 opacity-30`}
-                                                style={{ backgroundColor: props.primaryColor}}
+                                                style={{ backgroundColor: props.complimentaryColor}}
                                             />
                                         )
                                     ))}
@@ -186,20 +186,20 @@ const Article = (props) => {
                     </View>
                 </View>
             </View>
-            <View className="w-full h-10 border-t-4 flex-row justify-between rounded-b-xl px-2" style={{ backgroundColor: props.complimentaryColor, borderColor: props.primaryColor}}>
+            <View className="w-full h-10 border-t-4 flex-row justify-between rounded-b-xl px-2" style={{ backgroundColor: props.primaryColor, borderColor: props.primaryColor}}>
                 <View  className="flex-row space-x-4 ml-2">
                     <TouchableOpacity className="flex-row items-center space-x-1">
                         <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/25/25297.png" }} className="w-6 h-6" />
-                        <Text className="text-caption-text font-bold" style={{color: props.textColor,}}>0</Text>
+                        <Text className="text-caption-text font-bold" style={{color: props.complimentaryColor,}}>0</Text>
                     </TouchableOpacity>
                     <TouchableOpacity className="flex-row items-center space-x-1">
                         <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/25/25297.png" }} className="rotate-180 w-6 h-6" />
-                        <Text className="text-caption-text font-bold" style={{color: props.textColor}}>0</Text>
+                        <Text className="text-caption-text font-bold" style={{color: props.complimentaryColor}}>0</Text>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity className="self-center w-1/2">
-                    <View className="border-2 rounded-lg p-1 pr-2" style={{ borderColor: props.textColor}}>
-                        <Text className="text-tiny-text text-center font-bold" style={{color: props.textColor}}>Question ?</Text>
+                    <View className="border-2 rounded-lg p-1 pr-2" style={{ borderColor: props.complimentaryColor}}>
+                        <Text className="text-tiny-text text-center font-bold" style={{color: props.complimentaryColor}}>Question ?</Text>
                     </View>
                 </TouchableOpacity>
             </View>

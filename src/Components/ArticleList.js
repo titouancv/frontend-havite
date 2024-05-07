@@ -12,6 +12,7 @@ export default function ArticleList(props) {
   const renderItem = ({ item }) => (
     <Article 
     date={item.date} 
+    logoMedia={item.logoMedia}
     articleType={item.articleType}
     authors={item.authors} 
     sources={item.sources}
@@ -20,7 +21,9 @@ export default function ArticleList(props) {
     secondaryColor={item.secondaryColor} 
     complimentaryColor={item.complimentaryColor}
     textColor={item.textColor}
-    text="La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars." 
+    title="Nestlé contraint de détruire deux millions de bouteilles de Perrier après une contamination bactérienne"
+    text="La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars."
+      
     />
   );
 
