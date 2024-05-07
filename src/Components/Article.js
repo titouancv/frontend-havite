@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Button, Image, TouchableOpacity, FlatList } from 'react-native';
-import { CoverFrame, CreditFrame } from './Frames';
+import { CoverFrame, CreditFrame, TextImageFrame, ImageTextFrame, TextFrame, ImageFrame, TextImageTextFrame } from './Frames';
 import { useNavigation } from '@react-navigation/native';
 
 let logomedia = "https://assets.website-files.com/5c1922e22200fb24773c7093/5e8c510ac6500478b24f7161_547c2379c91499027c75e3c3_logo-_0004_defonce.png"
@@ -10,7 +10,11 @@ const Article = (props) => {
 
     const data = [
         <CoverFrame text={props.text} primaryColor={props.primaryColor} secondaryColor={props.secondaryColor} complimentaryColor={props.complimentaryColor} textColor={props.textColor}></CoverFrame>,
-        <CreditFrame authors={props.authors} date={props.date} sources={props.sources} tags={props.tags} textColor={props.textColor}/>,
+        <TextImageFrame text={props.text} primaryColor={props.primaryColor} secondaryColor={props.secondaryColor} complimentaryColor={props.complimentaryColor} textColor={props.textColor}></TextImageFrame>,
+        <ImageTextFrame text={props.text} primaryColor={props.primaryColor} secondaryColor={props.secondaryColor} complimentaryColor={props.complimentaryColor} textColor={props.textColor}></ImageTextFrame>,
+        <TextFrame text={props.text} primaryColor={props.primaryColor} secondaryColor={props.secondaryColor} complimentaryColor={props.complimentaryColor} textColor={props.textColor}></TextFrame>,
+        <ImageFrame />,
+        <TextImageTextFrame text={props.text} primaryColor={props.primaryColor} secondaryColor={props.secondaryColor} complimentaryColor={props.complimentaryColor} textColor={props.textColor}></TextImageTextFrame>,
         <CreditFrame authors={props.authors} date={props.date} sources={props.sources} tags={props.tags} textColor={props.textColor}/>,
       ];
 
@@ -24,7 +28,7 @@ const Article = (props) => {
   
     const renderItem = ({ item }) => {
       return (
-        <View className="h-[95%] w-[365px] p-3 ">
+        <View className="h-[95%] w-[366px] p-2 flex">
           {item}
         </View>
       );
