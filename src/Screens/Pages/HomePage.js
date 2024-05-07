@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import {Article } from '../../Components';
+import { BlurView } from 'expo-blur';
 
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -40,9 +41,11 @@ export default function HomePage() {
 
   return (
     <SafeAreaProvider>
-      <View className="bg-primary h-full">
-        <View className="flex h-full flex-col w-full">
-            <View className="w-full h-[6%] bg-primary"></View>
+      <View className="h-full relative">
+        <View className="w-full h-[6%] absolute top-0 left-0 z-10">
+          <BlurView intensity={10} style={styles.blurContainer}></BlurView>
+        </View>
+        <View className="flex h-full flex-col w-full pt-12">
             <View className="w-full h-[94%] bg-light-1 flex justify-center">
                 <FlatList
                 data={data}
@@ -55,3 +58,11 @@ export default function HomePage() {
     </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  blurContainer: {
+    flex: 1,
+    textAlign: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  }});
