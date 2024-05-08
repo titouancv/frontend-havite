@@ -32,7 +32,7 @@ export default function MediaAccountHeader(props) {
                     </TouchableOpacity>
                 ) || (
                     <TouchableOpacity className="w-[90%] border-4 rounded-lg flex self-center items-center p-1" style={{ backgroundColor: props.data.textColor, borderColor: props.data.textColor}} onPress={changeFollowStatus}>
-                        <Text className="text-caption-text font-bold" style={{ color: props.data.textColor}}>Followed</Text>
+                        <Text className="text-caption-text font-bold" style={{ color: props.data.secondaryColor}}>Followed</Text>
                     </TouchableOpacity>
                 )
             }

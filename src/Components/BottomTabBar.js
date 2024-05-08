@@ -6,8 +6,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 function BottomTabBar({ state, descriptors, navigation }) {
     return (
-      <View className="h-24 w-full border-t-2 border-secondary absolute bottom-0 left-0 z-10" style={{backgroundColor: "rgba(0,0,0,0.5)"}}>
-        <BlurView intensity={100} style={styles.blurContainer}>
+      <View className="h-24 w-full border-4 border-b-0 border-secondary rounded-t-2xl absolute bottom-0 left-0 z-10" style={{backgroundColor: "rgba(0,0,0,0.5)"}}>
+        <BlurView intensity={100} style={styles.blurContainer} className="rounded-t-xl">
             <View className="h-full w-full flex-row justify-around p-2">
             {state.routes.map((route, index) => {
             const { options } = descriptors[route.key];
@@ -48,7 +48,7 @@ function BottomTabBar({ state, descriptors, navigation }) {
                     testID={options.tabBarTestID}
                     onPress={onPress}
                     onLongPress={onLongPress}
-                    className="flex-1 justify-center items-center bg-primary rounded-lg border-2"
+                    className="flex-1 justify-center items-center bg-primary rounded-lg border-4"
                     style={{ borderColor: isFocused ? '#ff7d72' : '#eedfc2' }}
                     >
                     <Text style={{ color: isFocused ? '#ff7d72' : '#eedfc2' }} className="font-bold">

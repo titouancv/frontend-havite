@@ -3,89 +3,13 @@ import { View, Text, Button, Image, TouchableOpacity, FlatList } from 'react-nat
 import { CoverFrame, CreditFrame, TextImageFrame, ImageTextFrame, TextFrame, ImageFrame, TextImageTextFrame } from './Frames';
 import { useNavigation } from '@react-navigation/native';
 
-let dataFrames = [
-    { id: '0', 
-	typeOfFrame:'coverFrame', 
-	title: 'Nestlé contraint de détruire deux millions de bouteilles de Perrier après une contamination bactérienne',
-	text1: 'La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars.',
-	text2: '',
-	text3: '',
-	text4: '',
-	illustration1: 'https://img.lemde.fr/2024/04/24/0/0/4000/2667/700/0/75/0/455a408_1713974577626-gettyimages-801749140.jpg',
-	illustration2: '',
-	illustration3: '',
-	illustration4: '',
-    },
-    { id: '1', 
-	typeOfFrame:'textImageFrame', 
-	title: 'Nestlé contraint de détruire deux millions de bouteilles de Perrier après une contamination bactérienne',
-	text1: 'La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars.',
-	text2: '',
-	text3: '',
-	text4: '',
-	illustration1: 'https://img.lemde.fr/2024/04/24/0/0/4000/2667/700/0/75/0/455a408_1713974577626-gettyimages-801749140.jpg',
-	illustration2: 'https://static.actu.fr/uploads/2024/04/perrier1-960x640.jpg',
-	illustration3: '',
-	illustration4: '',
-    },
-    { id: '2', 
-	typeOfFrame:'imageTextFrame', 
-	title: 'Nestlé contraint de détruire deux millions de bouteilles de Perrier après une contamination bactérienne',
-	text1: 'La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars.',
-	text2: '',
-	text3: '',
-	text4: '',
-	illustration1: 'https://img.lemde.fr/2024/04/24/0/0/4000/2667/700/0/75/0/455a408_1713974577626-gettyimages-801749140.jpg',
-	illustration2: 'https://static.actu.fr/uploads/2024/04/perrier1-960x640.jpg',
-	illustration3: 'https://media.ouest-france.fr/v1/pictures/MjAyNDA0YWZkNDVmZWZjMTQ2MzY1NGZhNWM0YWI5MGEzMDYyM2I?width=1260&height=708&focuspoint=50%2C25&cropresize=1&client_id=bpeditorial&sign=786c4842f7e056bbcea87d985c03fdbcc8692c2e43cacb89f0ef2d791a2cc528',
-	illustration4: '',
-    },
-    { id: '3', 
-	typeOfFrame:'textFrame', 
-	title: 'Nestlé contraint de détruire deux millions de bouteilles de Perrier après une contamination bactérienne',
-	text1: 'La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars. Dans un arrêté du 19 avril obtenu par l’AFP, que Le Monde a pu consulter, le préfet du Gard a mis en demeure l’entreprise de « suspendre sans délai » l’exploitation de l’un de ses sept captages de Vergèze, ce dernier ayant présenté « un épisode de contamination à partir du 10 mars 2024 et sur plusieurs jours par des germes témoins d’une contamination d’origine fécale (coliformes, Escherichia coli) mais aussi par des germes de l’espèce Pseudomonas aeruginosa ». L’arrêté souligne également que la contamination de l’eau embouteillée « peut faire courir un risque pour la santé des consommateurs ».',
-	text2: '',
-	text3: '',
-	text4: '',
-	illustration1: 'https://img.lemde.fr/2024/04/24/0/0/4000/2667/700/0/75/0/455a408_1713974577626-gettyimages-801749140.jpg',
-	illustration2: 'https://static.actu.fr/uploads/2024/04/perrier1-960x640.jpg',
-	illustration3: 'https://media.ouest-france.fr/v1/pictures/MjAyNDA0YWZkNDVmZWZjMTQ2MzY1NGZhNWM0YWI5MGEzMDYyM2I?width=1260&height=708&focuspoint=50%2C25&cropresize=1&client_id=bpeditorial&sign=786c4842f7e056bbcea87d985c03fdbcc8692c2e43cacb89f0ef2d791a2cc528',
-	illustration4: 'https://www.humanite.fr/wp-content/uploads/2024/04/Perrier.webp',
-    },
-    { id: '4', 
-	typeOfFrame:'imageFrame', 
-	title: 'Nestlé contraint de détruire deux millions de bouteilles de Perrier après une contamination bactérienne',
-	text1: 'La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars.',
-	text2: '',
-	text3: '',
-	text4: '',
-	illustration1: 'https://img.lemde.fr/2024/04/24/0/0/4000/2667/700/0/75/0/455a408_1713974577626-gettyimages-801749140.jpg',
-	illustration2: 'https://static.actu.fr/uploads/2024/04/perrier1-960x640.jpg',
-	illustration3: 'https://media.ouest-france.fr/v1/pictures/MjAyNDA0YWZkNDVmZWZjMTQ2MzY1NGZhNWM0YWI5MGEzMDYyM2I?width=1260&height=708&focuspoint=50%2C25&cropresize=1&client_id=bpeditorial&sign=786c4842f7e056bbcea87d985c03fdbcc8692c2e43cacb89f0ef2d791a2cc528',
-	illustration4: 'https://www.humanite.fr/wp-content/uploads/2024/04/Perrier.webp',
-    },
-    { id: '5', 
-	typeOfFrame:'textImageTextFrame', 
-	title: 'Nestlé contraint de détruire deux millions de bouteilles de Perrier après une contamination bactérienne',
-	text1: 'La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars.',
-	text2: 'Dans un arrêté du 19 avril obtenu par l’AFP, que Le Monde a pu consulter, le préfet du Gard a mis en demeure l’entreprise de « suspendre sans délai » l’exploitation de l’un de ses sept captages de Vergèze, ce dernier ayant présenté « un épisode de contamination à partir du 10 mars 2024 et sur plusieurs jours par des germes témoins d’une contamination d’origine fécale (coliformes, Escherichia coli) mais aussi par des germes de l’espèce Pseudomonas aeruginosa ». L’arrêté souligne également que la contamination de l’eau embouteillée « peut faire courir un risque pour la santé des consommateurs ».',
-	text3: '',
-	text4: '',
-	illustration1: 'https://img.lemde.fr/2024/04/24/0/0/4000/2667/700/0/75/0/455a408_1713974577626-gettyimages-801749140.jpg',
-	illustration2: '',
-	illustration3: '',
-	illustration4: '',
-    },
-  ];
-
-
 const Article = (props) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const navigation = useNavigation();
 
     const makeFrames = (props) => {
         let frames = [];
-        dataFrames.forEach((frame) => {
+        props.dataFrames.forEach((frame) => {
     
             let images = [];
             if (frame.illustration1 != '')
@@ -137,19 +61,17 @@ const Article = (props) => {
       );
     };
 
-    let logo = props.logoMedia;
-
     return (
-        <View className="flex-col rounded-2xl border-4 mx-2 my-2" style={{backgroundColor: props.secondaryColor, borderColor: props.primaryColor}}>
+        <View className="flex-col rounded-2xl border-4 mx-2 my-2" style={{borderColor: props.primaryColor}}>
             <View className="flex items-center">
                 <TouchableOpacity className="w-full h-10 flex justify-center items-center rounded-t-xl" onPress={() => navigation.navigate("MediaAccountPage") } style={{backgroundColor: props.primaryColor}}>
                     <Image source={{ uri: props.logoMedia }} className="w-1/2 h-[80%]" />
                 </TouchableOpacity>
                 <View className="pb-3 h-[550px]">
-                    <View className=" py-1 justify-center flex mb-1" style={{ backgroundColor: props.complimentaryColor}}>
+                    <View className=" py-1 justify-center flex pb-1" style={{ backgroundColor: props.complimentaryColor}}>
                         <Text className="self-center text-caption-text font-bold" style={{color: props.primaryColor}}>{props.articleType}</Text>
                     </View>
-                    <View className="">
+                    <View className="" style={{ backgroundColor: props.secondaryColor}}>
                         <FlatList
                         data={data}
                         renderItem={renderItem}

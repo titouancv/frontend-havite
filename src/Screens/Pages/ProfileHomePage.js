@@ -65,6 +65,7 @@ export default function ProfilHomePage() {
                 <PageButton title="About" nextPage="AboutPage"/>
               </View>
             </View>
+            <View className="h-24"></View>
             </ScrollView>
         </View>
       </View>

@@ -8,6 +8,7 @@ import ImageFullScreen from "./ImageFullScreen";
 import ImageManager from "./ImageManager";
 import MediaAccountHeader from "./MediaAccountHeader";
 import BottomTabBar from "./BottomTabBar";
+import NewArticle from "./NewArticle";
 
 export {
     Article,
@@ -19,4 +20,5 @@ export {
     ImageManager,
     MediaAccountHeader,
     BottomTabBar,
+    NewArticle,
 }
