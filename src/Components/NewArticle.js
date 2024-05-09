@@ -11,12 +11,16 @@ const NewArticle = (props) => {
     const [isNewFrame, setIsNewFrame] = useState(false);
     const [stepNumber, setStepNumber] = useState(1);
     const [frameType, setFrameType] = useState("");
+    const [remainingFrames, setRemainingFrames] = useState(4);
     const [dataFrames, setDataFrames] = useState([]);
     const navigation = useNavigation();
     const flatListRef = useRef(null);
 
     const changeIsNewFrame = () => {
-        setIsNewFrame(!isNewFrame);
+        if (remainingFrames > 0)
+            {
+                setIsNewFrame(!isNewFrame);
+            }
     }
     const changeStepNumber = () => {
         setFrameType("");
@@ -43,6 +47,7 @@ const NewArticle = (props) => {
                 illustration4: illustration4,
             })
             setDataFrames(dataFrames);
+            setRemainingFrames(remainingFrames - 1);
         }
         setFrameType("");
         setStepNumber(1);
@@ -53,6 +58,7 @@ const NewArticle = (props) => {
         if (activeIndex > -1) { 
             dataFrames.splice(activeIndex, 1);
             setDataFrames(dataFrames);
+            setRemainingFrames(remainingFrames + 1);
         }
     }
 
@@ -93,8 +99,19 @@ const NewArticle = (props) => {
         frames.push(
             <View className="h-full w-full flex justify-center">
                 <TouchableOpacity className="w-[90%] h-[90%] border-4 rounded-lg p-1 flex-col justify-center items-center self-center space-y-2" style={{borderColor: props.complimentaryColor}} onPress={changeIsNewFrame}>
-                    <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/992/992651.png" }} className="h-20 w-20"/>
-                    <Text className="text-h5 text-primary font-bold self-center" style={{color: props.complimentaryColor}}>Add a Frame</Text>
+                    {
+                        remainingFrames > 0 && (
+                            <View className="flex-col justify-center items-center self-center space-y-2">
+                                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/992/992651.png" }} className="h-20 w-20"/>
+                                <Text className="text-h5 text-primary font-bold self-center" style={{color: props.complimentaryColor}}>Add a Frame</Text>
+                                <Text className="text-caption-text text-primary font-bold self-center" style={{color: props.complimentaryColor}}>You can still add {remainingFrames} frames</Text>
+                            </View>
+                        ) || (
+                            <View className="flex-col justify-center items-center self-center space-y-2">
+                                <Text className="text-caption-text text-primary font-bold self-center" style={{color: props.complimentaryColor}}>You can't add frames</Text>
+                            </View>  
+                        )
+                    }
                 </TouchableOpacity>
             </View>
         );
