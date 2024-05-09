@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, TextInput, FlatList, Image, TouchableOpacity, Pressable } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TextInputButton } from '../Components';
@@ -27,10 +27,10 @@ const Login = ({ navigation }) => {
         </View>
         <View className="space-y-4">
             <View className=" w-[90%] self-center">
-            <TextInputButton title="Email Address" placeholder="Enter your email" autoComplete='email'/>
+            <TextInputButton title="Email Address" placeholder="Enter your email" autoComplete='email'  secureTextEntry={false} setText={onChangeEmailAddress}/>
             </View>
             <View className=" w-[90%] self-center">
-                <TextInputButton title="Password" placeholder="Enter your password" autoComplete='current-password'/>
+                <TextInputButton title="Password" placeholder="Enter your password" autoComplete='current-password' secureTextEntry={true} setText={onChangePassword}/>
                 <View className="flex-row my-1">
                     <Text className="text-tiny-text color-light-2 mr-1">You don't remember your password?</Text>
                     <Pressable>

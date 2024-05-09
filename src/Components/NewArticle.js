@@ -3,10 +3,14 @@ import { View, Text, Button, Image, TouchableOpacity, FlatList , StyleSheet} fro
 import { CoverFrame, CreditFrame, TextImageFrame, ImageTextFrame, TextFrame, ImageFrame, TextImageTextFrame } from './Frames';
 import { useNavigation } from '@react-navigation/native';
 import { BlurView } from 'expo-blur';
+import NewFrameStep1 from './NewFrameStep1';
+import NewFrameStep2 from './NewFrameStep2';
 
 const NewArticle = (props) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isNewFrame, setIsNewFrame] = useState(false);
+    const [stepNumber, setStepNumber] = useState(1);
+    const [frameType, setFrameType] = useState("");
     const [dataFrames, setDataFrames] = useState([]);
     const navigation = useNavigation();
     const flatListRef = useRef(null);
@@ -14,116 +18,33 @@ const NewArticle = (props) => {
     const changeIsNewFrame = () => {
         setIsNewFrame(!isNewFrame);
     }
-
-    const addCoverFrame = () => {
-        if (isNewFrame){
-            dataFrames.push({ id: '0', 
-            typeOfFrame:'coverFrame', 
-            title: 'Nestlé contraint de détruire deux millions de bouteilles de Perrier après une contamination bactérienne',
-            text1: 'La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars.',
-            text2: '',
-            text3: '',
-            text4: '',
-            illustration1: 'https://img.lemde.fr/2024/04/24/0/0/4000/2667/700/0/75/0/455a408_1713974577626-gettyimages-801749140.jpg',
-            illustration2: '',
-            illustration3: '',
-            illustration4: '',
-            })
-            setDataFrames(dataFrames);
-        }
-        setIsNewFrame(!isNewFrame);
+    const changeStepNumber = () => {
+        setFrameType("");
+        setStepNumber(1);
     }
 
-    const addTextImageFrame = () => {
-        if (isNewFrame){
-            dataFrames.push({ id: '0', 
-            typeOfFrame:'textImageFrame', 
-            title: 'Nestlé contraint de détruire deux millions de bouteilles de Perrier après une contamination bactérienne',
-            text1: 'La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars.',
-            text2: '',
-            text3: '',
-            text4: '',
-            illustration1: 'https://img.lemde.fr/2024/04/24/0/0/4000/2667/700/0/75/0/455a408_1713974577626-gettyimages-801749140.jpg',
-            illustration2: '',
-            illustration3: '',
-            illustration4: '',
-            })
-            setDataFrames(dataFrames);
-        }
-        setIsNewFrame(!isNewFrame);
-    }
-    const addImageTextFrame = () => {
-        if (isNewFrame){
-            dataFrames.push({ id: '0', 
-            typeOfFrame:'imagetextFrame', 
-            title: 'Nestlé contraint de détruire deux millions de bouteilles de Perrier après une contamination bactérienne',
-            text1: 'La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars.',
-            text2: '',
-            text3: '',
-            text4: '',
-            illustration1: 'https://img.lemde.fr/2024/04/24/0/0/4000/2667/700/0/75/0/455a408_1713974577626-gettyimages-801749140.jpg',
-            illustration2: '',
-            illustration3: '',
-            illustration4: '',
-            })
-            setDataFrames(dataFrames);
-        }
-        setIsNewFrame(!isNewFrame);
+    const changeFrameType = (type) => {
+        setFrameType(type);
+        setStepNumber(2);
     }
 
-    const addTextFrame = () => {
+    const addFrame = (typeOfFrame, title, text1, text2, text3, text4, illustration1, illustration2, illustration3, illustration4) => {
         if (isNewFrame){
-            dataFrames.push({ id: '0', 
-            typeOfFrame:'textFrame', 
-            title: 'Nestlé contraint de détruire deux millions de bouteilles de Perrier après une contamination bactérienne',
-            text1: 'La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars.',
-            text2: '',
-            text3: '',
-            text4: '',
-            illustration1: 'https://img.lemde.fr/2024/04/24/0/0/4000/2667/700/0/75/0/455a408_1713974577626-gettyimages-801749140.jpg',
-            illustration2: '',
-            illustration3: '',
-            illustration4: '',
+            dataFrames.push({ id: dataFrames.length - 1, 
+                typeOfFrame:typeOfFrame, 
+                title: title,
+                text1: text1,
+                text2: text2,
+                text3: text3,
+                text4: text4,
+                illustration1: illustration1,
+                illustration2: illustration2,
+                illustration3: illustration3,
+                illustration4: illustration4,
             })
             setDataFrames(dataFrames);
-        }
-        setIsNewFrame(!isNewFrame);
-    }
-
-    const addImageFrame = () => {
-        if (isNewFrame){
-            dataFrames.push({ id: '0', 
-            typeOfFrame:'imageFrame', 
-            title: 'Nestlé contraint de détruire deux millions de bouteilles de Perrier après une contamination bactérienne',
-            text1: 'La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars.',
-            text2: '',
-            text3: '',
-            text4: '',
-            illustration1: 'https://img.lemde.fr/2024/04/24/0/0/4000/2667/700/0/75/0/455a408_1713974577626-gettyimages-801749140.jpg',
-            illustration2: '',
-            illustration3: '',
-            illustration4: '',
-            })
-            setDataFrames(dataFrames);
-        }
-        setIsNewFrame(!isNewFrame);
-    }
-
-    const addTextImageTextFrame = () => {
-        if (isNewFrame){
-            dataFrames.push({ id: '0', 
-            typeOfFrame:'textImageTextFrame', 
-            title: 'Nestlé contraint de détruire deux millions de bouteilles de Perrier après une contamination bactérienne',
-            text1: 'La crise des eaux minérales françaises a franchi un nouveau cap. La société Nestlé Waters a annoncé, à Franceinfo et au Monde, mercredi 24 avril, avoir détruit « par précaution » deux millions de bouteilles de sa marque Perrier, en raison de la présence de bactéries d’origine fécale dans l’un des puits exploités par la firme suisse sur son site de Vergèze (Gard). Selon Nestlé, cette situation est la conséquence des fortes pluies de la tempête Monica, qui a touché le département courant mars.',
-            text2: '',
-            text3: '',
-            text4: '',
-            illustration1: 'https://img.lemde.fr/2024/04/24/0/0/4000/2667/700/0/75/0/455a408_1713974577626-gettyimages-801749140.jpg',
-            illustration2: '',
-            illustration3: '',
-            illustration4: '',
-            })
-            setDataFrames(dataFrames);
+            setFrameType("");
+            setStepNumber(1);
         }
         setIsNewFrame(!isNewFrame);
     }
@@ -196,49 +117,18 @@ const NewArticle = (props) => {
       );
     };
 
-    let frameType = ["cover", "textImage", "imageText", "text", "image", "textimageText"];
-
     return (
         <View className="flex-col rounded-2xl border-4 mx-2 my-2" style={{borderColor: props.primaryColor}}>
             {
                 isNewFrame && (
                     <View className="h-full w-full absolute top-0 left-0 z-10 border-4 border-light-1 rounded-xl" style={{backgroundColor: "rgba(0,0,0,0.5)"}}>
-                        <BlurView intensity={50} style={styles.blurContainer}>
-                            <View className="h-full w-full flex-col justify-between py-2">
-                                <View className="h-[7%] flex justify-center items-center">
-                                    <Text className="text-h4 text-light-1 font-bold">Choose a frame</Text>
-                                </View>
-                                <View className="h-[86%] flex-col space-y-2 p-2">
-                                    <View className="h-[32%] flex-row space-x-2">
-                                        <TouchableOpacity className="h-full w-[49%] py-1 self-center items-center border-2 border-light-1 rounded-lg" onPress={addCoverFrame}>
-                                            <Text className="text-h5 text-light-1 font-bold">cover</Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity className="h-full w-[49%] py-1 self-center items-center border-2 border-light-1 rounded-lg" onPress={addTextImageFrame}>
-                                            <Text className="text-h5 text-light-1 font-bold">textImage</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View className="h-[32%] flex-row space-x-2">
-                                        <TouchableOpacity className="h-full w-[49%] py-1 self-center items-center border-2 border-light-1 rounded-lg" onPress={addImageTextFrame}>
-                                            <Text className="text-h5 text-light-1 font-bold">imageText</Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity className="h-full w-[49%] py-1 self-center items-center border-2 border-light-1 rounded-lg" onPress={addTextFrame}>
-                                            <Text className="text-h5 text-light-1 font-bold">text</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View className="h-[32%] flex-row space-x-2">
-                                        <TouchableOpacity className="h-full w-[49%] py-1 self-center items-center border-2 border-light-1 rounded-lg" onPress={addImageFrame}>
-                                            <Text className="text-h5 text-light-1 font-bold">image</Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity className="h-full w-[49%] py-1 self-center items-center border-2 border-light-1 rounded-lg" onPress={addTextImageTextFrame}>
-                                            <Text className="text-h5 text-light-1 font-bold">textImageText</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                                <TouchableOpacity className="h-[7%] w-[95%] py-1 self-center items-center border-4 border-light-1 rounded-lg" onPress={changeIsNewFrame}>
-                                    <Text className="text-h5 text-light-1 font-bold">Back</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </BlurView>
+                        {
+                            stepNumber == 1 && (
+                                <NewFrameStep1  changeFrameType={changeFrameType} changeIsNewFrame={changeIsNewFrame}/>
+                            ) || (
+                                <NewFrameStep2 changeStepNumber={changeStepNumber} addFrame={addFrame} frameType={frameType}/>
+                            )
+                        }
                     </View>
                 )
             }

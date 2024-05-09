@@ -4,14 +4,16 @@ import { View, Text, TextInput, Button, Image, TouchableOpacity, FlatList } from
 const TextInputButton = (props) => {
     return (
     <View className="w-full">
-        <Text className="text-h5 font-bold color-light-2 mb-1">{props.title}</Text>
-        <View className="border-2 border-light-3 rounded-lg px-2">
+        <Text className="text-h5 font-bold color-light-1 mb-1">{props.title}</Text>
+        <View className="border-2 border-light-1 rounded-lg p-2">
             <TextInput 
-            placeholder= {props.placeholder}
-            secureTextEntry={true} 
-            placeholderTextColor={"#ff7d72"} 
-            className="text-body-text color-secondary my-2" 
-            autoComplete={props.autoComplete}/>
+                placeholder= {props.placeholder}
+                secureTextEntry={props.secureTextEntry} 
+                placeholderTextColor={"#ff7d72"} 
+                className="text-body-text color-secondary" 
+                autoComplete={props.autoComplete}
+                onChangeText={(text) => props.setText(text)}
+            />
         </View>
     </View>
 )};

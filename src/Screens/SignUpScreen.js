@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, TextInput, FlatList, Image, TouchableOpacity, Pressable } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TextInputButton } from '../Components';
 
 const SignUp = ({ navigation }) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordConfirm, setPasswordConfirm] = useState("");
 
   return (
     <SafeAreaProvider>
@@ -14,14 +17,14 @@ const SignUp = ({ navigation }) => {
         </View>
         <View className="space-y-4">
             <View className=" w-[90%] self-center">
-                <TextInputButton title="Email Address" placeholder="Enter your email address" autoComplete='email'/>
+                <TextInputButton title="Email Address" placeholder="Enter your email address" autoComplete='email'  secureTextEntry={false} setText={setEmail}/>
             </View>
             <View className=" w-[90%] self-center space-y-2">
                 <View>
-                    <TextInputButton title="Password" placeholder="Enter your password" autoComplete='new-password'/>
+                    <TextInputButton title="Password" placeholder="Enter your password" autoComplete='new-password'  secureTextEntry={true} setText={setPassword}/>
                 </View>
                 <View>
-                    <TextInputButton title="Confirm Password" placeholder="Confirm your password" autoComplete='new-password'/>
+                    <TextInputButton title="Confirm Password" placeholder="Confirm your password" autoComplete='new-password'  secureTextEntry={true} setText={setPasswordConfirm}/>
                 </View>
                 <View className="flex-row ">
                     <Text className="text-tiny-text color-light-2 mr-1">There must be at least 8 characters including 1 uppercase, 1 lowercase, 1 number and a special character (ex: ?./$)</Text>
