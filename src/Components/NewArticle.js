@@ -29,7 +29,7 @@ const NewArticle = (props) => {
     }
 
     const addFrame = (typeOfFrame, title, text1, text2, text3, text4, illustration1, illustration2, illustration3, illustration4) => {
-        if (isNewFrame){
+        if (isNewFrame && typeOfFrame && (title || text1 || text2 || text3 || text4 || illustration1  || illustration2  || illustration3  || illustration4 )){
             dataFrames.push({ id: dataFrames.length - 1, 
                 typeOfFrame:typeOfFrame, 
                 title: title,
@@ -43,9 +43,9 @@ const NewArticle = (props) => {
                 illustration4: illustration4,
             })
             setDataFrames(dataFrames);
-            setFrameType("");
-            setStepNumber(1);
         }
+        setFrameType("");
+        setStepNumber(1);
         setIsNewFrame(!isNewFrame);
     }
 
@@ -61,13 +61,13 @@ const NewArticle = (props) => {
         dataFrames.forEach((frame) => {
     
             let images = [];
-            if (frame.illustration1 != '')
+            if (frame.illustration1 != null)
                 images.push(frame.illustration1);
-            if (frame.illustration2 != '')
+            if (frame.illustration2 != null)
                 images.push(frame.illustration2);
-            if (frame.illustration3 != '')
+            if (frame.illustration3 != null)
                 images.push(frame.illustration3);
-            if (frame.illustration4 != '')
+            if (frame.illustration4 != null)
                 images.push(frame.illustration4);
     
             switch (frame.typeOfFrame) {
@@ -103,12 +103,12 @@ const NewArticle = (props) => {
 
     let data = makeFrames(props);
 
-    const onViewableItemsChanged = ({ viewableItems }) => {
-      if (viewableItems.length > 0) {
-        setActiveIndex(viewableItems[0].index || 0);
-      }
-    };
-  
+    const onViewableItemsChanged = useRef(({ viewableItems }) => {
+        if (viewableItems.length > 0) {
+          setActiveIndex(viewableItems[0].index || 0);
+        }
+      }).current;
+
     const renderItem = ({ item }) => {
       return (
         <View className="h-[95%] w-[366px] p-2 flex">
@@ -183,9 +183,17 @@ const NewArticle = (props) => {
             {
                 activeIndex === (dataFrames.length) && (
                     <View className="w-full flex items-center">
-                        <TouchableOpacity className="w-[80%] py-1 justify-center flex border-2 rounded-lg" style={{borderColor: props.complimentaryColor, backgroundColor: props.complimentaryColor}} onPress={deleteFrame}>
-                            <Text className="self-center text-caption-text font-bold" style={{color: props.primaryColor}}>Next</Text>
-                        </TouchableOpacity>
+                    {
+                        data.length > 1 && (
+                            <TouchableOpacity className="w-[80%] py-1 justify-center flex border-2 rounded-lg" style={{borderColor: props.complimentaryColor, backgroundColor: props.complimentaryColor}} onPress={deleteFrame}>
+                                <Text className="self-center text-caption-text font-bold" style={{color: props.primaryColor}}>Next</Text>
+                            </TouchableOpacity>
+                        ) || (
+                            <View className="w-[80%] py-1 justify-center flex">
+                                <Text className="self-center text-caption-text font-bold" style={{color: props.complimentaryColor}}>You need to add one frame</Text>
+                            </View>
+                        )
+                    }
                     </View>  
                 ) || (
                     <View className="w-full flex items-center">

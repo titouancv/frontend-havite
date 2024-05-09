@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, Button, Image, TouchableOpacity, FlatList } from 'react-native';
 import { CoverFrame, CreditFrame, TextImageFrame, ImageTextFrame, TextFrame, ImageFrame, TextImageTextFrame } from './Frames';
 import { useNavigation } from '@react-navigation/native';
@@ -12,13 +12,13 @@ const Article = (props) => {
         props.dataFrames.forEach((frame) => {
     
             let images = [];
-            if (frame.illustration1 != '')
+            if (frame.illustration1 != null)
                 images.push(frame.illustration1);
-            if (frame.illustration2 != '')
+            if (frame.illustration2 != null)
                 images.push(frame.illustration2);
-            if (frame.illustration3 != '')
+            if (frame.illustration3 != null)
                 images.push(frame.illustration3);
-            if (frame.illustration4 != '')
+            if (frame.illustration4 != null)
                 images.push(frame.illustration4);
     
             switch (frame.typeOfFrame) {
@@ -47,11 +47,11 @@ const Article = (props) => {
 
     const data = makeFrames(props);
 
-    const onViewableItemsChanged = ({ viewableItems }) => {
-      if (viewableItems.length > 0) {
-        setActiveIndex(viewableItems[0].index || 0);
-      }
-    };
+    const onViewableItemsChanged = useRef(({ viewableItems }) => {
+        if (viewableItems.length > 0) {
+          setActiveIndex(viewableItems[0].index || 0);
+        }
+      }).current;
   
     const renderItem = ({ item }) => {
       return (

@@ -36,7 +36,7 @@ export default function HomeRoute() {
           headerShown: true,
           headerTransparent: true,
           title: "",
-          headerBackTitleVisible: true,
+          headerBackTitleVisible: false,
           headerTintColor: "#f9f4ea",
           headerLargeTitle: false
         }}

@@ -3,18 +3,64 @@ import { View, Text, TextInput, Button, Image, TouchableOpacity, FlatList , Styl
 import { CoverFrame, CreditFrame, TextImageFrame, ImageTextFrame, TextFrame, ImageFrame, TextImageTextFrame } from './Frames';
 import { useNavigation } from '@react-navigation/native';
 import { BlurView } from 'expo-blur';
+import * as ImagePicker from 'expo-image-picker';
 import TextInputButton from './TextInputButton';
 
 const NewFrameStep2 = (props) => {
-    const [title, setTitle] = useState("");
-    const [text1, setText1] = useState("");
-    const [text2, setText2] = useState("");
-    let text3 = "";
-    let text4 = "";
-    let illustration1 = "";
-    let illustration2 = "";
-    let illustration3 = "";
-    let illustration4 = "";
+    const [title, setTitle] = useState(null);
+    const [text1, setText1] = useState(null);
+    const [text2, setText2] = useState(null);
+    const [text3, setText3] = useState(null);
+    const [text4, setText4] = useState(null);
+    const [illustration1, setillustration1] = useState(null);
+    const [illustration2, setillustration2] = useState(null);
+    const [illustration3, setillustration3] = useState(null);
+    const [illustration4, setillustration4] = useState(null);
+
+    const pickImage = async (imageNumber) => {
+      // No permissions request is necessary for launching the image library
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+      });
+  
+      if (!result.canceled) {
+        switch (imageNumber) {
+            case 1:
+                setillustration1(result.assets[0].uri);
+                break;
+            case 2:
+                setillustration2(result.assets[0].uri);
+                break;
+            case 3:
+                setillustration3(result.assets[0].uri);
+                break;
+            case 4:
+                setillustration4(result.assets[0].uri);
+          }
+      }
+    };
+
+    const ImagePickerComponent = (props) => {
+        let image = props.image;
+        let imageNumber = props.imageNumber;
+        return (
+        <View className="h-full w-full">
+        {image && (
+            <TouchableOpacity className="h-full w-full border-2 border-light-1 bg-blue-200 rounded-lg" onPress={() => pickImage(imageNumber)}>
+                <Image source={{ uri: image }} className="h-full w-full rounded-lg" />
+            </TouchableOpacity>
+        ) || (
+        props.isNextOne && (<TouchableOpacity className="h-full w-full border-2 border-light-1 bg-grey-100 rounded-lg flex justify-center items-center" onPress={() => pickImage(imageNumber)}>
+                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/992/992651.png" }} className="h-1/2 w-1/2 rounded-lg"/>
+            </TouchableOpacity>
+        )) || (
+            <View className="h-full w-full bg-light-1 rounded-lg flex justify-center items-center">
+            </View>
+        )}
+        </View>
+        )
+    }
 
     return (
         <View className="h-full w-full">
@@ -28,6 +74,23 @@ const NewFrameStep2 = (props) => {
                             props.frameType === "coverFrame" && (
                                 <View className="h-1/3">
                                     <TextInputButton title="Title:" placeholder="Enter the title" autoComplete="" secureTextEntry={false} setText={setTitle}/>
+                                </View>
+                            )
+                        }
+                        {
+                            props.frameType != "textFrame" && (
+                                <View className="h-1/3">
+                                    <View className="w-full">
+                                        <Text className="text-h5 font-bold color-light-1 mb-1">Images:</Text>
+                                        <View className="h-2/3 border-2 border-light-1 rounded-lg p-2">
+                                            <View className="flex-row space-x-2 justify-center items-center">
+                                                <View className="h-full w-[23%]"><ImagePickerComponent image={illustration1} imageNumber={1} isNextOne={true}/></View>
+                                                <View className="h-full w-[23%]"><ImagePickerComponent image={illustration2} imageNumber={2} isNextOne={illustration1 != null}/></View>
+                                                <View className="h-full w-[23%]"><ImagePickerComponent image={illustration3} imageNumber={3} isNextOne={illustration2 != null}/></View>
+                                                <View className="h-full w-[23%]"><ImagePickerComponent image={illustration4} imageNumber={4} isNextOne={illustration3 != null}/></View>
+                                            </View>
+                                        </View>
+                                    </View>
                                 </View>
                             )
                         }
