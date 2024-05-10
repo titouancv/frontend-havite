@@ -112,11 +112,11 @@ const Article = (props) => {
                 <View  className="flex-row space-x-4 ml-2">
                     <TouchableOpacity className="flex-row items-center space-x-1">
                         <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/25/25297.png" }} className="w-6 h-6" />
-                        <Text className="text-caption-text font-bold" style={{color: props.complimentaryColor,}}>0</Text>
+                        <Text className="text-caption-text font-bold" style={{color: props.complimentaryColor,}}>{props.likes}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity className="flex-row items-center space-x-1">
                         <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/25/25297.png" }} className="rotate-180 w-6 h-6" />
-                        <Text className="text-caption-text font-bold" style={{color: props.complimentaryColor}}>0</Text>
+                        <Text className="text-caption-text font-bold" style={{color: props.complimentaryColor}}>{props.dislikes}</Text>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity className="self-center w-1/2">

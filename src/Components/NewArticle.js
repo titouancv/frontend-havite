@@ -8,11 +8,13 @@ import NewFrameStep2 from './NewFrameStep2';
 
 const NewArticle = (props) => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [activeDataFrame, setActiveDataFrame] = useState(null);
     const [isNewFrame, setIsNewFrame] = useState(false);
+    const [isModify, setIsModify] = useState(false);
     const [stepNumber, setStepNumber] = useState(1);
     const [frameType, setFrameType] = useState("");
     const [remainingFrames, setRemainingFrames] = useState(4);
-    const [dataFrames, setDataFrames] = useState([]);
+    const [dataFrames, setDataFrames] = useState((props.dataFrame || []));
     const navigation = useNavigation();
     const flatListRef = useRef(null);
 
@@ -34,24 +36,52 @@ const NewArticle = (props) => {
 
     const addFrame = (typeOfFrame, title, text1, text2, text3, text4, illustration1, illustration2, illustration3, illustration4) => {
         if (isNewFrame && typeOfFrame && (title || text1 || text2 || text3 || text4 || illustration1  || illustration2  || illustration3  || illustration4 )){
-            dataFrames.push({ id: dataFrames.length - 1, 
-                typeOfFrame:typeOfFrame, 
-                title: title,
-                text1: text1,
-                text2: text2,
-                text3: text3,
-                text4: text4,
-                illustration1: illustration1,
-                illustration2: illustration2,
-                illustration3: illustration3,
-                illustration4: illustration4,
-            })
-            setDataFrames(dataFrames);
-            setRemainingFrames(remainingFrames - 1);
+            if (isModify)
+            {
+                dataFrames[activeIndex].typeOfFrame=typeOfFrame
+                dataFrames[activeIndex].title= title
+                dataFrames[activeIndex].text1= text1
+                dataFrames[activeIndex].text2= text2
+                dataFrames[activeIndex].text3= text3
+                dataFrames[activeIndex].text4= text4
+                dataFrames[activeIndex].illustration1= illustration1
+                dataFrames[activeIndex].illustration2= illustration2
+                dataFrames[activeIndex].illustration3= illustration3
+                dataFrames[activeIndex].illustration4= illustration4
+                setIsModify(false);
+                setActiveDataFrame(null);
+                setDataFrames(dataFrames);
+            }
+            else {
+                dataFrames.push({ id: dataFrames.length - 1, 
+                    typeOfFrame:typeOfFrame, 
+                    title: title,
+                    text1: text1,
+                    text2: text2,
+                    text3: text3,
+                    text4: text4,
+                    illustration1: illustration1,
+                    illustration2: illustration2,
+                    illustration3: illustration3,
+                    illustration4: illustration4,
+                })
+                setDataFrames(dataFrames);
+                setRemainingFrames(remainingFrames - 1);
+            }
         }
         setFrameType("");
         setStepNumber(1);
         setIsNewFrame(!isNewFrame);
+    }
+
+    const modifyFrame = () => {
+        if (activeIndex > -1) { 
+            setActiveDataFrame(dataFrames[activeIndex]);
+            setFrameType(dataFrames[activeIndex].typeOfFrame);
+            setIsModify(true);
+            setStepNumber(2);
+            setIsNewFrame(true);
+        }
     }
 
     const deleteFrame = () => {
@@ -143,7 +173,7 @@ const NewArticle = (props) => {
                             stepNumber == 1 && (
                                 <NewFrameStep1  changeFrameType={changeFrameType} changeIsNewFrame={changeIsNewFrame}/>
                             ) || (
-                                <NewFrameStep2 changeStepNumber={changeStepNumber} addFrame={addFrame} frameType={frameType}/>
+                                <NewFrameStep2 changeStepNumber={changeStepNumber} addFrame={addFrame} frameType={frameType} data={activeDataFrame} isModify={isModify}/>
                             )
                         }
                     </View>
@@ -155,7 +185,7 @@ const NewArticle = (props) => {
                 </TouchableOpacity>
                 <View className="pb-3 h-[550px]">
                     <View className="py-1 justify-center flex pb-1" style={{ backgroundColor: props.complimentaryColor}}>
-                        <Text className="self-center text-caption-text font-bold" style={{color: props.complimentaryColor}}>{props.articleType}</Text>
+                        <Text className="self-center text-caption-text font-bold" style={{color: props.primaryColor}}>Publication in progress</Text>
                     </View>
                     <View className="" style={{ backgroundColor: props.secondaryColor}}>
                         <FlatList
@@ -202,20 +232,23 @@ const NewArticle = (props) => {
                     <View className="w-full flex items-center">
                     {
                         data.length > 1 && (
-                            <TouchableOpacity className="w-[80%] py-1 justify-center flex border-2 rounded-lg" style={{borderColor: props.complimentaryColor, backgroundColor: props.complimentaryColor}} onPress={deleteFrame}>
+                            <TouchableOpacity className="w-full py-1 justify-center flex border-2 rounded-lg" style={{borderColor: props.complimentaryColor, backgroundColor: props.complimentaryColor}} onPress={() => props.changeArticleStep(dataFrames)}>
                                 <Text className="self-center text-caption-text font-bold" style={{color: props.primaryColor}}>Next</Text>
                             </TouchableOpacity>
                         ) || (
-                            <View className="w-[80%] py-1 justify-center flex">
+                            <View className="w-full py-1 justify-center flex">
                                 <Text className="self-center text-caption-text font-bold" style={{color: props.complimentaryColor}}>You need to add one frame</Text>
                             </View>
                         )
                     }
                     </View>  
                 ) || (
-                    <View className="w-full flex items-center">
-                        <TouchableOpacity className="w-[80%] py-1 justify-center flex border-2 rounded-lg" style={{borderColor: props.complimentaryColor}} onPress={deleteFrame}>
-                            <Text className="self-center text-caption-text font-bold" style={{color: props.complimentaryColor}}>Delete this frame</Text>
+                    <View className="w-full flex-row justify-between items-center">
+                        <TouchableOpacity className="w-[49%] py-1 justify-center flex border-2 rounded-lg" style={{borderColor: props.complimentaryColor}} onPress={(modifyFrame)}>
+                            <Text className="self-center text-caption-text font-bold" style={{color: props.complimentaryColor}}>Modify this frame</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity className="w-[49%] py-1 justify-center flex border-2 rounded-lg" style={{borderColor: props.complimentaryColor, backgroundColor: props.complimentaryColor}} onPress={(deleteFrame)}>
+                            <Text className="self-center text-caption-text font-bold" style={{color: props.primaryColor}}>Delete this frame</Text>
                         </TouchableOpacity>
                     </View>    
                 )

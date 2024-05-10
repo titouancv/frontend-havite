@@ -21,7 +21,9 @@ export default function ArticleList(props) {
     secondaryColor={item.secondaryColor} 
     complimentaryColor={item.complimentaryColor}
     textColor={item.textColor}
-    dataFrames={props.dataFrames}      
+    dataFrames={props.dataFrames}  
+    likes={item.likes}
+    dislikes={item.dislikes}      
     />
   );
 

@@ -7,15 +7,16 @@ import * as ImagePicker from 'expo-image-picker';
 import TextInputButton from './TextInputButton';
 
 const NewFrameStep2 = (props) => {
-    const [title, setTitle] = useState(null);
-    const [text1, setText1] = useState(null);
-    const [text2, setText2] = useState(null);
-    const [text3, setText3] = useState(null);
-    const [text4, setText4] = useState(null);
-    const [illustration1, setillustration1] = useState(null);
-    const [illustration2, setillustration2] = useState(null);
-    const [illustration3, setillustration3] = useState(null);
-    const [illustration4, setillustration4] = useState(null);
+    let data = (props.data || {});
+    const [title, setTitle] = useState(data.title || null);
+    const [text1, setText1] = useState(data.text1 || null);
+    const [text2, setText2] = useState(data.text2 || null);
+    const [text3, setText3] = useState(data.text3 || null);
+    const [text4, setText4] = useState(data.text4 || null);
+    const [illustration1, setillustration1] = useState(data.illustration1 || null);
+    const [illustration2, setillustration2] = useState(data.illustration2 || null);
+    const [illustration3, setillustration3] = useState(data.illustration3 || null);
+    const [illustration4, setillustration4] = useState(data.illustration4 || null);
 
     const pickImage = async (imageNumber) => {
       // No permissions request is necessary for launching the image library
@@ -134,7 +135,7 @@ const NewFrameStep2 = (props) => {
                                 <Text className="text-h5 text-light-1 font-bold">Back</Text>
                             </TouchableOpacity>
                         <TouchableOpacity className="w-[49%] py-1 self-center items-center border-4 border-light-1 rounded-lg" onPress={() => (props.addFrame(props.frameType, title, text1, text2, text3, text4, illustration1, illustration2, illustration3, illustration4))}>
-                            <Text className="text-h5 text-light-1 font-bold">Add</Text>
+                            <Text className="text-h5 text-light-1 font-bold">{props.isModify && "Modify" || "Add"}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
