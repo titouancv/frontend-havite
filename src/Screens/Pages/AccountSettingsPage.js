@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { PageButton } from '../../Components';
+import { AuthContext } from '../../Context/AuthContext';
 
 
 export default function AccountSettingsPage() {
-  const navigation = useNavigation();
+  const {signOut} = useContext(AuthContext)
   return (
     <SafeAreaProvider>
       <View className="bg-light-1 h-full">
@@ -36,7 +37,7 @@ export default function AccountSettingsPage() {
               </View>
             </View>
             <View className="w-[95%] self-center">
-              <TouchableOpacity className="w-full self-center border-4 border-secondary rounded-lg p-1 ">
+              <TouchableOpacity className="w-full self-center border-4 border-secondary rounded-lg p-1 " onPress={signOut}>
                 <Text className="text-body-text font-bold text-secondary self-center">Sign out</Text>
               </TouchableOpacity>
             </View>

@@ -12,7 +12,8 @@ const TextInputButton = (props) => {
                 placeholderTextColor={"#ff7d72"} 
                 className="text-body-text color-secondary" 
                 autoComplete={props.autoComplete}
-                onChangeText={(text) => props.setText(text)}
+                value={props.value}
+                onChangeText={props.setText}
             />
         </View>
     </View>

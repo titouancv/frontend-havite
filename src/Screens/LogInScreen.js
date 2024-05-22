@@ -1,22 +1,30 @@
-import React, {useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import { View, Text, TextInput, FlatList, Image, TouchableOpacity, Pressable } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TextInputButton } from '../Components';
+import { AuthContext, useAuth } from '../Context/AuthContext';
 
 
 const Login = ({ navigation }) => {
     const [emailAddress, onChangeEmailAddress] = React.useState('');
     const [password, onChangePassword] = React.useState('');
     const [loginSentence, onChangeLoginSentence] = React.useState('');
+    const [logFail, setLogFail] = React.useState(false);
+
+    const {login} = useContext(AuthContext);
 
     const isRightInformation = () => {
-        if (emailAddress == "test@test.com" && password == "test"){
-            navigation.navigate("Home") 
-        }
-        else{
+        setLogFail(login(emailAddress, password));
+    };
+
+    useEffect(() => {
+        if (logFail){
             onChangeLoginSentence("Incorrect email or password, login failed.")
         }
-    };
+        else {
+            onChangeLoginSentence("")
+        }
+    })
 
     return (
     <SafeAreaProvider>
@@ -27,10 +35,10 @@ const Login = ({ navigation }) => {
         </View>
         <View className="space-y-4">
             <View className=" w-[90%] self-center">
-            <TextInputButton title="Email Address" placeholder="Enter your email" autoComplete='email'  secureTextEntry={false} setText={onChangeEmailAddress}/>
+            <TextInputButton title="Email Address" placeholder="Enter your email" autoComplete='email'  secureTextEntry={false} value={emailAddress} setText={onChangeEmailAddress}/>
             </View>
             <View className=" w-[90%] self-center">
-                <TextInputButton title="Password" placeholder="Enter your password" autoComplete='current-password' secureTextEntry={true} setText={onChangePassword}/>
+                <TextInputButton title="Password" placeholder="Enter your password" autoComplete='current-password' secureTextEntry={true} value={password} setText={onChangePassword}/>
                 <View className="flex-row my-1">
                     <Text className="text-tiny-text color-light-2 mr-1">You don't remember your password?</Text>
                     <Pressable>

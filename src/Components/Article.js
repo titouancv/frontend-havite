@@ -65,11 +65,13 @@ const Article = (props) => {
         <View className="flex-col rounded-2xl border-4 mx-2 my-2" style={{borderColor: props.primaryColor}}>
             <View className="flex items-center">
                 <TouchableOpacity className="w-full h-10 flex justify-center items-center rounded-t-xl" onPress={() => navigation.navigate("MediaAccountPage") } style={{backgroundColor: props.primaryColor}}>
-                    <Image source={{ uri: props.logoMedia }} className="w-1/2 h-[80%]" />
+                    <View className="w-1/2 h-[80%]">
+                    <Image source={{ uri: props.logoMedia }} style={{flex: 1, width: null, height: null, resizeMode: 'contain'}} />
+                    </View>
                 </TouchableOpacity>
                 <View className="pb-3 h-[550px]">
                     <View className=" py-1 justify-center flex pb-1" style={{ backgroundColor: props.complimentaryColor}}>
-                        <Text className="self-center text-caption-text font-bold" style={{color: props.primaryColor}}>{props.articleType}</Text>
+                        <Text className="self-center text-caption-text font-bold" style={{color: props.secondaryColor}}>{props.articleType}</Text>
                     </View>
                     <View className="" style={{ backgroundColor: props.secondaryColor}}>
                         <FlatList
