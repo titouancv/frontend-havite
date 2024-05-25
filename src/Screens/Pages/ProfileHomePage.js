@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, ScrollView, FlatList, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { PageButton } from '../../Components';
+import { AuthContext } from '../../Context/AuthContext';
 
 
 export default function ProfilHomePage() {
     const navigation = useNavigation();
+    const {authData} = useContext(AuthContext);
   return (
     <SafeAreaProvider>
       <View className="bg-light-1 h-full">
@@ -20,8 +22,8 @@ export default function ProfilHomePage() {
                 </View>
                 <View className="w-full space-y-2">
                   <View className="flex-row space-x-2 w-full justify-center">
-                    <Text className="text-h5 text-light-1">Titouan</Text>
-                    <Text className="text-h5 font-bold text-light-1">Carion-Vignaud</Text>
+                    <Text className="text-h5 text-light-1">{authData.firstName}</Text>
+                    <Text className="text-h5 font-bold text-light-1">{authData.lastName}</Text>
                   </View>
                   <TouchableOpacity className="border-2 border-secondary rounded-lg p-1" onPress={() => navigation.navigate("AccountSettingsPage") }>
                     <Text className="text-caption-text text-secondary self-center">Account settings</Text>

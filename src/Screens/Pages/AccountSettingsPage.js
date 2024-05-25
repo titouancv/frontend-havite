@@ -7,7 +7,7 @@ import { AuthContext } from '../../Context/AuthContext';
 
 
 export default function AccountSettingsPage() {
-  const {signOut} = useContext(AuthContext)
+  const {signOut, authData} = useContext(AuthContext)
   return (
     <SafeAreaProvider>
       <View className="bg-light-1 h-full">
@@ -17,8 +17,8 @@ export default function AccountSettingsPage() {
                   <Image source={{ uri: "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" }} className="h-20 w-20 rounded-lg self-center" />
                 </View>
                 <View className="flex-row space-x-2 w-full justify-center">
-                    <Text className="text-h4 text-primary">Titouan</Text>
-                    <Text className="text-h4 font-bold text-primary">Carion-Vignaud</Text>
+                    <Text className="text-h4 text-primary">{authData.firstName}</Text>
+                    <Text className="text-h4 font-bold text-primary">{authData.lastName}</Text>
                 </View>
             </View>
             <View className="w-[95%] self-center space-y-1">

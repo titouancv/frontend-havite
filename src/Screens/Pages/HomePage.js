@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import {Article } from '../../Components';
 import { BlurView } from 'expo-blur';
-
+import { MediaProvider } from '../../Context/MediaContext';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 let logoMedia = "https://s3.eu-west-3.amazonaws.com/ideel.images/logos/le_monde.png";
@@ -116,20 +116,20 @@ export default function HomePage() {
 
   return (
     <SafeAreaProvider>
-      <View className="h-full relative">
-        <View className="w-full h-[6%] absolute top-0 left-0 z-10">
-          <BlurView intensity={10} style={styles.blurContainer}></BlurView>
+        <View className="h-full relative">
+          <View className="w-full h-[6%] absolute top-0 left-0 z-10">
+            <BlurView intensity={10} style={styles.blurContainer}></BlurView>
+          </View>
+          <View className="flex h-full flex-col w-full pt-12">
+              <View className="w-full h-[94%] bg-light-1 flex justify-center">
+                  <FlatList
+                  data={data}
+                  renderItem={renderItem}
+                  keyExtractor={(item) => item.id}
+                  />
+              </View>
+          </View>
         </View>
-        <View className="flex h-full flex-col w-full pt-12">
-            <View className="w-full h-[94%] bg-light-1 flex justify-center">
-                <FlatList
-                data={data}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-                />
-            </View>
-        </View>
-      </View>
     </SafeAreaProvider>
   );
 }

@@ -180,9 +180,11 @@ const NewArticle = (props) => {
                 )
             }
             <View className="flex items-center">
-                <TouchableOpacity className="w-full h-10 flex justify-center items-center rounded-t-xl" onPress={() => navigation.navigate("MediaAccountPage") } style={{backgroundColor: props.primaryColor}}>
-                    <Image source={{ uri: props.logoMedia }} className="w-1/2 h-[80%]" />
-                </TouchableOpacity>
+                <View className="w-full h-10 flex justify-center items-center rounded-t-xl" style={{backgroundColor: props.primaryColor}}>
+                    <View className="w-1/2 h-[80%]">
+                        <Image source={{ uri: props.logoMedia }} style={{flex: 1, width: null, height: null, resizeMode: 'contain'}} />
+                    </View>
+                </View>
                 <View className="pb-3 h-[550px]">
                     <View className="py-1 justify-center flex pb-1" style={{ backgroundColor: props.complimentaryColor}}>
                         <Text className="self-center text-caption-text font-bold" style={{color: props.primaryColor}}>Publication in progress</Text>

@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import HelpPage from './HelpPage';
-import AboutPage from './AboutPage';
-import AccountSettingsPage from './AccountSettingsPage';
-import HomePage from './HomePage';
+
 import MediaInformationPage from './MediaInformationPage';
 import { ArticleList, MediaAccountHeader } from '../../Components';
+import { MediaContext } from '../../Context/MediaContext';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -34,21 +31,21 @@ editorialAddress: '67, avenue Pierre-Mendès-France, Paris, France',
 numberOfJournalist: 76,
 primaryColor: "#000000", 
 secondaryColor: "#222222", 
-complimentaryColor: "#ffc700",
+complementaryColor: "#ffc700",
 textColor: "#ffffff",
 }
 
 let logoMedia = "https://assets.website-files.com/5c1922e22200fb24773c7093/5e8c510ac6500478b24f7161_547c2379c91499027c75e3c3_logo-_0004_defonce.png";
 
 const dataArticle = [
-  { id: '0', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty", "elisabeth WXCVB"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#ffffff", primaryColor: "#000000", secondaryColor: "#222222", complimentaryColor: "#ffc700", likes: 0, dislikes: 0},
-  { id: '1', logoMedia: "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/871354/logo_k_monochrome_e6b2vv.png",  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#ffffff", primaryColor: "#1e32c8", secondaryColor: "#fa1e14", complimentaryColor: "#ffc800", likes: 0, dislikes: 0},
-  { id: '2', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complimentaryColor: "#e8d5ae", likes: 0, dislikes: 0},
-  { id: '3', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complimentaryColor: "#e8d5ae", likes: 0, dislikes: 0},
-  { id: '4', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complimentaryColor: "#e8d5ae", likes: 0, dislikes: 0},
-  { id: '5', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complimentaryColor: "#e8d5ae", likes: 0, dislikes: 0},
-  { id: '6', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complimentaryColor: "#e8d5ae", likes: 0, dislikes: 0},
-  { id: '7', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complimentaryColor: "#e8d5ae", likes: 0, dislikes: 0},
+  { id: '0', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty", "elisabeth WXCVB"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#ffffff", primaryColor: "#000000", secondaryColor: "#222222", complementaryColor: "#ffc700", likes: 0, dislikes: 0},
+  { id: '1', logoMedia: "https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/871354/logo_k_monochrome_e6b2vv.png",  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#ffffff", primaryColor: "#1e32c8", secondaryColor: "#fa1e14", complementaryColor: "#ffc800", likes: 0, dislikes: 0},
+  { id: '2', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complementaryColor: "#e8d5ae", likes: 0, dislikes: 0},
+  { id: '3', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complementaryColor: "#e8d5ae", likes: 0, dislikes: 0},
+  { id: '4', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complementaryColor: "#e8d5ae", likes: 0, dislikes: 0},
+  { id: '5', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complementaryColor: "#e8d5ae", likes: 0, dislikes: 0},
+  { id: '6', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complementaryColor: "#e8d5ae", likes: 0, dislikes: 0},
+  { id: '7', logoMedia: logoMedia,  articleType: "Article", date: "12/03/2024", authors: ["jean-michel Azerty"], sources: ["https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"], tags: ["#France", "#Ecologie", "#Santé"], textColor: "#305536", primaryColor: "#305536", secondaryColor: "#f9f4ea", complementaryColor: "#e8d5ae", likes: 0, dislikes: 0},
 ];
 
 let dataFrames = [
@@ -126,31 +123,34 @@ illustration4: null,
   },
 ];
 
-export default function MediaAccountPage() {      
+export default function MediaAccountPage() { 
+  const {mediaData} = useContext(MediaContext);
   return (
     <SafeAreaProvider>
-      <View className="h-full" style={{ backgroundColor: data.secondaryColor}}>
-        <View className="h-full flex-col items-center" style={{ backgroundColor: data.secondaryColor}}>
-            <View className="h-[4%] w-full" style={{ backgroundColor: data.primaryColor}}></View>
-            <View className="w-full h-[8%] justify-center" style={{ backgroundColor: data.primaryColor}}>
-                <Image source={{ uri: logomedia }} className="w-[70%] h-full self-center"/>
+      <View className="h-full" style={{ backgroundColor: mediaData.secondaryColor}}>
+        <View className="h-full flex-col items-center" style={{ backgroundColor: mediaData.secondaryColor}}>
+            <View className="h-[4%] w-full" style={{ backgroundColor: mediaData.primaryColor}}></View>
+            <View className="w-full h-[8%] justify-center" style={{ backgroundColor: mediaData.primaryColor}}>
+              <View className="w-[70%] h-[70%] self-center">
+                <Image source={{ uri: mediaData.logo }} style={{flex: 1, width: null, height: null, resizeMode: 'contain'}} />
+              </View>
             </View>
-            <View className="h-[25%] w-full">
-                <MediaAccountHeader data={data}/>
+            <View className="h-[22%] w-full">
+                <MediaAccountHeader colorData={mediaData} data={data}/>
             </View>
             <View className="h-[63%] w-full">
                 <Tab.Navigator
                     initialRouteName='publication'
                     screenOptions={({ route }) => ({
                         headerShown: false,
-                        tabBarIndicatorStyle: {backgroundColor: data.complimentaryColor},
-                        tabBarActiveTintColor: data.complimentaryColor,
-                        tabBarInactiveTintColor: data.textColor,
+                        tabBarIndicatorStyle: {backgroundColor: mediaData.complementaryColor},
+                        tabBarActiveTintColor: mediaData.complementaryColor,
+                        tabBarInactiveTintColor: mediaData.primaryColor,
                         tabBarShowLabel: true,
                         tabBarStyle: {
                             paddingHorizontal: 5,
                             paddingTop: 0,
-                            backgroundColor: data.secondaryColor,
+                            backgroundColor: "#f9f4ea",
                         },                
                         tabBarLabelStyle: {
                             fontWeight: 'bold',
@@ -158,7 +158,7 @@ export default function MediaAccountPage() {
                             },
                     })}
                 >
-                    <Tab.Screen name="Publications" children={() => (<ArticleList data={dataArticle} dataFrames={dataFrames} primaryColor={data.primaryColor} secondaryColor={data.secondaryColor} complimentaryColor={data.complimentaryColor} textColor={data.textColor}/>)} />
+                    <Tab.Screen name="Publications" children={() => (<ArticleList data={dataArticle} dataFrames={dataFrames} primaryColor={mediaData.primaryColor} secondaryColor={mediaData.secondaryColor} complementaryColor={mediaData.complementaryColor} textColor={mediaData.textColor}/>)} />
                     <Tab.Screen name="Informations" children={() => (<MediaInformationPage data={data}/>)} />
                 </Tab.Navigator>
             </View>

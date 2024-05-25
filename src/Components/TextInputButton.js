@@ -14,6 +14,7 @@ const TextInputButton = (props) => {
                 autoComplete={props.autoComplete}
                 value={props.value}
                 onChangeText={props.setText}
+                keyboardType={props.keyboardType}
             />
         </View>
     </View>

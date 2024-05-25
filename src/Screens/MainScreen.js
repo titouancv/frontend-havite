@@ -1,35 +1,35 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
+import { AuthContext } from '../Context/AuthContext';
 import { HomeRoute, UsersProfilRoute } from './Routes';
 import { AddArticlePage } from './Pages';
 import { BottomTabBar } from '../Components';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MediaProvider } from '../Context/MediaContext';
+import { NewPublicationProvider } from '../Context/NewPublicationContext';
 
 const Tab = createBottomTabNavigator();
 
 function MainScreen() {
+
+  const {isMedia} = useContext(AuthContext);
   return (
     <SafeAreaProvider className="">
-        <Tab.Navigator
-            tabBar={props => <BottomTabBar {...props} />}
-            screenOptions={() => ({
-                headerShown: false,
-            })}
-        >
-            <Tab.Screen 
-            name="Home" 
-            component={HomeRoute} 
-            />
-            <Tab.Screen 
-            name="Post" 
-            component={AddArticlePage} 
-            />
-                        <Tab.Screen 
-            name="Profil" 
-            component={UsersProfilRoute} 
-            />
-        </Tab.Navigator>
+      <MediaProvider>
+        <NewPublicationProvider>
+          <Tab.Navigator
+              tabBar={props => <BottomTabBar {...props} />}
+              screenOptions={() => ({
+                  headerShown: false,
+              })}
+          >
+              <Tab.Screen name="Home" component={HomeRoute}/>
+              {isMedia && (<Tab.Screen name="Post" component={AddArticlePage}/> )}
+              <Tab.Screen name="Profil" component={UsersProfilRoute}/>
+          </Tab.Navigator>
+        </NewPublicationProvider>
+      </MediaProvider>
     </SafeAreaProvider>
   );
 }

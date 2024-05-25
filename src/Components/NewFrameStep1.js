@@ -1,10 +1,12 @@
-import React, { useState, useRef,} from 'react';
+import React, { useState, useRef, useContext,} from 'react';
 import { View, Text, Button, Image, TouchableOpacity, FlatList , StyleSheet} from 'react-native';
 import { CoverFrame, CreditFrame, TextImageFrame, ImageTextFrame, TextFrame, ImageFrame, TextImageTextFrame } from './Frames';
 import { useNavigation } from '@react-navigation/native';
 import { BlurView } from 'expo-blur';
+import { AuthContext } from '../Context/AuthContext';
 
 const NewFrameStep1 = (props) => {
+    const {authData} = useContext(AuthContext);
     return (
         <View className="h-full w-full">
             <BlurView intensity={50} style={styles.blurContainer}>
@@ -16,54 +18,54 @@ const NewFrameStep1 = (props) => {
                         <View className="h-[32%] flex-row space-x-2">
                             <TouchableOpacity className="h-full w-[49%] py-2 flex-col justify-around items-center border-2 border-light-1 rounded-lg" onPress={() => (props.changeFrameType("coverFrame"))}>
                                 <View className="h-[15%] w-[90%] flex justify-center items-center bg-light-1 rounded-lg">
-                                    <Text className="text-caption-text text-secondary font-bold">Title</Text>
+                                    <Text className="text-caption-text font-bold" style={{color: authData.primaryColor}}>Title</Text>
                                 </View>
                                 <View className="h-[35%] w-[90%] py-2 flex justify-center items-center bg-light-1 rounded-lg">
-                                    <Text className="text-body-text text-secondary font-bold">Image</Text>
+                                    <Text className="text-body-text font-bold" style={{color: authData.primaryColor}}>Image</Text>
                                 </View>
                                 <View className="h-[35%] w-[90%] py-2 flex justify-center items-center bg-light-1 rounded-lg">
-                                    <Text className="text-body-text text-secondary font-bold">Text</Text>
+                                    <Text className="text-body-text font-bold" style={{color: authData.primaryColor}}>Text</Text>
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity className="h-full w-[49%] py-1 flex-col justify-around items-center border-2 border-light-1 rounded-lg" onPress={() => (props.changeFrameType("textImageFrame"))}>
                                 <View className="h-[45%] w-[90%] py-2 flex justify-center items-center bg-light-1 rounded-lg">
-                                    <Text className="text-body-text text-secondary font-bold">Text</Text>
+                                    <Text className="text-body-text font-bold" style={{color: authData.primaryColor}}>Text</Text>
                                 </View>
                                 <View className="h-[45%] w-[90%] py-2 flex justify-center items-center bg-light-1 rounded-lg">
-                                    <Text className="text-body-text text-secondary font-bold">Image</Text>
+                                    <Text className="text-body-text font-bold" style={{color: authData.primaryColor}}>Image</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                         <View className="h-[32%] flex-row space-x-2">
                             <TouchableOpacity className="h-full w-[49%] py-1 flex-col justify-around items-center border-2 border-light-1 rounded-lg" onPress={() => (props.changeFrameType("imageTextFrame"))}>
                                 <View className="h-[45%] w-[90%] py-2 flex justify-center items-center bg-light-1 rounded-lg">
-                                    <Text className="text-body-text text-secondary font-bold">Image</Text>
+                                    <Text className="text-body-text font-bold" style={{color: authData.primaryColor}}>Image</Text>
                                 </View>
                                 <View className="h-[45%] w-[90%] py-2 flex justify-center items-center bg-light-1 rounded-lg">
-                                    <Text className="text-body-text text-secondary font-bold">Text</Text>
+                                    <Text className="text-body-text font-bold" style={{color: authData.primaryColor}}>Text</Text>
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity className="h-full w-[49%] py-2 flex-col justify-around items-center border-2 border-light-1 rounded-lg" onPress={() => (props.changeFrameType("textFrame"))}>
                             <View className="h-full w-[90%] py-2 flex justify-center items-center bg-light-1 rounded-lg">
-                                    <Text className="text-body-text text-secondary font-bold">Text</Text>
+                                    <Text className="text-body-text font-bold" style={{color: authData.primaryColor}}>Text</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                         <View className="h-[32%] flex-row space-x-2">
                             <TouchableOpacity className="h-full w-[49%] py-2 flex-col justify-around items-center border-2 border-light-1 rounded-lg" onPress={() => (props.changeFrameType("imageFrame"))}>
                                 <View className="h-full w-[90%] py-2 flex justify-center items-center bg-light-1 rounded-lg">
-                                    <Text className="text-body-text text-secondary font-bold">Image</Text>
+                                    <Text className="text-body-text font-bold" style={{color: authData.primaryColor}}>Image</Text>
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity className="h-full w-[49%] py-1 flex-col justify-around items-center border-2 border-light-1 rounded-lg" onPress={() => (props.changeFrameType("textImageTextFrame"))}>
                                 <View className=" w-[90%] py-2 self-center items-center bg-light-1 rounded-lg">
-                                    <Text className="text-body-text text-secondary font-bold">Text</Text>
+                                    <Text className="text-body-text font-bold" style={{color: authData.primaryColor}}>Text</Text>
                                 </View>
                                 <View className=" w-[90%] py-2 self-center items-center bg-light-1 rounded-lg">
-                                    <Text className="text-body-text text-secondary font-bold">Image</Text>
+                                    <Text className="text-body-text font-bold" style={{color: authData.primaryColor}}>Image</Text>
                                 </View>
                                 <View className=" w-[90%] py-2 self-center items-center bg-light-1 rounded-lg">
-                                    <Text className="text-body-text text-secondary font-bold">Text</Text>
+                                    <Text className="text-body-text font-bold" style={{color: authData.primaryColor}}>Text</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>

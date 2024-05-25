@@ -30,12 +30,12 @@ const Login = ({ navigation }) => {
     <SafeAreaProvider>
       <View className="flex-col bg-primary h-full justify-center">
         <View className=" mb-8">
-            <Text className="text-h3 text-center font-bold color-light-2">Hey Welcome Back!</Text>
-            <Text className="text-body-text text-center font-bold color-light-2">Happy to see you again on Havite</Text>
+            <Text className="text-h3 text-center font-bold color-light-1">Hey Welcome Back!</Text>
+            <Text className="text-body-text text-center font-bold color-light-1">Happy to see you again on Havite</Text>
         </View>
         <View className="space-y-4">
             <View className=" w-[90%] self-center">
-            <TextInputButton title="Email Address" placeholder="Enter your email" autoComplete='email'  secureTextEntry={false} value={emailAddress} setText={onChangeEmailAddress}/>
+            <TextInputButton title="Email Address" placeholder="Enter your email" autoComplete='email'  secureTextEntry={false} value={emailAddress} setText={onChangeEmailAddress} keyboardType="email-address"/>
             </View>
             <View className=" w-[90%] self-center">
                 <TextInputButton title="Password" placeholder="Enter your password" autoComplete='current-password' secureTextEntry={true} value={password} setText={onChangePassword}/>
@@ -49,8 +49,8 @@ const Login = ({ navigation }) => {
             <View className=" w-[90%] self-center mt-4">
                 <TouchableOpacity 
                 onPress={isRightInformation}
-                className="bg-light-2 border-2 border-light-3 rounded-lg px-2">
-                    <Text className="text-h5 text-center font-bold color-primary my-2">Login</Text>
+                className="bg-secondary rounded-lg px-2">
+                    <Text className="text-h5 text-center font-bold color-light-1 my-2">Login</Text>
                 </TouchableOpacity>
                 <View className="flex-row my-1">
                     <Text className="text-tiny-text color-secondary mr-1">{loginSentence}</Text>

@@ -1,11 +1,13 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { View, Text, Button, Image, TouchableOpacity, FlatList } from 'react-native';
 import { CoverFrame, CreditFrame, TextImageFrame, ImageTextFrame, TextFrame, ImageFrame, TextImageTextFrame } from './Frames';
 import { useNavigation } from '@react-navigation/native';
+import { MediaContext } from '../Context/MediaContext';
 
 const Article = (props) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const navigation = useNavigation();
+    const {loadMediaData} = useContext(MediaContext);
 
     const makeFrames = (props) => {
         let frames = [];
@@ -41,7 +43,7 @@ const Article = (props) => {
                     frames.push(<TextImageTextFrame text={frame.text1} images={images} textColor={props.textColor}></TextImageTextFrame>);
               }
         })
-        frames.push(<CreditFrame authors={props.authors} date={props.date} sources={props.sources} tags={props.tags} textColor={props.textColor}/>);
+        frames.push(<CreditFrame authors={props.authors} date={props.date} sources={props.sources} tags={props.tags} like={props.likes} dislike={props.dislikes} primaryColor={props.complimentaryColor} textColor={props.secondaryColor}/>);
         return frames;
     }
 
@@ -61,10 +63,15 @@ const Article = (props) => {
       );
     };
 
+    const changePage = () => {
+        navigation.navigate("MediaAccountPage");
+        loadMediaData(props.logoMedia, props.primaryColor, props.secondaryColor, props.complimentaryColor, props.textColor);
+    }
+
     return (
         <View className="flex-col rounded-2xl border-4 mx-2 my-2" style={{borderColor: props.primaryColor}}>
             <View className="flex items-center">
-                <TouchableOpacity className="w-full h-10 flex justify-center items-center rounded-t-xl" onPress={() => navigation.navigate("MediaAccountPage") } style={{backgroundColor: props.primaryColor}}>
+                <TouchableOpacity className="w-full h-10 flex justify-center items-center rounded-t-xl" onPress={changePage} style={{backgroundColor: props.primaryColor}}>
                     <View className="w-1/2 h-[80%]">
                     <Image source={{ uri: props.logoMedia }} style={{flex: 1, width: null, height: null, resizeMode: 'contain'}} />
                     </View>

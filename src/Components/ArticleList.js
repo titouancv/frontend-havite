@@ -30,7 +30,7 @@ export default function ArticleList(props) {
   return (
       <View className="h-full">
         <View className="flex h-full flex-col w-full">
-            <View className="w-full flex justify-center" style={{ backgroundColor: props.secondaryColor}}>
+            <View className="w-full flex justify-center bg-light-1">
                 <FlatList
                 data={data}
                 renderItem={renderItem}
