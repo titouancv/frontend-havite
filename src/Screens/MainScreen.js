@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 
 function MainScreen() {
 
-  const {isMedia} = useContext(AuthContext);
+  const {authData} = useContext(AuthContext);
   return (
     <SafeAreaProvider className="">
       <MediaProvider>
@@ -25,7 +25,7 @@ function MainScreen() {
               })}
           >
               <Tab.Screen name="Home" component={HomeRoute}/>
-              {isMedia && (<Tab.Screen name="Post" component={AddArticlePage}/> )}
+              {authData.isMedia && (<Tab.Screen name="Post" component={AddArticlePage}/> )}
               <Tab.Screen name="Profil" component={UsersProfilRoute}/>
           </Tab.Navigator>
         </NewPublicationProvider>

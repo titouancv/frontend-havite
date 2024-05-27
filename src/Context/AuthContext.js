@@ -8,7 +8,6 @@ export const AuthContext = createContext();
 export const AuthProvider = (props) => {
     const [authData, setAuthData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [isMedia, setIsMedia] = useState(false);
 
     useEffect(() => {
         loadStorageData();
@@ -38,6 +37,7 @@ export const AuthProvider = (props) => {
             })
             .catch(error => console.error('Error logging in:', error));
         let tokens = response.json();
+        console.log(tokens);
         **/
         if (emailAddress == "test" && password == "test"){
             let _authData = {
@@ -46,6 +46,7 @@ export const AuthProvider = (props) => {
                 password:password, 
                 firstName: "Titouan", 
                 lastName: "Carion-Vignaud",
+                isMedia: true,
                 logo: "https://s3.eu-west-3.amazonaws.com/ideel.images/logos/le_monde.png",
                 primaryColor: "#000000",
                 secondaryColor: "#222222",
@@ -73,7 +74,6 @@ export const AuthProvider = (props) => {
     const value = {
         authData,
         loading,
-        isMedia,
         login,
         signOut
     }
