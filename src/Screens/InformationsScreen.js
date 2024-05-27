@@ -1,12 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { View, Text, TextInput, FlatList, Image, TouchableOpacity, Pressable } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TextInputButton } from '../Components';
+import { AuthContext } from '../Context/AuthContext';
 
 const InformationsScreen = ({ navigation }) => {
   const [firstName, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [birthday, setBirthday] = useState("");
+
+  const {signInUser} = useContext(AuthContext);
+
+  const signIn = () => {
+    signInUser(firstName, lastname, birthday);
+  }
 
   return (
     <SafeAreaProvider>
@@ -25,7 +32,7 @@ const InformationsScreen = ({ navigation }) => {
             <TextInputButton title="Birthday" placeholder="Enter your birthday" autoComplete='birthday' secureTextEntry={false} setText={setBirthday}/>
           </View>
           <View className=" w-[90%] self-center pt-2">
-              <TouchableOpacity className="bg-secondary rounded-lg px-2" onPress={() => navigation.navigate("Main")}>
+              <TouchableOpacity className="bg-secondary rounded-lg px-2" onPress={signIn}>
                   <Text className="text-h5 text-center font-bold color-light-1 my-2">Sign Up</Text>
               </TouchableOpacity>
           </View>

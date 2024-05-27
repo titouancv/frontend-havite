@@ -12,18 +12,18 @@ export default function MediaAccountHeader(props) {
     <View className="h-full w-full">
         <View className="h-full w-full flex-col space-y-2 pt-2 bg-light-1">
             <View className="w-[90%] self-center flex-row justify-between">
-                <View className="w-[30%] flex-col justify-center items-center rounded-lg p-1" style={{ backgroundColor: props.colorData.primaryColor}}>
+                <TouchableOpacity className="w-[30%] flex-col justify-center items-center rounded-lg p-1" style={{ backgroundColor: props.colorData.primaryColor}}>
                     <Text className="text-body-text font-bold text-light-1">{props.data.numberOfArticles}</Text>
                     <Text className="text-caption-text text-light-1">Publications</Text>
-                </View>
-                <View className="w-[30%] flex-col justify-center items-center rounded-lg p-1" style={{ backgroundColor: props.colorData.primaryColor}}>
+                </TouchableOpacity>
+                <TouchableOpacity className="w-[30%] flex-col justify-center items-center rounded-lg p-1" style={{ backgroundColor: props.colorData.primaryColor}}>
                     <Text className="text-body-text font-bold text-light-1">{props.data.numberOfFollowers}</Text>
                     <Text className="text-caption-text text-light-1">Followers</Text>
-                </View>
-                <View className="w-[30%] flex-col justify-center items-center rounded-lg p-1" style={{ backgroundColor: props.colorData.primaryColor}}>
+                </TouchableOpacity>
+                <TouchableOpacity className="w-[30%] flex-col justify-center items-center rounded-lg p-1" style={{ backgroundColor: props.colorData.primaryColor}}>
                     <Text className="text-body-text font-bold text-light-1">{props.data.numberOfJournalist}</Text>
-                    <Text className="text-caption-text text-light-1">Journalists</Text>
-                </View>
+                    <Text className="text-caption-text text-light-1">Followed</Text>
+                </TouchableOpacity>
             </View>
             {
                 !isFollowed && (

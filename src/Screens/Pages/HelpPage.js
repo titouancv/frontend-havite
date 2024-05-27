@@ -24,6 +24,9 @@ export default function HelpPage() {
               <View>
                 <PageButton title="Make a suggestion" nextPage="HelpPage"/>
               </View>
+              <View>
+                <PageButton title="You are a media ?" nextPage="HelpPage"/>
+              </View>
             </View>
         </View>
       </View>

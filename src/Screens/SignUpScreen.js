@@ -1,12 +1,34 @@
-import React, {useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import { View, Text, TextInput, FlatList, Image, TouchableOpacity, Pressable } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TextInputButton } from '../Components';
+import { AuthContext } from '../Context/AuthContext';
 
 const SignUp = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
+    const [rightInformation, setRightInformation] = useState(true);
+    const [loginSentence, setLoginSentence] = React.useState('');
+
+    const {setLogInformation} = useContext(AuthContext);
+
+    useEffect(() => {
+        if (rightInformation){
+            setLoginSentence("")
+        }
+        else {
+            setLoginSentence("Incorrect email or password, login failed.")
+        }
+    })
+
+    const isRightInformation = () => {
+        let rightPswrd = setLogInformation(email, password, passwordConfirm)
+        setRightInformation(rightPswrd);
+        if(rightPswrd) {
+            navigation.navigate("Information");
+        }
+    };
 
   return (
     <SafeAreaProvider>
@@ -31,9 +53,12 @@ const SignUp = ({ navigation }) => {
                 </View>
             </View>
             <View className=" w-[90%] self-center pt-2">
-                <TouchableOpacity className="bg-secondary rounded-lg px-2" onPress={() => navigation.navigate("Information")}>
+                <TouchableOpacity className="bg-secondary rounded-lg px-2" onPress={isRightInformation}>
                     <Text className="text-h5 text-center font-bold color-light-1 my-2">Next</Text>
                 </TouchableOpacity>
+                <View className="flex-row my-1">
+                    <Text className="text-tiny-text color-secondary mr-1">{loginSentence}</Text>
+                </View>
             </View>
         </View>
         <View className="w-[90%] self-center justify-between flex-row my-6 pt-2">

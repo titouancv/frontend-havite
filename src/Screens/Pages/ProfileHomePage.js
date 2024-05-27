@@ -17,8 +17,10 @@ export default function ProfilHomePage() {
             <ScrollView className="space-y-4">
             <View className="w-[95%] self-center">
               <View className="w-full bg-primary flex-col justify-center items-center rounded-lg p-4 py-6 space-y-4">
-                <View className="rounded-lg w-[25%] flex justify-center">
-                  <Image source={{ uri: "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" }} className="h-20 w-20 rounded-lg self-center" />
+                <View className="rounded-lg w-[25%] border-4 border-light-1 flex justify-center self-center" style={{backgroundColor: authData.primaryColor}}>
+                  <View className="h-20 w-20 rounded-lg self-center">
+                    <Image source={{ uri: authData.logo }} style={{flex: 1, width: null, height: null, resizeMode: 'contain'}} />
+                  </View>
                 </View>
                 <View className="w-full space-y-2">
                   <View className="flex-row space-x-2 w-full justify-center">
