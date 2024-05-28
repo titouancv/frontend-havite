@@ -1,34 +1,38 @@
 import React, {useState} from 'react';
 import { Modal, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import ImageView from "react-native-image-viewing";
 
-const ImageFullScreen = ({ imageUri }) => {
+const ImageFullScreen = ({ mainImage, images, indexImage }) => {
   const [isImageFullScreen, setIsImageFullScreen] = useState(false);
 
   const changeIsImageFullScreen = () => {
      setIsImageFullScreen(!isImageFullScreen);
   }
 
-  const images = [{url: imageUri},]
+  let index = indexImage;
+  let imagesList = [];
+  const setImagesURI = () => {
+    images.forEach(element => {
+      imagesList.push({uri: element})
+    });
+  }
+
+  setImagesURI();
 
   return (
     <View className="h-full w-full">
     { !isImageFullScreen && (
     <TouchableOpacity className="w-full h-full" onPress={changeIsImageFullScreen}>
-      <Image source={{ uri: imageUri }} className="h-full w-full rounded-lg"/>
+      <Image source={{ uri: mainImage }} className="h-full w-full rounded-lg"/>
     </TouchableOpacity>
     ) || (
-    <Modal transparent={true}>
-      <ImageViewer
-        imageUrls={images}
-        enableSwipeDown={true}
-        onSwipeDown={changeIsImageFullScreen}
-        renderIndicator={() => null}
+      <ImageView
+        images={imagesList}
+        imageIndex={index}
+        visible={isImageFullScreen}
+        onRequestClose={changeIsImageFullScreen}
       />
-      <TouchableOpacity style={styles.closeButton} onPress={changeIsImageFullScreen}>
-        <Image source={{uri: "https://flaticons.net/icon.php?slug_category=mobile-application&slug_icon=close"}} style={styles.closeIcon} />
-      </TouchableOpacity>
-    </Modal>
     )}
     </View>
   );

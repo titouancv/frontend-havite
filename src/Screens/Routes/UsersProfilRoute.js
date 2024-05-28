@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProfilHomePage, AccountSettingsPage, AboutPage, HelpPage, OtherPage } from '../Pages';
+import { ProfilHomePage, AccountSettingsPage, AboutPage, HelpPage, OtherPage, MediaInfoSettingsPage } from '../Pages';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
@@ -65,6 +65,16 @@ export default function UsersProfilRoute() {
         options={{
           headerShown: true,
           title: "Other",
+          headerStyle: {backgroundColor: '#305536'},
+          headerTintColor: "#f9f4ea"
+        }}
+      />
+      <ProfileStack.Screen
+        name="MediaInfoSettingsPage"
+        component={MediaInfoSettingsPage}
+        options={{
+          headerShown: true,
+          title: "Media Informations",
           headerStyle: {backgroundColor: '#305536'},
           headerTintColor: "#f9f4ea"
         }}

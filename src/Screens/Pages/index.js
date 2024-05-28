@@ -7,6 +7,7 @@ import HomePage from "./HomePage";
 import MediaAccountPage from "./MediaAccountPage";
 import MediaInformationPage from "./MediaInformationPage";
 import AddArticlePage from "./AddArticlePage";
+import MediaInfoSettingsPage from "./MediaInfoSettingsPage";
 
 export {
     ProfilHomePage,
@@ -18,4 +19,5 @@ export {
     MediaAccountPage,
     MediaInformationPage,
     AddArticlePage,
+    MediaInfoSettingsPage,
 }

@@ -12,22 +12,21 @@ export default function AccountSettingsPage() {
     <SafeAreaProvider>
     {authData.isMedia && (
       <View className="bg-light-1 h-full">
-        <View className="h-full flex-col w-full space-y-4">
+        <View className="h-full flex-col w-full space-y-2">
             <View className="w-[95%] self-center py-4 space-y-2">
-                <View className="rounded-xl w-22 border-4 border-primary flex justify-center self-center" style={{backgroundColor: authData.primaryColor}}>
-                  <View className="h-20 w-20 rounded-lg self-center">
+                <View className="w-[90%] rounded-xl w-22 border-4 border-primary flex justify-center self-center" style={{backgroundColor: authData.primaryColor}}>
+                  <View className="h-20 w-full rounded-lg self-center">
                     <Image source={{ uri: authData.logo }} style={{flex: 1, width: null, height: null, resizeMode: 'contain'}} />
                   </View>
-                </View>
-                <View className="flex-row space-x-2 w-full justify-center">
-                    <Text className="text-h4 text-primary">{authData.firstName}</Text>
-                    <Text className="text-h4 font-bold text-primary">{authData.lastName}</Text>
                 </View>
             </View>
             <View className="w-[95%] self-center space-y-1">
               <Text className="text-caption-text text-primary">SETTINGS</Text>
               <View>
-                <PageButton title="Profile Picture" nextPage="HelpPage"/>
+                <PageButton title="Logo" nextPage="HelpPage"/>
+              </View>
+              <View>
+                <PageButton title="Name" nextPage="HelpPage"/>
               </View>
               <View>
                 <PageButton title="Email" currentInfo={authData.email} nextPage="HelpPage"/>
@@ -36,10 +35,13 @@ export default function AccountSettingsPage() {
                 <PageButton title="Password" nextPage="HelpPage"/>
               </View>
               <View>
-                <PageButton title="Birthday" currentInfo={authData.birthday} nextPage="HelpPage"/>
+                <PageButton title="Colors" nextPage="HelpPage"/>
               </View>
               <View>
-                <PageButton title="Sexe" currentInfo={authData.sexe} nextPage="HelpPage"/>
+                <PageButton title="Bio" nextPage="HelpPage"/>
+              </View>
+              <View>
+                <PageButton title="Media Informations" nextPage="MediaInfoSettingsPage"/>
               </View>
             </View>
             <View className="w-[95%] self-center">
