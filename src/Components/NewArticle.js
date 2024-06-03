@@ -18,6 +18,8 @@ const NewArticle = (props) => {
     const navigation = useNavigation();
     const flatListRef = useRef(null);
 
+    const addIcon = require('./../assets/icons/addIcon.png');
+
     const changeIsNewFrame = () => {
         if (remainingFrames > 0)
             {
@@ -132,7 +134,7 @@ const NewArticle = (props) => {
                     {
                         remainingFrames > 0 && (
                             <View className="flex-col justify-center items-center self-center space-y-2">
-                                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/992/992651.png" }} className="h-20 w-20"/>
+                                <Image source={addIcon} className="h-20 w-20"/>
                                 <Text className="text-h5 text-primary font-bold self-center" style={{color: props.complimentaryColor}}>Add a Frame</Text>
                                 <Text className="text-caption-text text-primary font-bold self-center" style={{color: props.complimentaryColor}}>You can still add {remainingFrames} frames</Text>
                             </View>
@@ -187,7 +189,7 @@ const NewArticle = (props) => {
                 </View>
                 <View className="pb-3 h-[550px]">
                     <View className="py-1 justify-center flex pb-1" style={{ backgroundColor: props.complimentaryColor}}>
-                        <Text className="self-center text-caption-text font-bold" style={{color: props.primaryColor}}>Publication in progress</Text>
+                        <Text className="self-center text-caption-text font-bold" style={{color: props.secondaryColor}}>Publication in progress</Text>
                     </View>
                     <View className="" style={{ backgroundColor: props.secondaryColor}}>
                         <FlatList
@@ -235,7 +237,7 @@ const NewArticle = (props) => {
                     {
                         data.length > 1 && (
                             <TouchableOpacity className="w-full py-1 justify-center flex border-2 rounded-lg" style={{borderColor: props.complimentaryColor, backgroundColor: props.complimentaryColor}} onPress={() => props.changeArticleStep(dataFrames)}>
-                                <Text className="self-center text-caption-text font-bold" style={{color: props.primaryColor}}>Next</Text>
+                                <Text className="self-center text-caption-text font-bold" style={{color: props.secondaryColor}}>Next</Text>
                             </TouchableOpacity>
                         ) || (
                             <View className="w-full py-1 justify-center flex">
@@ -246,11 +248,11 @@ const NewArticle = (props) => {
                     </View>  
                 ) || (
                     <View className="w-full flex-row justify-between items-center">
-                        <TouchableOpacity className="w-[49%] py-1 justify-center flex border-2 rounded-lg" style={{borderColor: props.complimentaryColor}} onPress={(modifyFrame)}>
+                        <TouchableOpacity className="w-[49%] py-1 justify-center flex border-2 rounded-lg" style={{borderColor: props.complimentaryColor, backgroundColor: props.secondaryColor}} onPress={(modifyFrame)}>
                             <Text className="self-center text-caption-text font-bold" style={{color: props.complimentaryColor}}>Modify this frame</Text>
                         </TouchableOpacity>
                         <TouchableOpacity className="w-[49%] py-1 justify-center flex border-2 rounded-lg" style={{borderColor: props.complimentaryColor, backgroundColor: props.complimentaryColor}} onPress={(deleteFrame)}>
-                            <Text className="self-center text-caption-text font-bold" style={{color: props.primaryColor}}>Delete this frame</Text>
+                            <Text className="self-center text-caption-text font-bold" style={{color: props.secondaryColor}}>Delete this frame</Text>
                         </TouchableOpacity>
                     </View>    
                 )

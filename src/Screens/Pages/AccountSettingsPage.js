@@ -23,10 +23,7 @@ export default function AccountSettingsPage() {
             <View className="w-[95%] self-center space-y-1">
               <Text className="text-caption-text text-primary">SETTINGS</Text>
               <View>
-                <PageButton title="Logo" nextPage="HelpPage"/>
-              </View>
-              <View>
-                <PageButton title="Name" nextPage="HelpPage"/>
+                <PageButton title="Name" currentInfo={authData.name} nextPage="HelpPage"/>
               </View>
               <View>
                 <PageButton title="Email" currentInfo={authData.email} nextPage="HelpPage"/>
@@ -35,10 +32,13 @@ export default function AccountSettingsPage() {
                 <PageButton title="Password" nextPage="HelpPage"/>
               </View>
               <View>
+                <PageButton title="Logo" nextPage="HelpPage"/>
+              </View>
+              <View>
                 <PageButton title="Colors" nextPage="HelpPage"/>
               </View>
               <View>
-                <PageButton title="Bio" nextPage="HelpPage"/>
+                <PageButton title="Bio" currentInfo={authData.bio} nextPage="HelpPage"/>
               </View>
               <View>
                 <PageButton title="Media Informations" nextPage="MediaInfoSettingsPage"/>
@@ -59,9 +59,9 @@ export default function AccountSettingsPage() {
       <View className="bg-light-1 h-full">
         <View className="h-full flex-col w-full space-y-4">
             <View className="w-[95%] self-center py-4 space-y-2">
-                <View className="rounded-xl w-22 border-4 border-primary flex justify-center self-center" style={{backgroundColor: authData.primaryColor}}>
+                <View className="rounded-xl w-22 border-4 border-primary bg-primary flex justify-center self-center">
                   <View className="h-20 w-20 rounded-lg self-center">
-                    <Image source={{ uri: authData.logo }} style={{flex: 1, width: null, height: null, resizeMode: 'contain'}} />
+                    <Image source={{ uri: authData.profilePicture }} style={{flex: 1, width: null, height: null, resizeMode: 'contain'}} />
                   </View>
                 </View>
                 <View className="flex-row space-x-2 w-full justify-center">

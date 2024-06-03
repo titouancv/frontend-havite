@@ -5,6 +5,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 
 function BottomTabBar({ state, descriptors, navigation }) {
+    const addIcon = require('./../assets/icons/addIcon.png');
+    const addIconPink = require('./../assets/icons/addIconPink.png');
+    const homeIcon = require('./../assets/icons/homeIcon.png');
+    const homeIconPink = require('./../assets/icons/homeIconPink.png');
+    const profilIcon = require('./../assets/icons/profilIcon.png');
+    const profilIconPink = require('./../assets/icons/profilIconPink.png');
+
     return (
       <View className="h-24 w-full border-4 border-b-0 border-secondary rounded-t-2xl absolute bottom-0 left-0 z-10" style={{backgroundColor: "rgba(0,0,0,0.5)"}}>
         <BlurView intensity={100} style={styles.blurContainer} className="rounded-t-xl">
@@ -40,7 +47,8 @@ function BottomTabBar({ state, descriptors, navigation }) {
     
             return (
                 <View className="w-[25%] h-2/3">
-                    <TouchableOpacity
+                {label === "Post" && (
+                  <TouchableOpacity
                     key={route.key}
                     accessibilityRole="button"
                     accessibilityState={{ selected: isFocused ? true : false }}
@@ -48,13 +56,46 @@ function BottomTabBar({ state, descriptors, navigation }) {
                     testID={options.tabBarTestID}
                     onPress={onPress}
                     onLongPress={onLongPress}
-                    className="flex-1 justify-center items-center bg-primary rounded-lg border-4"
+                    className="flex-1 justify-center items-center"
                     style={{ borderColor: isFocused ? '#ff7d72' : '#eedfc2' }}
                     >
-                    <Text style={{ color: isFocused ? '#ff7d72' : '#eedfc2' }} className="font-bold">
-                        {label}
-                    </Text>
+                      <View className="w-full h-full">
+                        <Image source={(isFocused ? addIconPink : addIcon)}  style={{flex: 1, width: null, height: null, resizeMode: 'contain'}}/>
+                      </View>
                     </TouchableOpacity>
+                ) || (label === "Home" && (
+                  <TouchableOpacity
+                    key={route.key}
+                    accessibilityRole="button"
+                    accessibilityState={{ selected: isFocused ? true : false }}
+                    accessibilityLabel={options.tabBarAccessibilityLabel}
+                    testID={options.tabBarTestID}
+                    onPress={onPress}
+                    onLongPress={onLongPress}
+                    className="flex-1 justify-center items-center"
+                    style={{ borderColor: isFocused ? '#ff7d72' : '#eedfc2' }}
+                    >
+                      <View className="w-full h-full">
+                        <Image source={(isFocused ? homeIconPink : homeIcon)}  style={{flex: 1, width: null, height: null, resizeMode: 'contain'}}/>
+                      </View>
+                    </TouchableOpacity>
+                ) || (
+                  <TouchableOpacity
+                    key={route.key}
+                    accessibilityRole="button"
+                    accessibilityState={{ selected: isFocused ? true : false }}
+                    accessibilityLabel={options.tabBarAccessibilityLabel}
+                    testID={options.tabBarTestID}
+                    onPress={onPress}
+                    onLongPress={onLongPress}
+                    className="flex-1 justify-center items-center"
+                    style={{ borderColor: isFocused ? '#ff7d72' : '#eedfc2' }}
+                    >
+                      <View className="w-full h-full">
+                        <Image source={(isFocused ? profilIconPink : profilIcon)}  style={{flex: 1, width: null, height: null, resizeMode: 'contain'}}/>
+                      </View>
+                    </TouchableOpacity>
+                ))}
                 </View>
             );
             })}

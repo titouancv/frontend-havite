@@ -42,15 +42,41 @@ const NewFrameStep2 = (props) => {
       }
     };
 
+    const deleteImage = async (imageNumber) => {
+    
+          switch (imageNumber) {
+              case 1:
+                  setillustration1(illustration2);
+                  setillustration2(illustration3);
+                  setillustration3(illustration4);
+                  setillustration4(null);
+                  break;
+              case 2:
+                    setillustration2(illustration3);
+                    setillustration3(illustration4);
+                    setillustration4(null);
+                  break;
+              case 3:
+                    setillustration3(illustration4);
+                    setillustration4(null);
+                  break;
+              case 4:
+                    setillustration4(null);
+            }
+      };
+
     const ImagePickerComponent = (props) => {
         let image = props.image;
         let imageNumber = props.imageNumber;
         return (
         <View className="h-full w-full">
         {image && (
-            <TouchableOpacity className="h-full w-full border-2 border-light-1 bg-blue-200 rounded-lg" onPress={() => pickImage(imageNumber)}>
-                <Image source={{ uri: image }} className="h-full w-full rounded-lg" />
-            </TouchableOpacity>
+            <View className="relative">
+                <TouchableOpacity className="absolute h-5 w-5 z-10 top-0 right-0 bg-red-500 rounded-md flex justify-center items-center" onPress={()=> deleteImage(imageNumber)}><Text className="font-bold">X</Text></TouchableOpacity>
+                <TouchableOpacity className="h-full w-full border-2 border-light-1 bg-blue-200 rounded-lg" onPress={() => pickImage(imageNumber)}>
+                    <Image source={{ uri: image }} className="h-full w-full rounded-lg" />
+                </TouchableOpacity>
+            </View>
         ) || (
         props.isNextOne && (<TouchableOpacity className="h-full w-full border-2 border-light-1 bg-grey-100 rounded-lg flex justify-center items-center" onPress={() => pickImage(imageNumber)}>
                 <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/992/992651.png" }} className="h-1/2 w-1/2 rounded-lg"/>

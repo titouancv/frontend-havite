@@ -24,7 +24,7 @@ const {authData, loading} = useContext(AuthContext);
     }
   return (
       <NavigationContainer>
-        {authData?.token ? 
+        {authData?.accessToken ? 
         (
             <Stack.Navigator>
                 <Stack.Screen

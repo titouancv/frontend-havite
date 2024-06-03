@@ -20,12 +20,39 @@ export const AuthProvider = (props) => {
             const authDataSerialized = await AsyncStorage.getItem('@AuthData');
             if (authDataSerialized) {
                 const _authData = JSON.parse(authDataSerialized);
-                setAuthData(_authData);
+                const refreshToken = _authData.refreshToken;
+                let newToken = await getNewToken(refreshToken);
+                if (newToken){
+                    _authData.refreshToken = newToken.refresh;
+                    _authData.accessToken = newToken.access;
+                    setAuthData(_authData);
+                }
+                else {
+                    await AsyncStorage.removeItem('@AuthData');
+                    setAuthData(null);
+                }
             }
         } catch (error) {
         } finally {
             setLoading(false);
         }
+    }
+
+    const getNewToken = async (refreshToken) => {
+        let response = await axios.post(
+            backendURL + 'api/login/refresh/', 
+            {
+                "refresh": refreshToken,
+            }
+        )
+        .catch(error => {
+            console.error('Token Updated Error logging in:', error)
+            return null;
+        });
+        console.log(response)
+        if (response)
+            return response.data;
+        return null;
     }
 
     const getUserData = async (accessToken) => {
@@ -37,7 +64,20 @@ export const AuthProvider = (props) => {
                 }
             }
         )
-        .catch(error => console.error('Error logging in:', error));
+        .catch(error => console.error('User Data Error logging in:', error));
+        return response.data;
+    }
+
+    const getMediaData = async (accessToken) => {
+        let response = await axios.get(
+            backendURL + 'api/media/', 
+            {
+                headers: {
+                'Authorization': `Bearer ${accessToken}`
+                }
+            }
+        )
+        .catch(error => console.error('Media Data Error logging in:', error));
         return response.data;
     }
 
@@ -49,27 +89,45 @@ export const AuthProvider = (props) => {
                 "password": password
             }
         )
-        .catch(error => console.error('Error logging in:', error));
+        .catch(error => console.error('Token Error logging in:', error));
         return response.data;
     }
 
-    async function setStorageData(accessToken) {
+    async function setStorageData(accessToken, refreshToken, isMedia) {
+        console.log(isMedia)
         try {
-            let userData = await getUserData(accessToken);
-            let _authData = {
-                token: accessToken, 
-                email: userData.email,
-                firstName: userData.first_name, 
-                lastName: userData.last_name,
-                isMedia: userData.is_media,
-                birthday: userData.birthday,
-                sexe: userData.sexe,
-                logo: "https://s3.eu-west-3.amazonaws.com/ideel.images/logos/le_monde.png",
-                primaryColor: "#000000",
-                secondaryColor: "#222222",
-                complementaryColor: "#ffc700",
-                textColor: "#ffffff",
-            };
+            let _authData = {};
+            if (isMedia){
+                let userData = await getMediaData(accessToken);
+                _authData = {
+                    refreshToken: refreshToken, 
+                    accessToken: accessToken, 
+                    email: userData.email,
+                    name: userData.media.name,
+                    isMedia: isMedia,
+                    logo: userData.media.logo,
+                    bio: userData.media.bio,
+                    primaryColor: userData.media.primary_color,
+                    secondaryColor: userData.media.secondary_color,
+                    complementaryColor: userData.media.complementary_color,
+                    textColor: userData.media.text_color,
+                };     
+            }
+            else {
+                let userData = await getUserData(accessToken);
+                console.log(userData);
+                _authData = {
+                    refreshToken: refreshToken, 
+                    accessToken: accessToken, 
+                    email: userData.email,
+                    firstName: userData.customer.first_name, 
+                    lastName: userData.customer.last_name,
+                    isMedia: isMedia,
+                    birthday: userData.customer.birthday,
+                    sexe: userData.customer.sexe,
+                    profilePicture: userData.customer.profile_picture,
+                };
+            }
             setAuthData(_authData); 
             await AsyncStorage.setItem('@AuthData', JSON.stringify(_authData));
         } catch (error) {
@@ -81,7 +139,7 @@ export const AuthProvider = (props) => {
     const login = async (emailAddress, password) => {
         let tokens = await getTokens(emailAddress, password);
         if (tokens.access !== null && tokens.refresh !== null){
-            await setStorageData(tokens.access);
+            await setStorageData(tokens.access, tokens.refresh, tokens.is_media);
             return false;
         }
         return true;
@@ -117,13 +175,24 @@ export const AuthProvider = (props) => {
     const registerUser = async (userData) => {
         let response = await axios.post(
             backendURL + 'api/register/users/',
-            userData
+            {
+                "username": userData.username,
+                "email": userData.email,
+                "password1": userData.password1,
+                "password2": userData.password2,
+                "first_name": userData.first_name,
+                "last_name": userData.last_name,
+                "birthday": userData.birthday,
+                "followed_medias": [],
+                "liked_articles": []
+            }
         )
-        .catch(error => console.error('Error logging in:', error));
+        .catch(error => console.error('Register User Error logging in:', error));
         return response.data;
     }
 
     const signInUser = async (firstName, lastName, birthday) => {
+        console.log(firstName+" "+lastName+" "+birthday);
         let userData = 
         {
             "username": authData.username,
@@ -133,13 +202,12 @@ export const AuthProvider = (props) => {
             "first_name": firstName,
             "last_name": lastName,
             "birthday": birthday,
-            "followed_medias": [],
-            "liked_articles": []
         }
+        console.log(userData);
         await registerUser(userData);
         let tokens = await getTokens(userData.email, userData.password1);
         if (tokens.access !== null && tokens.refresh !== null){
-            await setStorageData(tokens.access);
+            await setStorageData(tokens.access, tokens.refresh, tokens.is_media);
         }
     };
 

@@ -3,6 +3,8 @@ import { View, Text, Button, Image, TouchableOpacity, FlatList } from 'react-nat
 import { useNavigation } from '@react-navigation/native';
 
 const PageButton = (props) => {
+    const arrowIcon = require('./../assets/icons/arrowIcon.png');
+    console.log(arrowIcon);
     const nav = useNavigation();
 
     let currentInfo = props.currentInfo || "";
@@ -13,7 +15,7 @@ const PageButton = (props) => {
                 <Text className="text-body-text font-bold text-light-1">{props.title}</Text>
                 <Text className="text-caption-text text-light-1 opacity-50">{currentInfo}</Text>
             </View>                
-            <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/32/32213.png" }} className="h-5 w-5 self-center" />
+            <Image source={arrowIcon} className="h-5 w-5 self-center" />
         </TouchableOpacity>
     </View>
 )};

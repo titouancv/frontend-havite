@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import { Modal, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import ImageView from "react-native-image-viewing";
 
-const ImageFullScreen = ({ mainImage, images, indexImage }) => {
+const ImageFullScreen = ({ mainImage, images, indexImage, footerText }) => {
   const [isImageFullScreen, setIsImageFullScreen] = useState(false);
 
   const changeIsImageFullScreen = () => {
@@ -32,6 +32,7 @@ const ImageFullScreen = ({ mainImage, images, indexImage }) => {
         imageIndex={index}
         visible={isImageFullScreen}
         onRequestClose={changeIsImageFullScreen}
+        FooterComponent={() => (<View className="p-2 mb-12"><Text className="text-light-1">{footerText}</Text></View>)}
       />
     )}
     </View>

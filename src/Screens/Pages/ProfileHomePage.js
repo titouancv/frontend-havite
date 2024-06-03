@@ -79,7 +79,7 @@ export default function ProfilHomePage() {
               <View className="w-full bg-primary flex-col justify-center items-center rounded-lg p-4 py-4 space-y-2">
                 <View className="rounded-lg w-[25%] border-4 border-light-1 flex justify-center self-center" style={{backgroundColor: authData.primaryColor}}>
                   <View className="h-20 w-20 rounded-lg self-center">
-                    <Image source={{ uri: authData.logo }} style={{flex: 1, width: null, height: null, resizeMode: 'contain'}} />
+                    <Image source={{ uri: authData.profilePicture }} style={{flex: 1, width: null, height: null, resizeMode: 'contain'}} />
                   </View>
                 </View>
                 <View className="w-full space-y-2">

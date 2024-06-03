@@ -10,7 +10,7 @@ const ImageManager = (props) => {
     {
         imageNumber === 1 && (
             <View className="w-full h-full">
-                <ImageFullScreen mainImage={props.images[0]} images={props.images} indexImage={0}/>
+                <ImageFullScreen mainImage={props.images[0]} images={props.images} indexImage={0} footerText={props.footerText}/>
             </View>
         ) || (
         imageNumber === 2 && (
