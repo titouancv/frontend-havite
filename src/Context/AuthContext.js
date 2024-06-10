@@ -9,7 +9,7 @@ export const AuthProvider = (props) => {
     const [authData, setAuthData] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    let backendURL = "http://172.20.10.3:8000/"
+    let backendURL = "http://192.168.1.29:8000/"
 
     useEffect(() => {
         loadStorageData();
@@ -49,7 +49,6 @@ export const AuthProvider = (props) => {
             console.error('Token Updated Error logging in:', error)
             return null;
         });
-        console.log(response)
         if (response)
             return response.data;
         return null;
@@ -94,7 +93,6 @@ export const AuthProvider = (props) => {
     }
 
     async function setStorageData(accessToken, refreshToken, isMedia) {
-        console.log(isMedia)
         try {
             let _authData = {};
             if (isMedia){
@@ -115,7 +113,6 @@ export const AuthProvider = (props) => {
             }
             else {
                 let userData = await getUserData(accessToken);
-                console.log(userData);
                 _authData = {
                     refreshToken: refreshToken, 
                     accessToken: accessToken, 
@@ -131,7 +128,7 @@ export const AuthProvider = (props) => {
             setAuthData(_authData); 
             await AsyncStorage.setItem('@AuthData', JSON.stringify(_authData));
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
     //---------------------------------------------------------------------------------- Login
@@ -192,7 +189,6 @@ export const AuthProvider = (props) => {
     }
 
     const signInUser = async (firstName, lastName, birthday) => {
-        console.log(firstName+" "+lastName+" "+birthday);
         let userData = 
         {
             "username": authData.username,
@@ -203,7 +199,6 @@ export const AuthProvider = (props) => {
             "last_name": lastName,
             "birthday": birthday,
         }
-        console.log(userData);
         await registerUser(userData);
         let tokens = await getTokens(userData.email, userData.password1);
         if (tokens.access !== null && tokens.refresh !== null){
@@ -214,10 +209,12 @@ export const AuthProvider = (props) => {
     const value = {
         authData,
         loading,
+        backendURL,
         login,
         signOut,
         signInUser,
-        setLogInformation
+        setLogInformation,
+        setStorageData,
     }
     return (
         <AuthContext.Provider value={value} >

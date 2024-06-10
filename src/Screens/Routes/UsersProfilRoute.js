@@ -2,6 +2,9 @@ import React from 'react';
 import { ProfilHomePage, AccountSettingsPage, AboutPage, HelpPage, OtherPage, MediaInfoSettingsPage } from '../Pages';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import ChangeEmailPage from '../Pages/ChangeEmailPage';
+import ChangeGenderPage from '../Pages/ChangeGenderPage';
+import ChangeBirthdayPage from '../Pages/ChangeBirthdayPage';
 
 const ProfileStack = createNativeStackNavigator();
 
@@ -75,6 +78,36 @@ export default function UsersProfilRoute() {
         options={{
           headerShown: true,
           title: "Media Informations",
+          headerStyle: {backgroundColor: '#305536'},
+          headerTintColor: "#f9f4ea"
+        }}
+      />
+      <ProfileStack.Screen
+        name="ChangeEmailPage"
+        component={ChangeEmailPage}
+        options={{
+          headerShown: true,
+          title: "Email",
+          headerStyle: {backgroundColor: '#305536'},
+          headerTintColor: "#f9f4ea"
+        }}
+      />
+      <ProfileStack.Screen
+        name="ChangeGenderPage"
+        component={ChangeGenderPage}
+        options={{
+          headerShown: true,
+          title: "Gender",
+          headerStyle: {backgroundColor: '#305536'},
+          headerTintColor: "#f9f4ea"
+        }}
+      />
+      <ProfileStack.Screen
+        name="ChangeBirthdayPage"
+        component={ChangeBirthdayPage}
+        options={{
+          headerShown: true,
+          title: "Birthday",
           headerStyle: {backgroundColor: '#305536'},
           headerTintColor: "#f9f4ea"
         }}

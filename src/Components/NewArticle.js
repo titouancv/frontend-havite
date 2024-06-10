@@ -8,7 +8,11 @@ import NewFrameStep2 from './NewFrameStep2';
 
 const NewArticle = (props) => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const [activeDataFrame, setActiveDataFrame] = useState(null);
+    const [activeDataFrame, setActiveDataFrame] = useState({      
+        "title": null,
+        "contents": [],
+        "illustrations": []
+    });
     const [isNewFrame, setIsNewFrame] = useState(false);
     const [isModify, setIsModify] = useState(false);
     const [stepNumber, setStepNumber] = useState(1);
@@ -36,36 +40,33 @@ const NewArticle = (props) => {
         setStepNumber(2);
     }
 
-    const addFrame = (typeOfFrame, title, text1, text2, text3, text4, illustration1, illustration2, illustration3, illustration4) => {
-        if (isNewFrame && typeOfFrame && (title || text1 || text2 || text3 || text4 || illustration1  || illustration2  || illustration3  || illustration4 )){
+    const addFrame = (typeOfFrame, title, text1, text2, illustrations) => {
+        if (isNewFrame && typeOfFrame && (title || text1 || text2 || illustrations.length > 0)){
             if (isModify)
             {
-                dataFrames[activeIndex].typeOfFrame=typeOfFrame
+                dataFrames[activeIndex].type_of_frame=typeOfFrame
                 dataFrames[activeIndex].title= title
-                dataFrames[activeIndex].text1= text1
-                dataFrames[activeIndex].text2= text2
-                dataFrames[activeIndex].text3= text3
-                dataFrames[activeIndex].text4= text4
-                dataFrames[activeIndex].illustration1= illustration1
-                dataFrames[activeIndex].illustration2= illustration2
-                dataFrames[activeIndex].illustration3= illustration3
-                dataFrames[activeIndex].illustration4= illustration4
+
+                dataFrames[activeIndex].contents = []
+                dataFrames[activeIndex].contents.push(text1)
+                dataFrames[activeIndex].contents.push(text2)
+
+                dataFrames[activeIndex].illustrations = illustrations
                 setIsModify(false);
                 setActiveDataFrame(null);
                 setDataFrames(dataFrames);
             }
             else {
+                let contents = [];
+                //contents.push(text1)
+                //contents.push(text2)
+                console.log(illustrations);
+                
                 dataFrames.push({ id: dataFrames.length - 1, 
-                    typeOfFrame:typeOfFrame, 
-                    title: title,
-                    text1: text1,
-                    text2: text2,
-                    text3: text3,
-                    text4: text4,
-                    illustration1: illustration1,
-                    illustration2: illustration2,
-                    illustration3: illustration3,
-                    illustration4: illustration4,
+                    type_of_frame:typeOfFrame, 
+                    title: title || "Test",
+                    contents: contents,
+                    illustrations: illustrations
                 })
                 setDataFrames(dataFrames);
                 setRemainingFrames(remainingFrames - 1);
@@ -79,7 +80,7 @@ const NewArticle = (props) => {
     const modifyFrame = () => {
         if (activeIndex > -1) { 
             setActiveDataFrame(dataFrames[activeIndex]);
-            setFrameType(dataFrames[activeIndex].typeOfFrame);
+            setFrameType(dataFrames[activeIndex].type_of_frame);
             setIsModify(true);
             setStepNumber(2);
             setIsNewFrame(true);
@@ -98,34 +99,26 @@ const NewArticle = (props) => {
         let frames = [];
         dataFrames.forEach((frame) => {
     
-            let images = [];
-            if (frame.illustration1 != null)
-                images.push(frame.illustration1);
-            if (frame.illustration2 != null)
-                images.push(frame.illustration2);
-            if (frame.illustration3 != null)
-                images.push(frame.illustration3);
-            if (frame.illustration4 != null)
-                images.push(frame.illustration4);
+            let images = frame.illustrations || [];
     
-            switch (frame.typeOfFrame) {
+            switch (frame.type_of_frame) {
                 case "coverFrame":
-                    frames.push(<CoverFrame title={frame.title} text={frame.text1} images={images} textColor={props.textColor}></CoverFrame>);
+                    frames.push(<CoverFrame title={frame.title} text={frame.contents[0]} images={images} textColor={props.textColor}></CoverFrame>);
                     break;
                 case "textImageFrame":
-                    frames.push(<TextImageFrame text={frame.text1} images={images} textColor={props.textColor}></TextImageFrame>);
+                    frames.push(<TextImageFrame text={frame.contents[0]} images={images} textColor={props.textColor}></TextImageFrame>);
                     break;
                 case "imageTextFrame":
-                    frames.push(<ImageTextFrame text={frame.text1} images={images} textColor={props.textColor}></ImageTextFrame>);
+                    frames.push(<ImageTextFrame text={frame.contents[0]} images={images} textColor={props.textColor}></ImageTextFrame>);
                     break;
                 case "textFrame":
-                    frames.push(<TextFrame text={frame.text1} textColor={props.textColor}></TextFrame>);
+                    frames.push(<TextFrame text={frame.contents[0]} textColor={props.textColor}></TextFrame>);
                     break;
                 case "imageFrame":
                     frames.push(<ImageFrame images={images} />);
                     break;
                 case "textImageTextFrame":
-                    frames.push(<TextImageTextFrame text={frame.text1} images={images} textColor={props.textColor}></TextImageTextFrame>);
+                    frames.push(<TextImageTextFrame firstText={frame.contents[0]} secondText={frame.contents[1]} images={images} textColor={props.textColor}></TextImageTextFrame>);
               }
         })
         frames.push(
@@ -175,7 +168,9 @@ const NewArticle = (props) => {
                             stepNumber == 1 && (
                                 <NewFrameStep1  changeFrameType={changeFrameType} changeIsNewFrame={changeIsNewFrame}/>
                             ) || (
+                                <>
                                 <NewFrameStep2 changeStepNumber={changeStepNumber} addFrame={addFrame} frameType={frameType} data={activeDataFrame} isModify={isModify}/>
+                                </>
                             )
                         }
                     </View>

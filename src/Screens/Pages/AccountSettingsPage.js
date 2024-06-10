@@ -75,16 +75,16 @@ export default function AccountSettingsPage() {
                 <PageButton title="Profile Picture" nextPage="HelpPage"/>
               </View>
               <View>
-                <PageButton title="Email" currentInfo={authData.email} nextPage="HelpPage"/>
+                <PageButton title="Email" currentInfo={authData.email} nextPage="ChangeEmailPage"/>
               </View>
               <View>
                 <PageButton title="Password" nextPage="HelpPage"/>
               </View>
               <View>
-                <PageButton title="Birthday" currentInfo={authData.birthday} nextPage="HelpPage"/>
+                <PageButton title="Birthday" currentInfo={authData.birthday} nextPage="ChangeBirthdayPage"/>
               </View>
               <View>
-                <PageButton title="Sexe" currentInfo={authData.sexe} nextPage="HelpPage"/>
+                <PageButton title="Sexe" currentInfo={authData.sexe} nextPage="ChangeGenderPage"/>
               </View>
             </View>
             <View className="w-[95%] self-center">

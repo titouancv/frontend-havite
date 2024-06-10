@@ -9,65 +9,49 @@ import TextInputButton from './TextInputButton';
 const NewFrameStep2 = (props) => {
     let data = (props.data || {});
     const [title, setTitle] = useState(data.title || null);
-    const [text1, setText1] = useState(data.text1 || null);
-    const [text2, setText2] = useState(data.text2 || null);
-    const [text3, setText3] = useState(data.text3 || null);
-    const [text4, setText4] = useState(data.text4 || null);
-    const [illustration1, setillustration1] = useState(data.illustration1 || null);
-    const [illustration2, setillustration2] = useState(data.illustration2 || null);
-    const [illustration3, setillustration3] = useState(data.illustration3 || null);
-    const [illustration4, setillustration4] = useState(data.illustration4 || null);
-
+    const [illustrations, setIllustrations] = useState(data.illustrations);
+    const [text1, setText1] = useState(data.contents[0] || "");
+    const [text2, setText2] = useState(data.contents[1] || "");
     const pickImage = async (imageNumber) => {
-      // No permissions request is necessary for launching the image library
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 1,
       });
   
       if (!result.canceled) {
-        switch (imageNumber) {
-            case 1:
-                setillustration1(result.assets[0].uri);
-                break;
-            case 2:
-                setillustration2(result.assets[0].uri);
-                break;
-            case 3:
-                setillustration3(result.assets[0].uri);
-                break;
-            case 4:
-                setillustration4(result.assets[0].uri);
-          }
+        if (imageNumber > illustrations.length){
+            let i = [];
+            i = i.concat(illustrations);
+            i.push(result.assets[0].uri);
+            setIllustrations(i);
+            
+        }
+        else {
+            let illustration = [];
+            for (let i = 0 ; i < illustrations.length; i++){
+                if (i + 1 != imageNumber)
+                    illustration.push(illustrations[i]);
+                else
+                    illustration.push(result.assets[0].uri);
+            }
+            setIllustrations(illustration);
+        }
       }
     };
 
     const deleteImage = async (imageNumber) => {
-    
-          switch (imageNumber) {
-              case 1:
-                  setillustration1(illustration2);
-                  setillustration2(illustration3);
-                  setillustration3(illustration4);
-                  setillustration4(null);
-                  break;
-              case 2:
-                    setillustration2(illustration3);
-                    setillustration3(illustration4);
-                    setillustration4(null);
-                  break;
-              case 3:
-                    setillustration3(illustration4);
-                    setillustration4(null);
-                  break;
-              case 4:
-                    setillustration4(null);
-            }
+        let illustration = [];
+        for (let i = 0 ; i < illustrations.length; i++){
+            if (i + 1 != imageNumber)
+                illustration.push(illustrations[i]);
+        }
+        setIllustrations(illustration);
       };
 
     const ImagePickerComponent = (props) => {
-        let image = props.image;
+        let image = illustrations[props.imageNumber-1] || null;
         let imageNumber = props.imageNumber;
+        let isNextOne = imageNumber === illustrations.length + 1;
         return (
         <View className="h-full w-full">
         {image && (
@@ -78,7 +62,7 @@ const NewFrameStep2 = (props) => {
                 </TouchableOpacity>
             </View>
         ) || (
-        props.isNextOne && (<TouchableOpacity className="h-full w-full border-2 border-light-1 bg-grey-100 rounded-lg flex justify-center items-center" onPress={() => pickImage(imageNumber)}>
+        isNextOne && (<TouchableOpacity className="h-full w-full border-2 border-light-1 bg-grey-100 rounded-lg flex justify-center items-center" onPress={() => pickImage(imageNumber)}>
                 <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/992/992651.png" }} className="h-1/2 w-1/2 rounded-lg"/>
             </TouchableOpacity>
         )) || (
@@ -111,10 +95,10 @@ const NewFrameStep2 = (props) => {
                                         <Text className="text-h5 font-bold color-light-1 mb-1">Images:</Text>
                                         <View className="h-2/3 border-2 border-light-1 rounded-lg p-2">
                                             <View className="flex-row space-x-2 justify-center items-center">
-                                                <View className="h-full w-[23%]"><ImagePickerComponent image={illustration1} imageNumber={1} isNextOne={true}/></View>
-                                                <View className="h-full w-[23%]"><ImagePickerComponent image={illustration2} imageNumber={2} isNextOne={illustration1 != null}/></View>
-                                                <View className="h-full w-[23%]"><ImagePickerComponent image={illustration3} imageNumber={3} isNextOne={illustration2 != null}/></View>
-                                                <View className="h-full w-[23%]"><ImagePickerComponent image={illustration4} imageNumber={4} isNextOne={illustration3 != null}/></View>
+                                                <View className="h-full w-[23%]"><ImagePickerComponent imageNumber={1} /></View>
+                                                <View className="h-full w-[23%]"><ImagePickerComponent imageNumber={2} /></View>
+                                                <View className="h-full w-[23%]"><ImagePickerComponent imageNumber={3} /></View>
+                                                <View className="h-full w-[23%]"><ImagePickerComponent imageNumber={4} /></View>
                                             </View>
                                         </View>
                                     </View>
@@ -129,6 +113,7 @@ const NewFrameStep2 = (props) => {
                                         <View className="h-2/3 border-2 border-light-1 rounded-lg p-2">
                                             <TextInput 
                                                 placeholder= "Enter your text"
+                                                value={text1}
                                                 placeholderTextColor={"#ff7d72"} 
                                                 className="h-full w-full text-body-text color-secondary"
                                                 onChangeText={(text) => setText1(text)}
@@ -146,6 +131,7 @@ const NewFrameStep2 = (props) => {
                                         <View className="h-2/3 border-2 border-light-1 rounded-lg p-2">
                                             <TextInput 
                                                 placeholder= "Enter your text"
+                                                value={text2}
                                                 placeholderTextColor={"#ff7d72"} 
                                                 className="h-full w-full text-body-text color-secondary"
                                                 onChangeText={(text) => setText2(text)}
@@ -160,7 +146,7 @@ const NewFrameStep2 = (props) => {
                         <TouchableOpacity className="w-[49%] py-1 self-center items-center border-4 border-light-1 rounded-lg" onPress={props.changeStepNumber}>
                                 <Text className="text-h5 text-light-1 font-bold">Back</Text>
                             </TouchableOpacity>
-                        <TouchableOpacity className="w-[49%] py-1 self-center items-center border-4 border-light-1 rounded-lg" onPress={() => (props.addFrame(props.frameType, title, text1, text2, text3, text4, illustration1, illustration2, illustration3, illustration4))}>
+                        <TouchableOpacity className="w-[49%] py-1 self-center items-center border-4 border-light-1 rounded-lg" onPress={() => (props.addFrame(props.frameType, title, text1, text2, illustrations))}>
                             <Text className="text-h5 text-light-1 font-bold">{props.isModify && "Modify" || "Add"}</Text>
                         </TouchableOpacity>
                     </View>

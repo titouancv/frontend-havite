@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 
 const PageButton = (props) => {
     const arrowIcon = require('./../assets/icons/arrowIcon.png');
-    console.log(arrowIcon);
     const nav = useNavigation();
 
     let currentInfo = props.currentInfo || "";
