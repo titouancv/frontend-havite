@@ -5,38 +5,53 @@ import { useNavigation } from '@react-navigation/native';
 import { PageButton, TextInputButton } from '../../Components';
 import { AuthContext } from '../../Context/AuthContext';
 import { updtateUser } from '../../Services/UserService';
+import { updtateMedia } from '../../Services/MediaService';
 
 
 export default function ChangeEmailPage() {
-  const {backendURL, authData, setStorageInformation} = useContext(AuthContext)
-  const [emailAddress, onChangeEmailAddress] = React.useState('');
+  const {backendURL, authData, setStorageData} = useContext(AuthContext)
+  const [email, setEmail] = React.useState('');
   const nav = useNavigation();
 
   const changeEmail = async () => {
-    let userData = {
-        "username": "test",
-        "email": {emailAddress},
-        "customer": {
-          "first_name": "string",
-          "last_name": "string",
-          "sexe": "s",
-          "birthday": "2024-06-10",
-          "followed_medias": [
-            "string"
-          ],
-          "liked_articles": {},
-          "groups": [
-            0
-          ],
-          "user_permissions": [
-            0
-          ]
+    if (authData.isMedia)
+    {
+      let mediaData = {
+        username: authData.username,
+        email,
+        "media": {
+          name: authData.name,
+          bio: authData.bio,
+          website: authData.website,
+          editorial_address: authData.editorial_address,
+          primary_color: authData.primaryColor,
+          secondary_color: authData.secondaryColor,
+          complementary_color: authData.complementary,
+          text_color: authData.textColor,
+          foundation_date: authData.foundationDate,
+          owner: authData.owners,
+          founder: authData.founders,
+          managing_editor: authData.managingEditor,
+          publishing_editor: authData.publishingEditor
         }
       }
-    console.log(emailAddress);
-    updtateUser(userData, authData.accessToken, backendURL);
-    await setStorageInformation(authData.accessToken, authData.refreshToken, authData.isMedia);
+      updtateMedia(mediaData, authData.accessToken, backendURL);
+    }
+    else {
+      let userData = {
+        username: authData.username,
+        email,
+        "customer": {
+          first_name: authData.firstName,
+          last_name: authData.lastName,
+          gender: authData.gender,
+          birthday: authData.birthday,
+        }
+      }
+      updtateUser(userData, authData.accessToken, backendURL);
+    }
     nav.navigate("AccountSettingsPage");
+    await setStorageData(authData.accessToken, authData.refreshToken, authData.isMedia);
   }
 
   return (
@@ -51,10 +66,10 @@ export default function ChangeEmailPage() {
                 <View className=" w-full border-2 border-secondary rounded-lg p-2">
                     <TextInput 
                         placeholder="Enter your new email" 
-                        value={emailAddress}
+                        value={email}
                         placeholderTextColor={"#ff7d72"} 
                         className="text-body-text color-secondary" 
-                        onChangeText={(text) => onChangeEmailAddress(text)}
+                        onChangeText={(text) => setEmail(text)}
                         returnKeyType={"done"}
                         keyboardType="email-address"
                         autoComplete='email'

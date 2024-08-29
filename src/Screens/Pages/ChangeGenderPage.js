@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
-import { View, Text, TextInput, FlatList, Image, TouchableOpacity } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
 import { AuthContext } from '../../Context/AuthContext';
@@ -8,34 +7,24 @@ import { updtateUser } from '../../Services/UserService';
 
 
 export default function ChangeGenderPage() {
-  const {backendURL, authData, setStorageInformation} = useContext(AuthContext)
-  const [gender, setGender] = React.useState(authData.sexe);
+  const {backendURL, authData, setStorageData} = useContext(AuthContext)
+  const [gender, setGender] = React.useState(authData.gender);
   const nav = useNavigation();
 
   const changeEmail = async () => {
     let userData = {
-        "username": "test",
-        "email": "",
-        "customer": {
-          "first_name": "string",
-          "last_name": "string",
-          "sexe": {gender},
-          "birthday": "2024-06-10",
-          "followed_medias": [
-            "string"
-          ],
-          "liked_articles": {},
-          "groups": [
-            0
-          ],
-          "user_permissions": [
-            0
-          ]
-        }
+      username: authData.username,
+      email: authData.email,
+      "customer": {
+        first_name: authData.firstName,
+        last_name: authData.lastName,
+        gender: gender,
+        birthday: authData.birthday,
       }
+    }
     updtateUser(userData, authData.accessToken, backendURL);
-    await setStorageInformation(authData.accessToken, authData.refreshToken, authData.isMedia);
     nav.navigate("AccountSettingsPage");
+    await setStorageData(authData.accessToken, authData.refreshToken, authData.isMedia);
   }
 
   return (
@@ -43,7 +32,7 @@ export default function ChangeGenderPage() {
       <View className="bg-light-1 h-full">
         <View className="h-full flex-col w-full space-y-4 pt-4">
             <View className="w-[95%] self-center">
-                <Text className="text-h5 text-primary text-center">{authData.sexe}</Text>
+                <Text className="text-h5 text-primary text-center">{authData.gender}</Text>
             </View>
             <View className="w-[95%] self-center space-y-2">
                 <Text className="text-h5 font-bold text-primary">Change your gender</Text>

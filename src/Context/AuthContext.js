@@ -9,7 +9,7 @@ export const AuthProvider = (props) => {
     const [authData, setAuthData] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    let backendURL = "http://192.168.1.29:8000/"
+    let backendURL = "http://192.168.1.29:3000/"
 
     useEffect(() => {
         loadStorageData();
@@ -99,7 +99,8 @@ export const AuthProvider = (props) => {
                 let userData = await getMediaData(accessToken);
                 _authData = {
                     refreshToken: refreshToken, 
-                    accessToken: accessToken, 
+                    accessToken: accessToken,
+                    username:  userData.username, 
                     email: userData.email,
                     name: userData.media.name,
                     isMedia: isMedia,
@@ -116,12 +117,13 @@ export const AuthProvider = (props) => {
                 _authData = {
                     refreshToken: refreshToken, 
                     accessToken: accessToken, 
+                    username:  userData.username,
                     email: userData.email,
                     firstName: userData.customer.first_name, 
                     lastName: userData.customer.last_name,
                     isMedia: isMedia,
                     birthday: userData.customer.birthday,
-                    sexe: userData.customer.sexe,
+                    gender: userData.customer.gender,
                     profilePicture: userData.customer.profile_picture,
                 };
             }

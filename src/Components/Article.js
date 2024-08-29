@@ -40,7 +40,7 @@ const Article = (props) => {
                     frames.push(<ImageFrame images={images} />);
                     break;
                 case "textImageTextFrame":
-                    frames.push(<TextImageTextFrame text={frame.text1} images={images} textColor={props.textColor}></TextImageTextFrame>);
+                    frames.push(<TextImageTextFrame text1={frame.text1} text2={frame.text2} images={images} textColor={props.textColor}></TextImageTextFrame>);
               }
         })
         frames.push(<CreditFrame authors={props.authors} date={props.date} sources={props.sources} tags={props.tags} like={props.likes} dislike={props.dislikes} primaryColor={props.complimentaryColor} textColor={props.secondaryColor}/>);

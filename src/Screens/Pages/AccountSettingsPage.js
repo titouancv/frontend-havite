@@ -8,6 +8,7 @@ import { AuthContext } from '../../Context/AuthContext';
 
 export default function AccountSettingsPage() {
   const {signOut, authData} = useContext(AuthContext)
+  let birthdayDate = new Date(authData.birthday);
   return (
     <SafeAreaProvider>
     {authData.isMedia && (
@@ -26,7 +27,7 @@ export default function AccountSettingsPage() {
                 <PageButton title="Name" currentInfo={authData.name} nextPage="HelpPage"/>
               </View>
               <View>
-                <PageButton title="Email" currentInfo={authData.email} nextPage="HelpPage"/>
+                <PageButton title="Email" currentInfo={authData.email} nextPage="ChangeEmailPage"/>
               </View>
               <View>
                 <PageButton title="Password" nextPage="HelpPage"/>
@@ -81,10 +82,10 @@ export default function AccountSettingsPage() {
                 <PageButton title="Password" nextPage="HelpPage"/>
               </View>
               <View>
-                <PageButton title="Birthday" currentInfo={authData.birthday} nextPage="ChangeBirthdayPage"/>
+                <PageButton title="Birthday" currentInfo={birthdayDate.toDateString()} nextPage="ChangeBirthdayPage"/>
               </View>
               <View>
-                <PageButton title="Sexe" currentInfo={authData.sexe} nextPage="ChangeGenderPage"/>
+                <PageButton title="Gender" currentInfo={authData.gender} nextPage="ChangeGenderPage"/>
               </View>
             </View>
             <View className="w-[95%] self-center">

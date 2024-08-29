@@ -8,35 +8,25 @@ import { updtateUser } from '../../Services/UserService';
 
 
 export default function ChangeBirthdayPage() {
-  const {backendURL, authData, setStorageInformation} = useContext(AuthContext)
+  const {backendURL, authData, setStorageData} = useContext(AuthContext)
   const [birthday, setBirthday] = React.useState(new Date());
   const nav = useNavigation();
+  let birthdayDate = new Date(authData.birthday);
 
   const changeBirthday = async () => {
     let userData = {
-        "username": "test",
-        "email": {emailAddress},
-        "customer": {
-          "first_name": "string",
-          "last_name": "string",
-          "sexe": "s",
-          "birthday": "2024-06-10",
-          "followed_medias": [
-            "string"
-          ],
-          "liked_articles": {},
-          "groups": [
-            0
-          ],
-          "user_permissions": [
-            0
-          ]
-        }
+      username: authData.username,
+      email: authData.email,
+      "customer": {
+        first_name: authData.firstName,
+        last_name: authData.lastName,
+        gender: authData.gender,
+        birthday: birthday,
       }
-    console.log(emailAddress);
+    }
     updtateUser(userData, authData.accessToken, backendURL);
-    await setStorageInformation(authData.accessToken, authData.refreshToken, authData.isMedia);
     nav.navigate("AccountSettingsPage");
+    await setStorageData(authData.accessToken, authData.refreshToken, authData.isMedia);
   }
 
   const onChange = (event, selectedDate) => {
@@ -49,11 +39,11 @@ export default function ChangeBirthdayPage() {
       <View className="bg-light-1 h-full">
         <View className="h-full flex-col w-full space-y-4 pt-4">
             <View className="w-[95%] self-center">
-                <Text className="text-h5 text-primary text-center">{authData.birthday}</Text>
+                <Text className="text-h5 text-primary text-center">{birthdayDate.toDateString()}</Text>
             </View>
             <View className="w-[95%] self-center space-y-2">
                 <Text className="text-h5 font-bold text-primary">Change your birthday</Text>
-                <View className=" w-full border-2 border-secondary rounded-lg p-2">
+                <View className=" w-full border-2 border-secondary rounded-lg p-2 items-center">
                     <DateTimePicker
                     testID="dateTimePicker"
                     value={birthday}
@@ -65,7 +55,7 @@ export default function ChangeBirthdayPage() {
             </View>
             <View className="w-[95%] self-center">
               <TouchableOpacity className="w-full self-center bg-secondary border-2 border-secondary rounded-lg p-1 " onPress={changeBirthday}>
-                <Text className="text-body-text font-bold text-light-1 self-center">{birthday.toDateString()}</Text>
+                <Text className="text-body-text font-bold text-light-1 self-center">Change your birthday</Text>
               </TouchableOpacity>
             </View>
         </View>
