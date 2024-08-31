@@ -21,10 +21,10 @@ export const NewPublicationProvider = (props) => {
         setArticleStep(1);
     }
 
-    const postArticle = async (dataArticle, token) => {
+    const postArticle = async (article, token) => {
         let response = await axios.post(
             backendURL + 'api/articles/',
-            dataArticle, 
+            article, 
             {
                 headers: {
                 'Authorization': `Bearer ${token}`
@@ -34,15 +34,27 @@ export const NewPublicationProvider = (props) => {
         .catch(error => console.error('POST Article Error logging in:', error.request.response));
     }
 
-    const publish = (authors, sources, tags) =>{
-        let dataArticle = {
-            "tags": tags,
-            "authors": authors,
-            "sources": "sources",
-            "frames": dataFrame
+    const publish = (authors, sources, tags, title) =>{
+        let article = {
+            id: 1,
+            informations: {
+                logo: "",
+                title: title,
+                date: "date",
+                tags: tags,
+                authors: authors,
+                sources: sources,
+                primaryColor: authData.primaryColor,
+                secondaryColor: authData.secondaryColor,
+                complimentaryColor: authData.complementaryColor,
+                textColor: authData.textColor,
+                likes: 0,
+                dislikes: 0,
+            },
+            frames: dataFrame
         }
         let token = authData.accessToken;
-        postArticle(dataArticle, token);
+        postArticle(article, token);
     }
 
     const value = {

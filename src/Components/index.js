@@ -9,8 +9,6 @@ import ImageManager from "./ImageManager";
 import MediaAccountHeader from "./MediaAccountHeader";
 import BottomTabBar from "./BottomTabBar";
 import NewArticle from "./NewArticle";
-import NewFrameStep1 from "./NewFrameStep1";
-import NewFrameStep2 from "./NewFrameStep2";
 import CreditForm from "./CreditForm";
 
 export {
@@ -24,7 +22,5 @@ export {
     MediaAccountHeader,
     BottomTabBar,
     NewArticle,
-    NewFrameStep1,
-    NewFrameStep2,
     CreditForm,
 }
