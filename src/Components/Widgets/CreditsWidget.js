@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, Button, Dimensions, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform, StyleSheet, Modal} from 'react-native';
-import { BlurView } from 'expo-blur';
-import ModifyWidgetOverlay from '../ModifyWidgetOverlay';
-import UpdateModal from '../UpdateModal';
+import Search from '../Search';
 import { FormRow } from '../FormRow';
+import WidgetModal from '../WidgetModal';
 
 const CreditsWidget = (props) => {
     const { width, height } = Dimensions.get('window');
@@ -12,6 +11,7 @@ const CreditsWidget = (props) => {
     const [isInputTags, setIsInputTags] = useState(false);
     const [authors, setAuthors] = useState(props.authors);
     const [sources, setSources] = useState(props.sources);
+    const [sourcesReduce, setSourcesReduce] = useState(reduceUrls(props.sources));
     const [tags, setTags] = useState(props.tags);
     const [likes, setLikes] = useState(props.likes);
     const [dislikes, setDislikes] = useState(props.dislikes);
@@ -40,6 +40,7 @@ const CreditsWidget = (props) => {
         setIsInputSources(false);
         if (value !== "" && !sources.find(element => (element == value)))
             sources.unshift(value);
+        setSourcesReduce(reduceUrls(sources));
         setSources(sources);
     }
 
@@ -65,6 +66,7 @@ const CreditsWidget = (props) => {
             if (element !== value)
                 updatedList.push(element);
         });
+        setSourcesReduce(reduceUrls(updatedList));
         setSources(updatedList);
     }
 
@@ -77,43 +79,55 @@ const CreditsWidget = (props) => {
         setTags(updatedList);
     }
 
-    const SearchModal = (props) => {
-        const [value, setValue] = useState("");
-        let inputRef = useRef();
-        return (
-            <View className="h-full w-full pt-4 p-2 rounded-t-xl bg-primary absolute bottom-0 z-10">
-            <ScrollView automaticallyAdjustKeyboardInsets={true} scrollEnabled={false} className="h-full w-full">
-                <View className="">
-                    <View className=" w-full border-2 border-secondary rounded-lg p-2">
-                        <TextInput 
-                            ref={inputRef}
-                            onLayout={() => inputRef.current.focus()}
-                            placeholder={props.placeholder} 
-                            value={value}
-                            placeholderTextColor={"#ff7d72"} 
-                            className="text-body-text color-secondary" 
-                            onChangeText={(text) => setValue(text)}
-                            returnKeyType={"done"}
-                            onSubmitEditing={() => props.onSubmitEditing(value)}
-                        />
-                    </View>
-                </View>
-            </ScrollView>
-            </View>
-        )
-    }
+    function reduceUrl(url) {
+        try {
+          const parsedUrl = new URL(url);
+          
+          const domain = parsedUrl.hostname;
+      
+          const domainParts = domain.split('.');
+      
+          if (domainParts.length > 2) {
+            return domainParts.slice(-2).join('.');
+          }
+      
+          return domain;
+        } catch (error) {
+          console.error("URL invalide :", error);
+          return url;
+        }
+      }
+      
+      function reduceUrls(urls) {
+        return urls.map(reduceUrl);
+      }
 
     return (
         <View className="h-full w-full">
+            {isInputAuthors && (
+                <WidgetModal title={""} isUpdating={isInputAuthors} handleBack={() => setIsInputAuthors(!isInputAuthors)}  updateWidget={() => setIsInputAuthors(!isInputAuthors)}>
+                    <Search placeholder={"Add an author"} onSubmitEditing={addAuthors}></Search>
+                </WidgetModal>
+                )}
+            {isInputSources && (
+                <WidgetModal title={""} isUpdating={isInputSources} handleBack={() => setIsInputSources(!isInputSources)}  updateWidget={() => setIsInputSources(!isInputSources)}>
+                    <Search placeholder={"Add a sources"} onSubmitEditing={addSources}></Search>
+                </WidgetModal>
+            )}
+            {isInputTags && (
+                <WidgetModal title={""} isUpdating={isInputTags} handleBack={() => setIsInputTags(!isInputTags)}  updateWidget={() => setIsInputTags(!isInputTags)}>
+                    <Search placeholder={"Add a tag"} onSubmitEditing={addTags}></Search>
+                </WidgetModal>
+            )}
             <ScrollView className="h-full w-full space-y-2 pt-2" scrollEnabled={false}>
                 <View className="w-full">
                     <Text className="text-caption-text text-left" style={{color: props.color}} >{"Published on "+ date}</Text>        
                 </View>
-                <View className="w-full space-x-2 flex-row">
-                    <View className="w-[48%] rounded-lg py-1" style={{backgroundColor: props.color}}>
+                <View className="w-full flex-row justify-between flex-row">
+                    <View className="w-[49%] rounded-lg py-1" style={{backgroundColor: props.color}}>
                         <Text className="text-body-text text-center font-bold" style={{color: props.textColor}} >{likes+" likes"}</Text>
                     </View>
-                    <View className="w-[48%] rounded-lg py-1" style={{backgroundColor: props.color}}>
+                    <View className="w-[49%] rounded-lg py-1" style={{backgroundColor: props.color}}>
                         <Text className="text-body-text text-center font-bold" style={{color: props.textColor}} >{dislikes+" dislikes"}</Text>
                     </View>              
                 </View>
@@ -129,7 +143,7 @@ const CreditsWidget = (props) => {
                     />
                     <View className="w-full h-[1px] my-2 flex justify-center opacity-40" style={{backgroundColor: props.color}}></View>
                     <FormRow 
-                        itemList={sources} 
+                        itemList={sourcesReduce} 
                         title={"Source(s)"} 
                         openSearchModal={openSources} 
                         deleteValue={deleteSource}                    

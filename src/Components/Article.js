@@ -1,19 +1,36 @@
 import React, { useState, useRef, useContext } from 'react';
-import { View, Text, Button, Image, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { View, Text, ScrollView, TextInput, Image, TouchableOpacity, FlatList, Dimensions, Modal, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MediaContext } from '../Context/MediaContext';
 import TextWidget from './Widgets/TextWidget';
 import ImagesWidget from './Widgets/ImagesWidget';
 import EmptyWidget from './Widgets/EmptyWidget';
 import CreditsWidget from './Widgets/CreditsWidget.js';
+import { BlurView } from 'expo-blur';
+import { NewPublicationContext } from '../Context/NewPublicationContext';
+import TitleView from './TitleView.js';
+import {MoreVert, ThumbDown, ThumbDownFilled, Send} from '../assets/iconSVG/Icons.js'
 
 const Article = (props) => {
-    const [activeIndex, setActiveIndex] = useState(0);
     const navigation = useNavigation();
     const {loadMediaData} = useContext(MediaContext);
+    const {update} = useContext(NewPublicationContext);
+
+    const [isLiked, setIsLiked] = useState(false);
+    const [isDisliked, setIsDisliked] = useState(false);
     const [isModify, setIsModify] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
+
     const [data, setData] = useState(props.dataFrames);
+    const [title, setTitle]= useState(props.title);
+    const [authors, setAuthors] = useState(props.authors);
+    const [sources, setSources] = useState(props.sources);
+    const [tags, setTags] = useState(props.tags);
+    const [likes, setLikes] = useState(props.likes);
+    const [dislikes, setDisikes] = useState(props.dislikes);
+
     const [dataFrames, setDataFrames] = useState();
+    const [activeIndex, setActiveIndex] = useState(0);
 
     const { width, height } = Dimensions.get('window');
 
@@ -72,9 +89,13 @@ const Article = (props) => {
 
     const makeFrames = () => {
         let frames = [];
+        
         data.forEach((frame) => {
 
             let widgets = [];
+            if (frame.widgets)
+            {
+                
             let index = 0;
             frame.widgets.forEach((widget) => {
                 index++;
@@ -98,9 +119,10 @@ const Article = (props) => {
             })
             if(widgets.length === 0)
                 widgets.push(<EmptyWidget complimentaryColor={props.complimentaryColor} isModify={isModify} setIsModify={setIsModify} position={"F"} addWidget={addWidget}/>)
+            }
             frames.push(widgets)
         })
-        frames.push(<CreditsWidget authors={props.authors} date={props.date} sources={props.sources} tags={props.tags} likes={props.likes} dislikes={props.dislikes} color={props.complimentaryColor} textColor={props.secondaryColor} isModify={isModify}/>);
+        frames.push(<CreditsWidget authors={authors} date={props.date} sources={sources} tags={tags} likes={likes} dislikes={dislikes} color={props.complimentaryColor} textColor={props.secondaryColor} isModify={isModify}/>);
         return frames;
     }
  
@@ -114,10 +136,16 @@ const Article = (props) => {
     const handleOtherButton = () => {
         setIsModify(!isModify);
     };
+
+    const handleUpdateButton = () => {
+        console.log(data);
+        update(authors, sources, tags, title, data);
+        setIsModify(!isModify);
+    }
   
     const renderItem = ({ item }) => {
       return (
-        <View className="h-[95%] p-2 flex" style={{width: width*0.938}}>
+        <View className="h-[97%] p-2 flex" style={{width: width*0.938}}>
           {item}
         </View>
       );
@@ -126,6 +154,64 @@ const Article = (props) => {
     const changePage = () => {
         navigation.navigate("MediaAccountPage");
         loadMediaData(props.logoMedia, props.primaryColor, props.secondaryColor, props.complimentaryColor, props.textColor);
+    }
+
+    const SocialBar = (props) => {
+        return (
+            <>
+            {
+                !isModify && (
+                    <View className="w-full flex-row justify-around">
+                        <TouchableOpacity className="flex-row items-center rotate-180" onPress={() => setIsLiked(!isLiked)}>
+                            {isLiked ? (<ThumbDownFilled color={props.complimentaryColor}/>) : (<ThumbDown color={props.complimentaryColor}/>)}
+                        </TouchableOpacity>
+                        <TouchableOpacity className="flex-row items-center" onPress={() => setIsDisliked(!isDisliked)}>
+                            {isDisliked ? (<ThumbDownFilled color={props.complimentaryColor}/>) : (<ThumbDown color={props.complimentaryColor}/>)}
+                        </TouchableOpacity>
+                        <TouchableOpacity className="self-center w-1/2">
+                            <View className="border-2 rounded-lg p-1 pr-2" style={{ borderColor: props.complimentaryColor}}>
+                                <Text className="text-tiny-text text-center font-bold" style={{color: props.complimentaryColor}}>Questions ?</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity className="flex-row items-center">
+                            <Send color={props.complimentaryColor}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity className="flex-row items-center" onPress={handleOtherButton}>
+                            <MoreVert color={props.complimentaryColor}/>
+                        </TouchableOpacity>
+                    </View>
+                ) || (
+                    <View className="w-full flex-row justify-around">
+                    {
+                        activeIndex === data.length ? (
+                            <TouchableOpacity className="self-center w-[30%]" onPress={addFrame}>
+                                <View className="border-2 rounded-lg p-1 pr-2" style={{ borderColor: props.complimentaryColor, backgroundColor: props.complimentaryColor}}>
+                                    <Text className="text-tiny-text text-center font-bold" style={{color: props.secondaryColor}}>Add a Frame</Text>
+                                </View>
+                            </TouchableOpacity>
+                        ) : (
+                            <TouchableOpacity className="self-center w-[30%]" onPress={deleteFrame}>
+                                <View className="border-2 rounded-lg p-1 pr-2" style={{ borderColor: props.complimentaryColor}}>
+                                    <Text className="text-tiny-text text-center font-bold" style={{color: props.complimentaryColor}}>Delete Frame</Text>
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    }
+                        <TouchableOpacity className="self-center w-[30%]" onPress={handleUpdateButton}>
+                            <View className="border-2 rounded-lg p-1 pr-2" style={{ borderColor: props.complimentaryColor, backgroundColor: props.complimentaryColor}}>
+                                <Text className="text-tiny-text text-center font-bold" style={{color: props.secondaryColor}}>Update</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity className="self-center w-[30%]" onPress={handleOtherButton}>
+                            <View className="border-2 rounded-lg p-1 pr-2" style={{ borderColor: props.complimentaryColor, backgroundColor: props.complimentaryColor}}>
+                                <Text className="text-tiny-text text-center font-bold" style={{color: props.secondaryColor}}>Cancel</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                )
+            }
+            </>
+        )
     }
 
     return (
@@ -137,9 +223,7 @@ const Article = (props) => {
                     </View>
                 </TouchableOpacity>
                 <View className=""  style={{ backgroundColor: props.secondaryColor}}>
-                    <View className=" p-1 justify-center flex" style={{ backgroundColor: props.complimentaryColor}}>
-                        <Text className=" text-body-text font-bold" style={{color: props.secondaryColor}}>{props.articleType}</Text>
-                    </View>
+                    <TitleView title={title} isModify={isModify} isUpdating={isUpdating} setIsUpdating={setIsUpdating} setTitle={setTitle}  complimentaryColor={props.complimentaryColor} secondaryColor={props.secondaryColor}/>
                     <View className=""  style={{height: height*0.58}}>
                         <FlatList
                         data={makeFrames(data)}
@@ -178,58 +262,10 @@ const Article = (props) => {
                 </View>
             </View>
             <View className="w-full h-10 border-t-4 flex-row justify-center rounded-b-xl px-2 space-x-2" style={{ backgroundColor: props.primaryColor, borderColor: props.primaryColor}}>
-            {
-                !isModify && (
-                    <>
-                        <View  className="flex-row space-x-4 ml-2">
-                            <TouchableOpacity className="flex-row items-center space-x-1">
-                                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/25/25297.png" }} className="w-6 h-6" />
-                            </TouchableOpacity>
-                            <TouchableOpacity className="flex-row items-center space-x-1">
-                                <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/25/25297.png" }} className="rotate-180 w-6 h-6" />
-                            </TouchableOpacity>
-                            <TouchableOpacity className="flex-row items-center space-x-1">
-                                <Image source={{ uri: "https://static-00.iconduck.com/assets.00/share-icon-2048x1911-60w04qpe.png" }} className="w-6 h-6" />
-                            </TouchableOpacity>
-                        </View>
-                        <TouchableOpacity className="self-center w-1/2">
-                            <View className="border-2 rounded-lg p-1 pr-2" style={{ borderColor: props.complimentaryColor}}>
-                                <Text className="text-tiny-text text-center font-bold" style={{color: props.complimentaryColor}}>Questions ?</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity className="flex-row items-center space-x-1" onPress={handleOtherButton}>
-                            <Image source={{ uri: "https://icons.veryicon.com/png/o/miscellaneous/icons-2/other-40.png" }} className="w-6 h-6" />
-                        </TouchableOpacity>
-                    </>
-                ) || (
-                    <>
-                    {
-                        activeIndex === data.length ? (
-                            <TouchableOpacity className="self-center w-[48%]" onPress={addFrame}>
-                                <View className="border-2 rounded-lg p-1 pr-2" style={{ borderColor: props.complimentaryColor, backgroundColor: props.complimentaryColor}}>
-                                    <Text className="text-tiny-text text-center font-bold" style={{color: props.secondaryColor}}>Add a Frame</Text>
-                                </View>
-                            </TouchableOpacity>
-                        ) : (
-                            <TouchableOpacity className="self-center w-[48%]" onPress={deleteFrame}>
-                                <View className="border-2 rounded-lg p-1 pr-2" style={{ borderColor: props.complimentaryColor}}>
-                                    <Text className="text-tiny-text text-center font-bold" style={{color: props.complimentaryColor}}>Delete this Frame</Text>
-                                </View>
-                            </TouchableOpacity>
-                        )
-                    }
-                        <TouchableOpacity className="self-center w-[48%]" onPress={handleOtherButton}>
-                            <View className="border-2 rounded-lg p-1 pr-2" style={{ borderColor: props.complimentaryColor, backgroundColor: props.complimentaryColor}}>
-                                <Text className="text-tiny-text text-center font-bold" style={{color: props.secondaryColor}}>Update</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </>
-                )
-            }
+                <SocialBar complimentaryColor={props.complimentaryColor}/>
             </View>
         </View>
     );
 }
-
 
 export default Article

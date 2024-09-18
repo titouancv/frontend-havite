@@ -3,33 +3,37 @@ import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { PageButton } from '../../Components';
+import Headers from '../../Components/Header';
 
 
 export default function HelpPage() {
     const navigation = useNavigation();
   return (
-    <SafeAreaProvider>
       <View className="bg-light-1 h-full">
+        <View className={`h-[6%]`}/>
+        <Headers color={"#305536"} title={"Help"}/>
         <View className="h-full flex-col w-full pt-4">
             <View className="w-[95%] self-center space-y-2">
               <View>
-                <PageButton title="Contact Us" nextPage="HelpPage"/>
+                <PageButton title="Contact Us" nextPage=""/>
               </View>
               <View>
-                <PageButton title="Help Center" nextPage="HelpPage"/>
+                <PageButton title="Help Center" nextPage=""/>
               </View>
               <View>
-                <PageButton title="Join the beta" nextPage="HelpPage"/>
+                <PageButton title="Join the beta" nextPage=""/>
               </View>
               <View>
-                <PageButton title="Make a suggestion" nextPage="HelpPage"/>
+                <PageButton title="Make a suggestion" nextPage=""/>
               </View>
               <View>
-                <PageButton title="You are a media ?" nextPage="HelpPage"/>
+                <PageButton title="You are a journalist" nextPage=""/>
+              </View>
+              <View>
+                <PageButton title="Join Havite as media" nextPage=""/>
               </View>
             </View>
         </View>
       </View>
-    </SafeAreaProvider>
   );
 }

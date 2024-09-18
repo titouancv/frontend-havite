@@ -4,33 +4,8 @@ import ListOfButton from './ListOfButton';
 import { AuthContext } from '../Context/AuthContext';
 import { NewPublicationContext } from '../Context/NewPublicationContext';
 import { FormRow } from './FormRow';
-
-
-const SearchModal = (props) => {
-    const [value, setValue] = useState("");
-    let inputRef = useRef();
-    return (
-        <View className="h-full w-full pt-4 p-2 rounded-t-xl bg-primary absolute bottom-0 z-10">
-        <ScrollView automaticallyAdjustKeyboardInsets={true} scrollEnabled={false} className="h-full w-full">
-            <View className="">
-                <View className=" w-full border-2 border-secondary rounded-lg p-2">
-                    <TextInput 
-                        ref={inputRef}
-                        onLayout={() => inputRef.current.focus()}
-                        placeholder={props.placeholder} 
-                        value={value}
-                        placeholderTextColor={"#ff7d72"} 
-                        className="text-body-text color-secondary" 
-                        onChangeText={(text) => setValue(text)}
-                        returnKeyType={"done"}
-                        onSubmitEditing={() => props.onSubmitEditing(value)}
-                    />
-                </View>
-            </View>
-        </ScrollView>
-        </View>
-    )
-}
+import Search from './Search';
+import WidgetModal from './WidgetModal';
 
 const CreditForm = (props) => {
     const [isInputAuthors, setIsInputAuthors] = useState(false);
@@ -114,9 +89,21 @@ const CreditForm = (props) => {
 
     return (
     <View className="h-full w-full flex items-center space-y-4 relative">
-        {isInputAuthors && (<SearchModal placeholder={"Add an author"} onSubmitEditing={addAuthors}></SearchModal>)}
-        {isInputSources && (<SearchModal placeholder={"Add a source"} onSubmitEditing={addSources}></SearchModal>)}
-        {isInputTags && (<SearchModal placeholder={"Add a tag"} onSubmitEditing={addTags}></SearchModal>)}
+            {isInputAuthors && (
+                <WidgetModal title={""} isUpdating={isInputAuthors} handleBack={() => setIsInputAuthors(!isInputAuthors)}  updateWidget={() => setIsInputAuthors(!isInputAuthors)}>
+                    <Search placeholder={"Add an author"} onSubmitEditing={addAuthors}></Search>
+                </WidgetModal>
+                )}
+            {isInputSources && (
+                <WidgetModal title={""} isUpdating={isInputSources} handleBack={() => setIsInputAuthors(!isInputSources)}  updateWidget={() => setIsInputAuthors(!isInputSources)}>
+                    <Search placeholder={"Add a sources"} onSubmitEditing={addSources}></Search>
+                </WidgetModal>
+            )}
+            {isInputTags && (
+                <WidgetModal title={""} isUpdating={isInputTags} handleBack={() => setIsInputAuthors(!isInputTags)}  updateWidget={() => setIsInputAuthors(!isInputTags)}>
+                    <Search placeholder={"Add a tag"} onSubmitEditing={addTags}></Search>
+                </WidgetModal>
+            )}
         <View className="w-[95%] flex-row mt-4">
             <TouchableOpacity className="flex rounded-lg border-2 border-primary p-1" onPress={props.previousStep}>
                 <Text className="text-body-text text-primary font-bold self-center">Back</Text>

@@ -9,7 +9,7 @@ export const AuthProvider = (props) => {
     const [authData, setAuthData] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    let backendURL = "http://192.168.1.29:3000/"
+    let backendURL = "https://backend-havite.onrender.com/"
 
     useEffect(() => {
         loadStorageData();
@@ -186,7 +186,7 @@ export const AuthProvider = (props) => {
                 "liked_articles": []
             }
         )
-        .catch(error => console.error('Register User Error logging in:', error));
+        .catch(error => console.error('Register User Error logging in:', error.response.data));
         return response.data;
     }
 

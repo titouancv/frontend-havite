@@ -8,6 +8,7 @@ import MediaAccountPage from "./MediaAccountPage";
 import MediaInformationPage from "./MediaInformationPage";
 import AddArticlePage from "./AddArticlePage";
 import MediaInfoSettingsPage from "./MediaInfoSettingsPage";
+import SettingsPage from "./SettingsPage";
 
 export {
     ProfilHomePage,
@@ -20,4 +21,5 @@ export {
     MediaInformationPage,
     AddArticlePage,
     MediaInfoSettingsPage,
+    SettingsPage
 }

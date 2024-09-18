@@ -19,7 +19,7 @@ export default function AddArticlePage() {
             <View className="flex h-full flex-col w-full">
                 <View className="w-full h-[7%] bg-light-1"></View>
                 <View className="w-full h-[5%] bg-light-1 flex justify-center items-center">
-                    <Text className="text-h3 font-bold" style={{color: authData.primaryColor}}>New Publication</Text>
+                    <Text className="text-h3 font-bold text-primary">New Publication</Text>
                 </View>
                 <View className="w-full h-[75%] bg-light-1 flex">
                     <View className="h-full w-full flex justify-center">

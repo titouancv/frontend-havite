@@ -2,9 +2,13 @@ import React from 'react';
 import { ProfilHomePage, AccountSettingsPage, AboutPage, HelpPage, OtherPage, MediaInfoSettingsPage } from '../Pages';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import ChangeEmailPage from '../Pages/ChangeEmailPage';
+import EmailPage from '../Pages/EmailPage';
 import ChangeGenderPage from '../Pages/ChangeGenderPage';
 import ChangeBirthdayPage from '../Pages/ChangeBirthdayPage';
+import SettingsPage from '../Pages/SettingsPage';
+import UserEditPage from '../Pages/UserEditPage';
+import MediaEditPage from '../Pages/MediaEditPage';
+import NamePage from '../Pages/NamePage';
 
 const ProfileStack = createNativeStackNavigator();
 
@@ -33,83 +37,83 @@ export default function UsersProfilRoute() {
         }}
       />
       <ProfileStack.Screen
-        name="AccountSettingsPage"
-        component={AccountSettingsPage}
-        options={{
-          headerShown: true,
-          title: "Account Settings",
-          headerStyle: {backgroundColor: '#305536'},
-          headerTintColor: "#f9f4ea"
-        }}
-      />
-      <ProfileStack.Screen
         name="AboutPage"
         component={AboutPage}
         options={{
-          headerShown: true,
+          headerShown: false,
           title: "About",
-          headerStyle: {backgroundColor: '#305536'},
-          headerTintColor: "#f9f4ea"
         }}
       />
       <ProfileStack.Screen
         name="HelpPage"
         component={HelpPage}
         options={{
-          headerShown: true,
+          headerShown: false,
           title: "Help",
-          headerStyle: {backgroundColor: '#305536'},
-          headerTintColor: "#f9f4ea"
         }}
       />
       <ProfileStack.Screen
         name="OtherPage"
         component={OtherPage}
         options={{
-          headerShown: true,
+          headerShown: false,
           title: "Other",
-          headerStyle: {backgroundColor: '#305536'},
-          headerTintColor: "#f9f4ea"
         }}
       />
       <ProfileStack.Screen
-        name="MediaInfoSettingsPage"
-        component={MediaInfoSettingsPage}
+        name="EmailPage"
+        component={EmailPage}
         options={{
-          headerShown: true,
-          title: "Media Informations",
-          headerStyle: {backgroundColor: '#305536'},
-          headerTintColor: "#f9f4ea"
-        }}
-      />
-      <ProfileStack.Screen
-        name="ChangeEmailPage"
-        component={ChangeEmailPage}
-        options={{
-          headerShown: true,
+          headerShown: false,
           title: "Email",
-          headerStyle: {backgroundColor: '#305536'},
-          headerTintColor: "#f9f4ea"
+        }}
+      />
+      <ProfileStack.Screen
+        name="NamePage"
+        component={NamePage}
+        options={{
+          headerShown: false,
+          title: "Name",
         }}
       />
       <ProfileStack.Screen
         name="ChangeGenderPage"
         component={ChangeGenderPage}
         options={{
-          headerShown: true,
+          headerShown: false,
           title: "Gender",
-          headerStyle: {backgroundColor: '#305536'},
-          headerTintColor: "#f9f4ea"
         }}
       />
       <ProfileStack.Screen
         name="ChangeBirthdayPage"
         component={ChangeBirthdayPage}
         options={{
-          headerShown: true,
+          headerShown: false,
           title: "Birthday",
-          headerStyle: {backgroundColor: '#305536'},
-          headerTintColor: "#f9f4ea"
+        }}
+      />
+      <ProfileStack.Screen
+        name="SettingsPage"
+        component={SettingsPage}
+        options={{
+          headerShown: false,
+          title: "Settings",
+        }}
+      />
+      <ProfileStack.Screen
+        name="UserEditPage"
+        component={UserEditPage}
+        options={{
+          headerShown: false,
+          title: "UserEdit",
+        }}
+      />
+      <ProfileStack.Screen
+        name="MediaEditPage"
+        component={MediaEditPage}
+        options={{
+          headerShown: false,
+          title: "MediaEdit",
         }}
       />
     </ProfileStack.Navigator>

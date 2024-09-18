@@ -3,12 +3,14 @@ import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { PageButton } from '../../Components';
+import Headers from '../../Components/Header';
 
 export default function AboutPage() {
     const navigation = useNavigation();
   return (
-    <SafeAreaProvider>
       <View className="bg-light-1 h-full">
+        <View className={`h-[6%]`}/>
+        <Headers color={"#305536"} title={"About us"}/>
         <View className="h-full flex-col w-full pt-4">
             <View className="w-[95%] self-center space-y-2">
               <View>
@@ -28,6 +30,5 @@ export default function AboutPage() {
             </View>
         </View>
       </View>
-    </SafeAreaProvider>
   );
 }

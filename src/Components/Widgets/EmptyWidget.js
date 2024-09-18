@@ -14,8 +14,6 @@ const EmptyWidget = (props) => {
     };
 
     const handleBack = () => {
-        setText(props.text);
-        setTextLength(props.text.length)
         setIsUpdating(false);
     };
 
@@ -34,8 +32,8 @@ const EmptyWidget = (props) => {
             >
                 <View className="absolute h-full w-full z-10 top-0 right-0">
                     <BlurView intensity={50} style={styles.blurContainer}>
-                        <View className="h-[90%] w-full flex-col pt-20">
-                            <Text className="text-h4 text-left font-bold color-light-1 pl-2 mb-2">Widget Market</Text>
+                        <View className="h-[90%] w-full flex-col pt-10">
+                            <Text className="text-h4 text-left font-bold color-light-1 pl-2 mb-2">Widgets Market</Text>
                             <View className="h-3/4 px-2 mb-4 flex-col space-y-2">
                                 <View className="h-[30%] w-full">
                                     <Text className="text-h5 text-left font-bold color-light-1 pl-2 mb-2">Images</Text>
@@ -46,7 +44,7 @@ const EmptyWidget = (props) => {
                                             </View>
                                             <Text className="text-tiny-text text-center color-light-1">Half</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity className="w-[25%] h-full rounded-lg px-1 bg-gray-700" style={{width: width*0.23}} onPress={() => props.addWidget("F", "imagesWidget")}>
+                                        <TouchableOpacity className={`w-[25%] h-full rounded-lg px-1 bg-gray-700 ${props.position !== "F" && "opacity-40"}`} style={{width: width*0.23}} onPress={() => props.addWidget("F", "imagesWidget")}>
                                             <View className="h-[85%] w-full flex-col justify-center">
                                                 <View className="h-[75%] w-[70%] bg-light-1 rounded-lg self-center"/>
                                             </View>
@@ -63,7 +61,7 @@ const EmptyWidget = (props) => {
                                             </View>
                                             <Text className="text-tiny-text text-center color-light-1">Half</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity className="w-[25%] h-full rounded-lg px-1 bg-gray-700" style={{width: width*0.23}} onPress={() => props.addWidget("F", "textWidget")}>
+                                        <TouchableOpacity className={`w-[25%] h-full rounded-lg px-1 bg-gray-700 ${props.position !== "F" && "opacity-40"}`} style={{width: width*0.23}} onPress={() => props.addWidget("F", "textWidget")}>
                                             <View className="h-[85%] w-full flex-col justify-center">
                                                 <View className="h-[75%] w-[70%] bg-light-1 rounded-lg self-center"/>
                                             </View>
@@ -73,11 +71,8 @@ const EmptyWidget = (props) => {
                                 </View>
                             </View>
                             <View className="h-[7%] w-[95%] self-center items-center flex-row space-x-2">
-                                <TouchableOpacity className="w-[49%] py-1 self-center items-center border-4 border-light-1 rounded-lg" onPress={handleBack}>
-                                        <Text className="text-h5 text-light-1 font-bold">Back</Text>
-                                    </TouchableOpacity>
-                                <TouchableOpacity className="w-[49%] py-1 self-center items-center border-4 border-light-1 rounded-lg" onPress={updateWidget}>
-                                    <Text className="text-h5 text-light-1 font-bold">Update</Text>
+                                <TouchableOpacity className="w-full py-1 self-center items-center border-4 border-light-1 rounded-lg" onPress={handleBack}>
+                                    <Text className="text-h5 text-light-1 font-bold">Back</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

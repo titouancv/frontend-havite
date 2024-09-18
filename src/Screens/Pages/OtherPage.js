@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { PageButton } from '../../Components';
 import { deleteUser } from '../../Services/UserService';
 import { AuthContext } from '../../Context/AuthContext';
+import Headers from '../../Components/Header';
 
 
 export default function OtherPage() {
@@ -15,19 +16,19 @@ export default function OtherPage() {
     deleteUser(authData.accessToken, backendURL);
   }
   return (
-    <SafeAreaProvider>
       <View className="bg-light-1 h-full">
+        <View className={`h-[6%]`}/>
+        <Headers color={"#305536"} title={"Other"}/>
         <View className="h-full flex-col w-full pt-4">
             <View className="w-[95%] self-center space-y-4">
               <View>
                 <PageButton title="Empty the cache" nextPage="HelpPage"/>
               </View>
-              <TouchableOpacity className="w-full border-4 border-secondary flex rounded-lg p-2" onPress={deleteCustomer}>
-                <Text className="text-body-text font-bold text-secondary self-center">Delete your account</Text>                
+              <TouchableOpacity className="w-full bg-secondary flex rounded-lg p-2" onPress={deleteCustomer}>
+                <Text className="text-body-text font-bold text-light-1 self-center">Delete your account</Text>                
               </TouchableOpacity>
             </View>
         </View>
       </View>
-    </SafeAreaProvider>
   );
 }

@@ -18,7 +18,7 @@ const {authData, loading} = useContext(AuthContext);
     if (loading){
         return ( 
             <View className="h-full w-full bg-primary flex justify-center items-center">
-                
+                <Text>loading</Text>
             </View>
         )
     }

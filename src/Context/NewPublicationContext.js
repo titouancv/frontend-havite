@@ -37,6 +37,19 @@ export const NewPublicationProvider = (props) => {
     const publish = (authors, sources, tags, title) =>{
         let article = {
             id: 1,
+            title: title,
+            tags: tags,
+            authors: authors,
+            sources: sources,
+            frames: dataFrame
+        }
+        let token = authData.accessToken;
+        postArticle(article, token);
+    }
+
+    const update = (authors, sources, tags, title, data) =>{
+        let article = {
+            id: 1,
             informations: {
                 logo: "",
                 title: title,
@@ -51,10 +64,10 @@ export const NewPublicationProvider = (props) => {
                 likes: 0,
                 dislikes: 0,
             },
-            frames: dataFrame
+            frames: data
         }
         let token = authData.accessToken;
-        postArticle(article, token);
+        //postArticle(article, token);
     }
 
     const value = {
@@ -63,6 +76,7 @@ export const NewPublicationProvider = (props) => {
         changeArticleStep,
         previousStep,
         publish,
+        update,
     }
     return (
         <NewPublicationContext.Provider value={value} >

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Button, Image, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Arrow } from '../assets/iconSVG/Icons';
 
 const PageButton = (props) => {
     const arrowIcon = require('./../assets/icons/arrowIcon.png');
@@ -14,7 +15,7 @@ const PageButton = (props) => {
                 <Text className="text-body-text font-bold text-light-1">{props.title}</Text>
                 <Text className="text-caption-text text-light-1 opacity-50">{currentInfo}</Text>
             </View>                
-            <Image source={arrowIcon} className="h-5 w-5 self-center" />
+            <Arrow color="#FFFFFF" className="rotate-180" />
         </TouchableOpacity>
     </View>
 )};
