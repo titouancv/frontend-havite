@@ -38,6 +38,7 @@ export default function PasswordPage() {
                 onChangeText={setOldPassword}
                 returnKeyType="done"
                 onSubmitEditing={changePassword}
+                secureTextEntry={true}
               />
             </View>
             <View className="w-[95%] self-center">
@@ -50,6 +51,7 @@ export default function PasswordPage() {
                 onChangeText={setOldPasswordConfirmation}
                 returnKeyType="done"
                 onSubmitEditing={changePassword}
+                secureTextEntry={true}
               />
             </View>
             <View className="w-[95%] self-center">
@@ -61,6 +63,7 @@ export default function PasswordPage() {
                 onChangeText={setNewPassword}
                 returnKeyType="done"
                 onSubmitEditing={changePassword}
+                secureTextEntry={true}
               />
             </View>
             <View className="w-[95%] self-center">

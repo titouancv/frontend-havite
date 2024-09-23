@@ -9,6 +9,8 @@ import 'react-native-reanimated';
 import { AuthContext } from '../Context/AuthContext';
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import splash from "../.././assets/splash.png";
+import { IdentityScreen } from './IdentityScreen';
+import { AboutYouScreen } from './AboutYouScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,7 +33,9 @@ const {authData, loading} = useContext(AuthContext);
                     name="Main"
                     component={MainScreen}
                     options={{
-                    headerShown: false
+                    headerShown: false,
+                    animation: 'fade',
+                    gestureEnabled: false,
                     }}
                 />
             </Stack.Navigator>
@@ -42,25 +46,42 @@ const {authData, loading} = useContext(AuthContext);
                     name="Login"
                     component={Login}
                     options={{
-                    headerShown: false
+                    headerShown: false,
+                    animation: 'fade',
+                    gestureEnabled: false,
                     }}
                 />
                 <Stack.Screen
                     name="Signup"
                     component={SignUp}
                     options={{
-                    headerShown: false
+                    headerShown: false,
+                    animation: 'fade',
+                    gestureEnabled: false,
                     }}
                 />
                 <Stack.Screen
-                    name="Information"
+                    name="Informations"
                     component={InformationsScreen}
                     options={{
-                    headerShown: true,
+                    headerShown: false,
                     title: "",
-                    headerBackTitleVisible: false,
-                    headerStyle: {backgroundColor: '#305536'},
-                    headerTintColor: "#f9f4ea",
+                    }}
+                />
+                <Stack.Screen
+                    name="Identity"
+                    component={IdentityScreen}
+                    options={{
+                    headerShown: false,
+                    title: "",
+                    }}
+                />
+                <Stack.Screen
+                    name="AboutYou"
+                    component={AboutYouScreen}
+                    options={{
+                    headerShown: false,
+                    title: "",
                     }}
                 />
             </Stack.Navigator>

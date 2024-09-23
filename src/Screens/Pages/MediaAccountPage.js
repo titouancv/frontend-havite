@@ -13,7 +13,7 @@ const Tab = createMaterialTopTabNavigator();
 let logomedia = "https://assets.website-files.com/5c1922e22200fb24773c7093/5e8c510ac6500478b24f7161_547c2379c91499027c75e3c3_logo-_0004_defonce.png"
 
 let data = { id: '0', 
-name: 'Le Monde',
+name: 'Le parisien',
 email: 'lemonde@gmail.com', 
 password: 'Ghyftr4678!', 
 logo: '', 
@@ -54,6 +54,7 @@ export default function MediaAccountPage() {
           complementaryColor={mediaData.complementaryColor}
           textColor={mediaData.textColor}
           logo={mediaData.logo}
+          name={mediaData.name}
         />
       </View>
   );

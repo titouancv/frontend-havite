@@ -7,19 +7,13 @@ import Headers from '../Components/Header';
 import { TextInputButton2 } from '../Components/TextInputButton';
 import ScreenIndicator from '../Components/ScreenIndicator';
 
-const InformationsScreen = ({ navigation }) => {
+export const IdentityScreen = ({ navigation }) => {
   const [firstName, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
-  const [birthday, setBirthday] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [loginSentence, setLoginSentence] = useState("");
   const [rightInformation, setRightInformation] = useState(true);
-  const [loginSentence, setLoginSentence] = React.useState('');
   const { width, height } = Dimensions.get('window');
-  const {signInUser} = useContext(AuthContext);
-
-  const {setLogInformation} = useContext(AuthContext);
+  const {setLogIdentity} = useContext(AuthContext);
 
   useEffect(() => {
       if (rightInformation){
@@ -31,10 +25,9 @@ const InformationsScreen = ({ navigation }) => {
   })
 
   const isRightInformation = () => {
-      let rightPswrd = setLogInformation(email, password, passwordConfirm)
-      setRightInformation(rightPswrd);
+      let rightPswrd = setLogIdentity(firstName, lastname)
       if(rightPswrd) {
-        navigation.navigate("Identity");
+        navigation.navigate("AboutYou");
       }
   };
 
@@ -42,50 +35,32 @@ const InformationsScreen = ({ navigation }) => {
     <SafeAreaProvider>
       <View className="flex-col bg-primary h-full">
         <View className={`h-[6%]`}/>
-        <Headers color={"#f9f4ea"} title={"Informations"}/>
+        <Headers color={"#f9f4ea"} title={"Identity"}/>
         <View className="w-[95%] self-center space-y-2 mt-8">
-          <ScreenIndicator pageIndex={0} indicatorNumber={3}/>
+        <ScreenIndicator pageIndex={1} indicatorNumber={3}/>
           <View>
             <TextInputButton2
-              title ="Email" 
+              title ="First name" 
               placeholderTextColor="#305536"
               color="#f9f4ea" 
               backgroundColor="#f9f4ea"
               TextInputHeight={height*0.05}
-              onChangeText={setEmail}
+              onChangeText={setFirstName}
               returnKeyType="done"
-              keyboardType="email-address"
-              autoComplete='email'
             />
           </View>
           <View>
             <TextInputButton2
-              title ="Password" 
+              title ="Last name" 
               placeholderTextColor="#305536"
               color="#f9f4ea" 
               backgroundColor="#f9f4ea"
               TextInputHeight={height*0.05}
-              onChangeText={setPassword}
+              onChangeText={setLastName}
               returnKeyType="done"
-              secureTextEntry={true}
             />
           </View>
-          <View>
-            <TextInputButton2
-              title ="Confirm password" 
-              placeholderTextColor="#305536"
-              color="#f9f4ea" 
-              backgroundColor="#f9f4ea"
-              TextInputHeight={height*0.05}
-              onChangeText={setPasswordConfirm}
-              returnKeyType="done"
-              secureTextEntry={true}
-            />
-              <View className="flex-row my-1">
-                  <Text className="text-tiny-text color-light-1 mr-1">There must be at least 8 characters including 1 uppercase, 1 lowercase, 1 number and a special character (ex: ?./$)</Text>
-              </View>
-          </View>
-          {email !== "" && password !== "" && passwordConfirm !== "" &&(<View className=" w-full self-center pt-4">
+          {firstName !== "" && lastname !== "" && (<View className=" w-full self-center pt-4">
               <TouchableOpacity 
               onPress={isRightInformation}
               className="bg-secondary rounded-lg px-2">
@@ -100,5 +75,3 @@ const InformationsScreen = ({ navigation }) => {
     </SafeAreaProvider>
   );
 }
-
-export default InformationsScreen

@@ -21,6 +21,43 @@ export const NewPublicationProvider = (props) => {
         setArticleStep(1);
     }
 
+    async function uploadImage(image) {
+        try {
+          // Create a new FormData object
+          const formData = new FormData();
+          let token = authData.accessToken;
+          // Append the image file to the FormData object
+          const uriParts = image.uri.split('/');
+          const fileName = uriParts[uriParts.length - 1];
+        
+          // Infer the file type (MIME type) based on the file extension
+          const fileType = fileName.split('.').pop(); // Extract the extension
+          const mimeType = `image/${fileType}`; // Set the MIME type as image/jpeg or image/png
+        
+          // Append the image to the FormData object
+          formData.append('image', {
+            uri: image.uri, // Local file path
+            name: fileName, // Dynamically inferred file name
+            type: mimeType  // Dynamically inferred MIME type
+          });
+      
+          // Send POST request using axios
+          const response = await axios.post(backendURL + 'api/images/', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'Authorization': `Bearer ${token}`
+            },
+          });
+      
+          // Handle the response
+          console.log('Image uploaded successfully:', response.data);
+          return response.data;
+        } catch (error) {
+          console.error('Error uploading image:', error.response.data);
+          throw error;
+        }
+    }
+
     const postArticle = async (article, token) => {
         let response = await axios.post(
             backendURL + 'api/articles/',
@@ -77,6 +114,7 @@ export const NewPublicationProvider = (props) => {
         previousStep,
         publish,
         update,
+        uploadImage,
     }
     return (
         <NewPublicationContext.Provider value={value} >
