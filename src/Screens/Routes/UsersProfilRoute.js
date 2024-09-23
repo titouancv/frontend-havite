@@ -9,6 +9,8 @@ import SettingsPage from '../Pages/SettingsPage';
 import UserEditPage from '../Pages/UserEditPage';
 import MediaEditPage from '../Pages/MediaEditPage';
 import NamePage from '../Pages/NamePage';
+import BiographyPage from '../Pages/BiographyPage';
+import PasswordPage from '../Pages/PasswordPage';
 
 const ProfileStack = createNativeStackNavigator();
 
@@ -66,6 +68,22 @@ export default function UsersProfilRoute() {
         options={{
           headerShown: false,
           title: "Email",
+        }}
+      />
+      <ProfileStack.Screen
+        name="BiographyPage"
+        component={BiographyPage}
+        options={{
+          headerShown: false,
+          title: "Biography",
+        }}
+      />
+      <ProfileStack.Screen
+        name="PasswordPage"
+        component={PasswordPage}
+        options={{
+          headerShown: false,
+          title: "Password",
         }}
       />
       <ProfileStack.Screen

@@ -35,7 +35,7 @@ export default function UserEditPage() {
                 <PageButton title="Email" currentInfo={authData.email} nextPage="EmailPage"/>
               </View>
               <View>
-                <PageButton title="Password" nextPage=""/>
+                <PageButton title="Password" nextPage="PasswordPage"/>
               </View>
               <View>
                 <PageButton title="Birthday" currentInfo={birthdayDate.toDateString()} nextPage="ChangeBirthdayPage"/>

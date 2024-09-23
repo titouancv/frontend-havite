@@ -7,12 +7,15 @@ import { AuthContext } from '../../Context/AuthContext';
 import { updtateUser } from '../../Services/UserService';
 import { updtateMedia } from '../../Services/MediaService';
 import Headers from '../../Components/Header';
+import { TextInputButton2 } from '../../Components/TextInputButton';
 
 
 export default function NamePage() {
   const {backendURL, authData, setStorageData} = useContext(AuthContext)
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
   const { width, height } = Dimensions.get('window');
   const nav = useNavigation();
 
@@ -45,15 +48,15 @@ export default function NamePage() {
         username: authData.username,
         email: authData.email,
         "customer": {
-          first_name,
-          last_name,
+          firstName,
+          lastName,
           gender: authData.gender,
           birthday: authData.birthday,
         }
       }
       updtateUser(userData, authData.accessToken, backendURL);
     }
-    nav.navigate("AccountSettingsPage");
+    nav.goBack();
     await setStorageData(authData.accessToken, authData.refreshToken, authData.isMedia);
   }
   let inputRef = useRef();
@@ -66,23 +69,17 @@ export default function NamePage() {
           <View className={`h-[6%]`}/>
           <Headers color={"#305536"} title={"Name"}/>
             <View className="h-full flex-col w-full space-y-4 pt-4">
-                <View className="relative w-[95%] self-center" style={{height: height*0.05}}>
-                  <View className="absolute z-8 top-0 left-0 w-full h-full bg-primary opacity-70 rounded-lg p-2"></View>
-                  <View className="absolute z-10 top-0 left-0 w-full h-full rounded-lg p-2">
-                      <TextInput 
-                          ref={inputRef}
-                          onLayout={() => inputRef.current.focus()}
-                          placeholder={authData.name} 
-                          value={email}
-                          placeholderTextColor={"#f9f4ea"} 
-                          className="text-body-text color-light-1" 
-                          onChangeText={(text) => setEmail(text)}
-                          returnKeyType={"done"}
-                          keyboardType="email-address"
-                          autoComplete='email'
-                          onSubmitEditing={changeEmail}
-                      />
-                  </View>
+                <View className="w-[95%] self-center">
+                  <TextInputButton2
+                    placeholder={authData.name} 
+                    placeholderTextColor="#f9f4ea"
+                    color="#305536" 
+                    backgroundColor="#305536"
+                    TextInputHeight={height*0.05}
+                    onChangeText={setName}
+                    returnKeyType="done"
+                    onSubmitEditing={changeEmail}
+                  />
                 </View>
                 <View className="w-[95%] self-center">
                   <TouchableOpacity className="w-full self-center bg-secondary rounded-lg p-2" onPress={changeEmail}>
@@ -101,8 +98,41 @@ export default function NamePage() {
       <View className="bg-light-1 h-full">
       <View className={`h-[6%]`}/>
       <Headers color={"#305536"} title={"Name"}/>
-
+        <View className="h-full flex-col w-full space-y-4 pt-4">
+            <View className="w-[95%] self-center">
+              <TextInputButton2
+                title ="First name"
+                placeholder={authData.firstName} 
+                placeholderTextColor="#f9f4ea"
+                color="#305536" 
+                backgroundColor="#305536"
+                TextInputHeight={height*0.05}
+                onChangeText={setFirstName}
+                returnKeyType="done"
+                onSubmitEditing={changeEmail}
+              />
+            </View>
+            <View className="w-[95%] self-center">
+              <TextInputButton2
+                title ="Last name"
+                isOnLayout={false}
+                placeholder={authData.lastName} 
+                placeholderTextColor="#f9f4ea"
+                color="#305536" 
+                backgroundColor="#305536"
+                TextInputHeight={height*0.05}
+                onChangeText={setLastName}
+                returnKeyType="done"
+                onSubmitEditing={changeEmail}
+              />
+            </View>
+            <View className="w-[95%] self-center">
+              <TouchableOpacity className="w-full self-center bg-secondary rounded-lg p-2" onPress={changeEmail}>
+                <Text className="text-body-text font-bold text-light-1 self-center">Submit</Text>
+              </TouchableOpacity>
+            </View>
+        </View>
       </View>
     </>
-  );
+  );  
 }

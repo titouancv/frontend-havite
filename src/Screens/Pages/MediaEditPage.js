@@ -34,13 +34,13 @@ export default function MediaEditPage() {
                 <PageButton title="Email" currentInfo={authData.email} nextPage="EmailPage"/>
               </View>
               <View>
-                <PageButton title="Password" nextPage=""/>
+                <PageButton title="Password" nextPage="PasswordPage"/>
               </View>
               <View>
                 <PageButton title="Colors" nextPage=""/>
               </View>
               <View>
-                <PageButton title="Bio" currentInfo={authData.bio} nextPage=""/>
+                <PageButton title="Bio" currentInfo={authData.bio} nextPage="BiographyPage"/>
               </View>
             </View>
             <View className="w-full justify-center space-x-1 flex-row pt-2 mt-6">

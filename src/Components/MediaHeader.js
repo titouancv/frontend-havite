@@ -1,10 +1,11 @@
-import React from 'react';
-import { View, Text, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import React, {useContext, useState} from 'react';
+import { View, Text, Dimensions, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import PageButton from './PageButton';
 import { Edit } from '../assets/iconSVG/Icons';
 import { LinearGradient } from 'react-native-gradients';
+import { AuthContext } from '../Context/AuthContext';
 
 function abbreviateNumber(number) {
   // Si le nombre est inférieur à 1000, on le retourne tel quel
@@ -30,6 +31,7 @@ function abbreviateNumber(number) {
 } 
 
 export default function MediaHeader(props) {
+    const {signOut, authData} = useContext(AuthContext)
     let articleNb = abbreviateNumber(props.articleNb);
     let followers = abbreviateNumber(props.followers);
     let followed = abbreviateNumber(props.followed);
@@ -38,6 +40,9 @@ export default function MediaHeader(props) {
     let secondaryColor = props.secondaryColor;
     let complementaryColor = props.complementaryColor;
     let textColor = props.textColor;
+    let isMediaAccount = authData.name === props.name;
+    let [isFollowed, setIsFollowed] = useState(false);
+    let logo = props.logo;
 
     const colorList = [
         {offset: '10%', color: '#f9f4ea', opacity: '1'},
@@ -50,10 +55,11 @@ export default function MediaHeader(props) {
   return (
       <View className="w-full space-y-2 pt-2" style={{backgroundColor: primaryColor}}>
         <View className="w-[95%] self-center flex-row space-x-2">
-            <View className="border border-primary rounded-lg bg-red-500" style={{width: width*0.52, height:width*0.20}}>
+            <View className="" style={{width: width*0.52, height:width*0.20}}>
+                {logo && (<Image source={{ uri: logo }} style={{flex: 1, width: null, height: null, resizeMode: 'contain'}} />)}
             </View>
         </View>
-        <View className="flex-row justify-between w-[95%] self-center pt-2">
+        <View className="flex-row justify-between w-[95%] self-center">
             <TouchableOpacity className=" rounded-lg p-1 w-[32%]" style={{backgroundColor: secondaryColor}}>
                 <Text className=" font-bold text-center text-body-text" style={{color: textColor}}>{articleNb}</Text>
                 <Text className=" text-center text-caption-text" style={{color: textColor}}>Article</Text>
@@ -68,12 +74,29 @@ export default function MediaHeader(props) {
             </TouchableOpacity>
         </View>
         <View className="flex-row justify-between w-[95%] self-center">
-            <TouchableOpacity className=" rounded-lg p-2 w-[49%]" style={{backgroundColor: secondaryColor}} onPress={() => navigation.navigate("SettingsPage") }>
+        { isMediaAccount ?
+        (
+            <>
+                <TouchableOpacity className=" rounded-lg p-2 w-[49%]" style={{backgroundColor: secondaryColor}} onPress={() => navigation.navigate("SettingsPage") }>
                 <Text className=" font-bold text-center text-body-text" style={{color: textColor}}>Settings</Text>
             </TouchableOpacity>
             <TouchableOpacity className=" rounded-lg p-2 w-[49%]" style={{backgroundColor: complementaryColor}} onPress={() => navigation.navigate("MediaEditPage") }>
                 <Text className="text-white font-bold text-center text-body-text">Edit profile</Text>
             </TouchableOpacity>
+            </>
+            ):(
+                <>
+                {isFollowed ? (
+                    <TouchableOpacity className=" rounded-lg p-2 w-full" style={{backgroundColor: secondaryColor}} onPress={() => setIsFollowed(!isFollowed) }>
+                        <Text className=" font-bold text-center text-body-text" style={{color: textColor}}>Followed</Text>
+                    </TouchableOpacity>
+                ):(
+                    <TouchableOpacity className=" rounded-lg p-2 w-full" style={{backgroundColor: complementaryColor}} onPress={() => setIsFollowed(!isFollowed) }>
+                        <Text className="text-white font-bold text-center text-body-text">Follow</Text>
+                    </TouchableOpacity>
+                )}
+                </>
+            )}
         </View>
         <View className="flex-row justify-between w-[95%] self-center py-2">
             <Text className="text-caption-text text-white">{bio}</Text>
@@ -88,6 +111,7 @@ export default function MediaHeader(props) {
                     secondaryColor={secondaryColor}
                     complementaryColor={complementaryColor}
                     textColor={textColor}
+                    isMediaAccount={isMediaAccount}
 
                 />
             </View>
@@ -105,11 +129,12 @@ const Card = (props) => {
     let secondaryColor = props.secondaryColor;
     let complementaryColor = props.complementaryColor;
     let textColor = props.textColor;
+    let isMediaAccount = props.isMediaAccount
 
     return (
         <View className="flex-row ml-2">
             <TouchableOpacity className="relative rounded-lg flex-col p-2" style={{height: height*0.08, width: width*0.45, backgroundColor: secondaryColor}}>
-                <View className="absolute z-10 top-0 right-1 rounded-lg" style={{backgroundColor: secondaryColor}}><Edit color={textColor}/></View>
+                {isMediaAccount && (<View className="absolute z-10 top-0 right-1 rounded-lg" style={{backgroundColor: secondaryColor}}><Edit color={textColor}/></View>)}
                 <Text className=" text-center text-body-text" style={{color: textColor}}>{title}</Text>
                 <View className="h-3/4">
                     <Text className=" font-bold text-center text-h5" style={{color: textColor}} adjustsFontSizeToFit numberOfLines={2}>{value}</Text>
@@ -126,6 +151,7 @@ const MediaInfo = (props) => {
     let secondaryColor = props.secondaryColor;
     let complementaryColor = props.complementaryColor;
     let textColor = props.textColor;
+    let isMediaAccount = props.isMediaAccount
 
     return (
         <View>
@@ -137,7 +163,7 @@ const MediaInfo = (props) => {
                 secondaryColor={secondaryColor}
                 complementaryColor={complementaryColor}
                 textColor={textColor}
-                
+                isMediaAccount={isMediaAccount}
             />
             <Card 
                 title={"Website"} 
@@ -146,7 +172,7 @@ const MediaInfo = (props) => {
                 secondaryColor={secondaryColor}
                 complementaryColor={complementaryColor}
                 textColor={textColor}
-                
+                isMediaAccount={isMediaAccount}
             />
             <Card 
                 title={"Editorial Address"} 
@@ -155,7 +181,7 @@ const MediaInfo = (props) => {
                 secondaryColor={secondaryColor}
                 complementaryColor={complementaryColor}
                 textColor={textColor}
-                
+                isMediaAccount={isMediaAccount}
             />
             <Card 
                 title={"Founder"} 
@@ -164,7 +190,7 @@ const MediaInfo = (props) => {
                 secondaryColor={secondaryColor}
                 complementaryColor={complementaryColor}
                 textColor={textColor}
-                
+                isMediaAccount={isMediaAccount}
             />
             <Card 
                 title={"Owner"} 
@@ -173,7 +199,7 @@ const MediaInfo = (props) => {
                 secondaryColor={secondaryColor}
                 complementaryColor={complementaryColor}
                 textColor={textColor}
-                
+                isMediaAccount={isMediaAccount}
             />
         </ScrollView>
         </View>

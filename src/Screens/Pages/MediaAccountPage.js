@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import { View, Text, ScrollView, Image, Dimensions } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
+import Headers from '../../Components/Header';
 import MediaInformationPage from './MediaInformationPage';
 import { ArticleList, MediaAccountHeader } from '../../Components';
 import { MediaContext } from '../../Context/MediaContext';
+import MediaHeader from '../../Components/MediaHeader';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -40,43 +41,20 @@ export default function MediaAccountPage() {
   const { width, height } = Dimensions.get('window');
 
   return (
-      <View className="h-full" style={{ backgroundColor: mediaData.secondaryColor}}>
-        <View className="h-full flex-col items-center" style={{ backgroundColor: mediaData.secondaryColor}}>
-            <View className="h-[4%] w-full" style={{ backgroundColor: mediaData.primaryColor}}></View>
-            <View className="w-full h-[8%] justify-center" style={{ backgroundColor: mediaData.primaryColor}}>
-              <View className="w-[70%] h-[70%] self-center">
-                <Image source={{ uri: mediaData.logo }} style={{flex: 1, width: null, height: null, resizeMode: 'contain'}} />
-              </View>
-            </View>
-            <ScrollView className="h-full w-full">
-              <View className=" w-full">
-                  <MediaAccountHeader colorData={mediaData} data={data}/>
-              </View>
-              <View className="h-full w-full">
-                  <Tab.Navigator
-                      initialRouteName='publication'
-                      screenOptions={({ route }) => ({
-                          headerShown: false,
-                          tabBarIndicatorStyle: {backgroundColor: mediaData.complementaryColor},
-                          tabBarActiveTintColor: mediaData.complementaryColor,
-                          tabBarInactiveTintColor: mediaData.primaryColor,
-                          tabBarShowLabel: true,
-                          tabBarStyle: {
-                              paddingHorizontal: 5,
-                              paddingTop: 0,
-                              backgroundColor: "#f9f4ea",
-                          },                
-                          tabBarLabelStyle: {
-                              fontWeight: 'bold',
-                              fontSize: 11.5,
-                              },
-                      })}
-                  >
-                      <Tab.Screen name="Informations" children={() => (<MediaInformationPage data={data}   style={{height: height*0.58}}/>)} />
-                  </Tab.Navigator>
-              </View>
-            </ScrollView>
-        </View>
+      <View className="h-full bg-light-1">
+        <View className={`h-[6%]`} style={{ backgroundColor: mediaData.primaryColor}}/>
+        <Headers color={mediaData.complementaryColor} backgroundColor={mediaData.primaryColor}/>
+        <MediaHeader
+          articleNb={124} 
+          followers={450300} 
+          followed={124}
+          bio={data.bio}
+          primaryColor={mediaData.primaryColor}
+          secondaryColor={mediaData.secondaryColor}
+          complementaryColor={mediaData.complementaryColor}
+          textColor={mediaData.textColor}
+          logo={mediaData.logo}
+        />
       </View>
   );
 }

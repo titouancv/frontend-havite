@@ -32,6 +32,7 @@ export default function ProfilHomePage() {
               secondaryColor={authData.secondaryColor}
               complementaryColor={authData.complementaryColor}
               textColor={authData.textColor}
+              name={authData.name}
 
               />
             </View>

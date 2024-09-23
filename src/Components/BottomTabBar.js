@@ -13,8 +13,8 @@ function BottomTabBar({ state, descriptors, navigation }) {
     const profilIconPink = require('./../assets/icons/profilIconPink.png');
 
     return (
-      <View className="h-24 w-full border-4 border-b-0 border-secondary rounded-t-2xl absolute bottom-0 left-0 z-10" style={{backgroundColor: "rgba(0,0,0,0.5)"}}>
-        <BlurView intensity={100} style={styles.blurContainer} className="rounded-t-xl">
+      <View className="h-24 w-full absolute bottom-0 left-0 z-10 border-t border-light-1" style={{backgroundColor: "rgba(0,0,0,0.5)"}}>
+        <BlurView intensity={100} style={styles.blurContainer} className="">
             <View className="h-full w-full flex-row justify-around p-2">
             {state.routes.map((route, index) => {
             const { options } = descriptors[route.key];

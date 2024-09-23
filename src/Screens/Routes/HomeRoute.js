@@ -33,12 +33,8 @@ export default function HomeRoute() {
         name="MediaAccountPage"
         component={MediaAccountPage}
         options={{
-          headerShown: true,
-          headerTransparent: true,
+          headerShown: false,
           title: "",
-          headerBackTitleVisible: false,
-          headerTintColor: "#f9f4ea",
-          headerLargeTitle: false
         }}
       />
     </HomeStack.Navigator>

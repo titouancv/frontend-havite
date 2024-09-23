@@ -14,16 +14,16 @@ export default function Settings() {
             <View className="w-[95%] self-center space-y-2 mt-2">
                 <Text className="text-h5 text-primary">Functionality</Text>
               <View>
-                <PageButton title="Article liked" nextPage="HelpPage"/>
+                <PageButton title="Article liked" nextPage=""/>
               </View>
               <View>
-                <PageButton title="Color theme" nextPage="HelpPage"/>
+                <PageButton title="Color theme" nextPage=""/>
               </View>
             </View>
             <View className="w-[95%] self-center space-y-2 mt-4">
                 <Text className="text-h5 text-primary">Adjustments</Text>
               <View>
-                <PageButton title="Notifications" nextPage="HelpPage"/>
+                <PageButton title="Notifications" nextPage=""/>
               </View>
               <View>
                 <PageButton title="Other" nextPage="OtherPage"/>
@@ -32,7 +32,7 @@ export default function Settings() {
             <View className="w-[95%] self-center space-y-2 mt-4">
                 <Text className="text-h5 text-primary">About</Text>
               <View>
-                <PageButton title="Share Havite" nextPage="HelpPage"/>
+                <PageButton title="Share Havite" nextPage=""/>
               </View>
               <View>
                 <PageButton title="Help" nextPage="HelpPage"/>
