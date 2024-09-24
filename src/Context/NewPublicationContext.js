@@ -80,8 +80,10 @@ export const NewPublicationProvider = (props) => {
             sources: sources,
             frames: dataFrame
         }
+        console.log(dataFrame);
+        console.log(article);
         let token = authData.accessToken;
-        postArticle(article, token);
+        //postArticle(article, token);
     }
 
     const update = (authors, sources, tags, title, data) =>{

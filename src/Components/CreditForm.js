@@ -6,6 +6,8 @@ import { NewPublicationContext } from '../Context/NewPublicationContext';
 import { FormRow } from './FormRow';
 import Search from './Search';
 import WidgetModal from './WidgetModal';
+import { Arrow } from '../assets/iconSVG/Icons';
+import { TextInputButton2 } from './TextInputButton';
 
 const CreditForm = (props) => {
     const [isInputAuthors, setIsInputAuthors] = useState(false);
@@ -104,30 +106,22 @@ const CreditForm = (props) => {
                     <Search placeholder={"Add a tag"} onSubmitEditing={addTags}></Search>
                 </WidgetModal>
             )}
-        <View className="w-[95%] flex-row mt-4">
-            <TouchableOpacity className="flex rounded-lg border-2 border-primary p-1" onPress={props.previousStep}>
-                <Text className="text-body-text text-primary font-bold self-center">Back</Text>
-            </TouchableOpacity>
-        </View>
-        <View className=" w-[95%]">
+        <View className=" w-[95%] mt-2">
             <View className="h-full w-full space-y-4">
-                <View className="relative w-full"  style={{height: height*0.15}}>
-                    <Text className="absolute top-0 left-0 z-10 text-h5 text-left font-bold text-primary">Title</Text>
+                <View className="relative w-full" >
                     <Text className={`absolute top-2 right-1 z-10 text-caption-text ${maxCharacteresTitle >= textLength ? "text-gray-500" : "text-red-700"} font-bold text-right`}>{textLength+"/"+maxCharacteresTitle}</Text>
-                    <View className="absolute bottom-0 left-0 z-6 h-[70%] w-full bg-primary opacity-80 rounded-lg flex justify-center items-center px-2 p-1"/>
-                    <View className="absolute bottom-0 left-0 z-10 h-[70%] w-full p-2 flex">
-                        <TextInput 
-                            placeholder= {"Enter the title..."}
-                            className="text-body-text font-bold text-light-1 h-full"
-                            value={text}
-                            onChangeText={changeText}
-                            multiline={true}
-                            textAlignVertical="top"
-                            returnKeyType={"done"}
-                            blurOnSubmit={true}
-                        />
-                        <View style={{ height: 30 }} />
-                    </View>
+                    <TextInputButton2 
+                        TextInputHeight={height*0.10}
+                        title="Title"
+                        placeholder={"Enter the title"} 
+                        placeholderTextColor="#f9f4ea"
+                        color="#305536" 
+                        backgroundColor="#305536"
+                        onChangeText={changeText}
+                        returnKeyType="done"
+                        multiline={true}
+                        isOnLayout={false}
+                    />
                 </View>
                 <View className="w-full h-[1px] my-2 flex justify-center opacity-40 bg-primary"></View>
                 <View className="w-full flex justify-top items-center">

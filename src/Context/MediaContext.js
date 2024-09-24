@@ -24,7 +24,6 @@ export const MediaProvider = (props) => {
     }
 
     const getImage = async (imageUrl) => {
-        console.log("hello")
         let token = authData.accessToken
         let response = await axios.get(
             backendURL + `api/images/${imageUrl}/`, 
@@ -35,7 +34,6 @@ export const MediaProvider = (props) => {
             }
         )
         .catch(error => console.error('Media Data Error logging in:', error.response.data));
-        console.log(response.data);
         return response.data;
     }
 

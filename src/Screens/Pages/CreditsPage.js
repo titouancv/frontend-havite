@@ -13,26 +13,15 @@ const item = { id: '0', logoMedia: logoMedia,  articleType: "Article", date: "12
 let dataFrames = [];
 
 
-export default function AddArticlePage() {
+export default function CreditsPage() {
     const {authData} = useContext(AuthContext);
-    const {changeArticleStep} = useContext(NewPublicationContext);
-
-
+    const {dataFrame, articleStep, previousStep, changeArticleStep, uploadImage} = useContext(NewPublicationContext);
 
     return (
         <View className="h-full w-full flex-col">
             <View className={`h-[6%]`}/>
-            <View className="mt-4 pl-2">
-                <Text className="text-h3 font-bold text-primary">New article</Text>
-            </View>
-            <NewArticle  
-                logoMedia={authData.logoURL}
-                primaryColor={authData.primaryColor}
-                secondaryColor={authData.secondaryColor} 
-                complimentaryColor={authData.complementaryColor}
-                textColor={authData.textColor}
-                changeArticleStep={changeArticleStep}
-            />
+            <Headers color={"#305536"} title={"Credits"}/>
+            <CreditForm dataFrames={dataFrames} previousStep={previousStep}/>
         </View>
     );
 }

@@ -8,6 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MediaProvider } from '../Context/MediaContext';
 import { NewPublicationProvider } from '../Context/NewPublicationContext';
+import AddArticleRoute from './Routes/NewArticleRoute';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +26,7 @@ function MainScreen() {
               })}
           >
               <Tab.Screen name="Home" component={HomeRoute}/>
-              {authData.isMedia && (<Tab.Screen name="Post" component={AddArticlePage}/> )}
+              {authData.isMedia && (<Tab.Screen name="Post" component={AddArticleRoute}/> )}
               <Tab.Screen name="Profil" component={UsersProfilRoute}/>
           </Tab.Navigator>
         </NewPublicationProvider>

@@ -25,7 +25,7 @@ export default TextInputButton
 export const TextInputButton2 = (props) => {
     const { width, height } = Dimensions.get('window');
     const [value, setValue] = useState("");
-    let isOnLayout = props.isOnLayout ? props.isOnLayout : true;
+    let isOnLayout = props.isOnLayout;
     let inputRef = useRef();
 
     const handleChageText = (text) => {
@@ -34,7 +34,7 @@ export const TextInputButton2 = (props) => {
     }
 
     const handleOnLayout= () => {
-        if (isOnLayout)
+        if (isOnLayout || isOnLayout == null)
             inputRef.current.focus()
     }
 
@@ -58,6 +58,7 @@ export const TextInputButton2 = (props) => {
                       keyboardType={props.keyboardType}
                       autoComplete={props.autoComplete}
                       onSubmitEditing={props.onSubmitEditing}
+                      multiline={props.multiline}
                   />
               </View>
             </View>

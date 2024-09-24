@@ -125,6 +125,7 @@ const NewArticle = (props) => {
       }).current;
 
     const handleNextButton = () => {
+        navigation.navigate("CreditsPage");
         props.changeArticleStep(data);
     };
   

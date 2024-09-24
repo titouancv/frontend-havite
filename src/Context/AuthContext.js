@@ -1,6 +1,8 @@
 import React, {createContext, useState, useContext, useEffect} from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
+import { getUserProfilePicture } from "../Services/UserService";
+import { getMediaLogo } from "../Services/MediaService";
 
 export const AuthContext = createContext();
 
@@ -97,6 +99,7 @@ export const AuthProvider = (props) => {
             let _authData = {};
             if (isMedia){
                 let userData = await getMediaData(accessToken);
+                let logoURL = await getMediaLogo(userData.media.logo, accessToken, backendURL);
                 _authData = {
                     refreshToken: refreshToken, 
                     accessToken: accessToken,
@@ -110,10 +113,12 @@ export const AuthProvider = (props) => {
                     secondaryColor: userData.media.secondary_color,
                     complementaryColor: userData.media.complementary_color,
                     textColor: userData.media.text_color,
+                    logoURL: logoURL.image, 
                 };     
             }
             else {
                 let userData = await getUserData(accessToken);
+                let profilePictureURL = await getUserProfilePicture(userData.customer.profile_picture, accessToken, backendURL);
                 _authData = {
                     refreshToken: refreshToken, 
                     accessToken: accessToken, 
@@ -125,6 +130,7 @@ export const AuthProvider = (props) => {
                     birthday: userData.customer.birthday,
                     gender: userData.customer.gender,
                     profilePicture: userData.customer.profile_picture,
+                    profilePictureURL: profilePictureURL.image,
                 };
             }
             setAuthData(_authData); 

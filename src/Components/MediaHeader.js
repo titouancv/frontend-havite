@@ -55,7 +55,7 @@ export default function MediaHeader(props) {
   return (
       <View className="w-full space-y-2 pt-2" style={{backgroundColor: primaryColor}}>
         <View className="w-[95%] self-center flex-row space-x-2">
-            <View className="" style={{width: width*0.52, height:width*0.20}}>
+            <View className="" style={{width: width*0.50, height:width*0.20}}>
                 {logo && (<Image source={{ uri: logo }} style={{flex: 1, width: null, height: null, resizeMode: 'contain'}} />)}
             </View>
         </View>

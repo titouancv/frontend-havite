@@ -30,16 +30,19 @@ function abbreviateNumber(number) {
 export default function UserHeader(props) {
     let firstName = props.firstname;
     let lastName = props.lastname;
+    let profilePicture = props.profilePicture;
     let mediaNb = abbreviateNumber(props.mediaNb);
     let followers = abbreviateNumber(props.followers);
     let followed = abbreviateNumber(props.followed);
     const navigation = useNavigation();
+
 
     const { width, height } = Dimensions.get('window');
   return (
       <View className="w-full h-full space-y-2 pt-2">
         <View className="w-[95%] self-center flex-row space-x-2">
             <View className="border border-primary rounded-lg bg-red-500" style={{width: width*0.25, height:width*0.25}}>
+              <Image source={{ uri: profilePicture }} className="h-full w-full rounded-lg" />
             </View>
             <View className="flex-col self-end">
                 <Text className="text-primary text-h4">{firstName}</Text>
