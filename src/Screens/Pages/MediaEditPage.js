@@ -15,7 +15,7 @@ export default function MediaEditPage() {
     const {authData, backendURL} = useContext(AuthContext);
     const {uploadImage} = useContext(NewPublicationContext);
     const { width, height } = Dimensions.get('window');
-    const [logo, setLogo] = useState(authData.logoURL || "https://cdn-icons-png.flaticon.com/512/992/992651.png");
+    const [logo, setLogo] = useState(authData.logo === "" ? "https://cdn-icons-png.flaticon.com/512/992/992651.png" : authData.logo);
 
     const handleImage = async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -34,7 +34,7 @@ export default function MediaEditPage() {
           "media": {
             name: authData.name,
             bio: authData.bio,
-            logo: res.id,
+            logo: res.image,
             website: authData.website,
             editorial_address: authData.editorial_address,
             primary_color: authData.primaryColor,

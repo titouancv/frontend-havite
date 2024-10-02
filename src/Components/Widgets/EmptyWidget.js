@@ -38,7 +38,7 @@ const EmptyWidget = (props) => {
                                 <View className="h-[30%] w-full">
                                     <Text className="text-h5 text-left font-bold color-light-1 pl-2 mb-2">Images</Text>
                                     <ScrollView className="h-[75%] w-full flex-row space-x-2 pl-2" horizontal={true}>
-                                        <TouchableOpacity className="h-full rounded-lg px-1 bg-gray-700" style={{width: width*0.23}} onPress={() => props.addWidget("B", "imagesWidget")}>
+                                        <TouchableOpacity className="h-full rounded-lg px-1 bg-gray-700" style={{width: width*0.23}} onPress={() => props.addWidget(props.position !== "F" ? "B": "T", "imagesWidget")}>
                                             <View className="h-[85%] w-full flex-col justify-center">
                                                 <View className="h-[40%] w-[85%] bg-light-1 rounded-lg self-center"/>
                                             </View>
@@ -55,7 +55,7 @@ const EmptyWidget = (props) => {
                                 <View className="h-[30%] w-full">
                                     <Text className="text-h5 text-left font-bold color-light-1 pl-2 mb-2">Text</Text>
                                     <ScrollView className="h-[75%] w-full flex-row space-x-2 pl-2" horizontal={true}>
-                                        <TouchableOpacity className="h-full rounded-lg px-1 bg-gray-700" style={{width: width*0.23}} onPress={() => props.addWidget("B", "textWidget")}>
+                                        <TouchableOpacity className="h-full rounded-lg px-1 bg-gray-700" style={{width: width*0.23}} onPress={() => props.addWidget(props.position !== "F" ? "B": "T", "textWidget")}>
                                             <View className="h-[85%] w-full flex-col justify-center">
                                                 <View className="h-[40%] w-[85%] bg-light-1 rounded-lg self-center"/>
                                             </View>

@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { View, Text, TextInput, Button, Image, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform, StyleSheet, Modal} from 'react-native';
 import { BlurView } from 'expo-blur';
 import ModifyWidgetOverlay from '../ModifyWidgetOverlay';
 import UpdateModal from '../UpdateModal';
 import WidgetModal from '../WidgetModal';
+import { NewPublicationContext } from '../../Context/NewPublicationContext';
 
-const UpdateTextWidget = (props) => {
+const UpdateTextWidgetChildren = (props) => {
     const [textUpdated, setTextUpdated]= useState(props.text);
     const [textLength, setTextLength] = useState(props.text.length);
     let maxCharacteres = props.maxCharacteres;
@@ -40,10 +41,12 @@ const UpdateTextWidget = (props) => {
 const TextWidget = (props) => {
     const [isUpdating, setIsUpdating] = useState(false);
     const [text, setText]= useState(props.text);
+    const {UpdateTextWidget} = useContext(NewPublicationContext);
     let maxCharacteres = props.position === "F" ? 1200 : 600;
 
     const updateWidget = () => {
         if (text.length <= maxCharacteres){
+            UpdateTextWidget(text, props.frameIndex, props.position)
             setIsUpdating(false);
         }
     };
@@ -56,7 +59,7 @@ const TextWidget = (props) => {
     if (isUpdating){
         return (
             <WidgetModal title={"Modify your text"} isUpdating={isUpdating} handleBack={handleBack} updateWidget={updateWidget}>
-                <UpdateTextWidget text={text} maxCharacteres={maxCharacteres} setText={setText}/>
+                <UpdateTextWidgetChildren text={text} maxCharacteres={maxCharacteres} setText={setText}/>
             </WidgetModal> 
         )
     }
@@ -64,7 +67,7 @@ const TextWidget = (props) => {
         return (
             <View className={`w-full ${props.position === "F" ? "h-full" : "h-[48%]"} rounded-lg mb-4`}>
                 <View className="h-full relative w-full">
-                    <ModifyWidgetOverlay setIsUpdating={setIsUpdating} deleteWidget={props.deleteWidget} position={props.position}>
+                    <ModifyWidgetOverlay setIsUpdating={setIsUpdating} deleteWidget={props.deleteWidget} position={props.position} widgetName={"textWidget"}>
                         <Text className="text-caption-text"  style={{color: props.textColor}}>{text}</Text>
                     </ModifyWidgetOverlay>
                 </View>

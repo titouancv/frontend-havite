@@ -17,7 +17,7 @@ export default function UserEditPage() {
     const {backendURL, authData, setStorageData} = useContext(AuthContext)
     const { width, height } = Dimensions.get('window');
     const {getImage} = useContext(MediaContext);
-    const [logo, setLogo] = useState(authData.profilePictureURL || "https://cdn-icons-png.flaticon.com/512/992/992651.png");
+    const [logo, setLogo] = useState(authData.profilePicture === "" ? "https://cdn-icons-png.flaticon.com/512/992/992651.png" : authData.profilePicture);
     let birthdayDate = new Date(authData.birthday);
 
 
@@ -37,8 +37,8 @@ export default function UserEditPage() {
             "first_name": authData.firstName,
             "last_name": authData.lastName,
             "gender": authData.gender,
-            "profile_picture": res.id,
-            "birthday": authData.birthday
+            "profile_picture": res.image,
+            "birthday": authData.birthday,
           }
         }
         await updtateUser(userData, authData.accessToken, backendURL)

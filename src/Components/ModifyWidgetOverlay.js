@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, Image, TouchableOpacity, FlatList , Styl
 import { BlurView } from 'expo-blur';
 import { Edit, Cancel } from '../assets/iconSVG/Icons';
 
-const ModifyWidgetOverlay = ({children, setIsUpdating, deleteWidget, position}) => {
+const ModifyWidgetOverlay = ({children, setIsUpdating, deleteWidget, position, widgetName}) => {
     return (
         <>
             <View className="absolute h-full w-full border-2 border-light-1 rounded-lg  z-10 top-0 right-0">
@@ -12,7 +12,7 @@ const ModifyWidgetOverlay = ({children, setIsUpdating, deleteWidget, position}) 
                         <Edit color={"#000000"}/>
                         <Text className="text-caption-text ml-2"> Edit </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity className="absolute flex-row p-2 px-6 z-10 w-1/3 bottom-[45%] right-[14%] bg-red-500 rounded-md flex justify-center items-center" onPress={() => deleteWidget(position)}>
+                    <TouchableOpacity className="absolute flex-row p-2 px-6 z-10 w-1/3 bottom-[45%] right-[14%] bg-red-500 rounded-md flex justify-center items-center" onPress={() => deleteWidget(position, widgetName)}>
                         <Cancel color="#FFFFFF"/>
                         <Text className="text-caption-text text-white ml-2">Delete</Text>
                     </TouchableOpacity>

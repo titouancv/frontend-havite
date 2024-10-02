@@ -1,8 +1,6 @@
 import React, {createContext, useState, useContext, useEffect} from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
-import { getUserProfilePicture } from "../Services/UserService";
-import { getMediaLogo } from "../Services/MediaService";
 
 export const AuthContext = createContext();
 
@@ -48,6 +46,7 @@ export const AuthProvider = (props) => {
             }
         )
         .catch(error => {
+            setLoading(false);
             console.error('Token Updated Error logging in:', error)
             return null;
         });
@@ -65,7 +64,10 @@ export const AuthProvider = (props) => {
                 }
             }
         )
-        .catch(error => console.error('User Data Error logging in:', error));
+        .catch(error => {
+            setLoading(false);
+            console.error('User Data Error logging in:', error)
+        });
         return response.data;
     }
 
@@ -78,7 +80,10 @@ export const AuthProvider = (props) => {
                 }
             }
         )
-        .catch(error => console.error('Media Data Error logging in:', error));
+        .catch(error => {
+            setLoading(false);
+            console.error('Media Data Error logging in:', error)
+        });
         return response.data;
     }
 
@@ -90,7 +95,10 @@ export const AuthProvider = (props) => {
                 "password": password
             }
         )
-        .catch(error => console.error('Token Error logging in:', error));
+        .catch(error => {
+            setLoading(false)
+            console.error('Token Error logging in:', error.response.data.detail)
+        });
         return response.data;
     }
 
@@ -99,7 +107,6 @@ export const AuthProvider = (props) => {
             let _authData = {};
             if (isMedia){
                 let userData = await getMediaData(accessToken);
-                let logoURL = await getMediaLogo(userData.media.logo, accessToken, backendURL);
                 _authData = {
                     refreshToken: refreshToken, 
                     accessToken: accessToken,
@@ -113,12 +120,10 @@ export const AuthProvider = (props) => {
                     secondaryColor: userData.media.secondary_color,
                     complementaryColor: userData.media.complementary_color,
                     textColor: userData.media.text_color,
-                    logoURL: logoURL.image, 
                 };     
             }
             else {
                 let userData = await getUserData(accessToken);
-                let profilePictureURL = await getUserProfilePicture(userData.customer.profile_picture, accessToken, backendURL);
                 _authData = {
                     refreshToken: refreshToken, 
                     accessToken: accessToken, 
@@ -130,12 +135,12 @@ export const AuthProvider = (props) => {
                     birthday: userData.customer.birthday,
                     gender: userData.customer.gender,
                     profilePicture: userData.customer.profile_picture,
-                    profilePictureURL: profilePictureURL.image,
                 };
             }
             setAuthData(_authData); 
             await AsyncStorage.setItem('@AuthData', JSON.stringify(_authData));
         } catch (error) {
+            setLoading(false);
             console.error(error)
         }
     }
@@ -210,7 +215,10 @@ export const AuthProvider = (props) => {
                 "liked_articles": []
             }
         )
-        .catch(error => console.error('Register User Error logging in:', error.response.data));
+        .catch(error => {
+            setLoading(false);
+            console.error('Register User Error logging in:', error.response.data)
+        });
         return response.data;
     }
 

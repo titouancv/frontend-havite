@@ -33,7 +33,7 @@ export default function ProfilHomePage() {
               complementaryColor={authData.complementaryColor}
               textColor={authData.textColor}
               name={authData.name}
-              logo={authData.logoURL}
+              logo={authData.logo}
 
               />
             </View>
@@ -42,7 +42,7 @@ export default function ProfilHomePage() {
           <>
             <View  style={{height: height*0.25}}>
               <UserHeader 
-              profilePicture={authData.profilePictureURL}
+              profilePicture={authData.profilePicture}
               firstname={authData.firstName} 
               lastname={authData.lastName} 
               mediaNb={124} 

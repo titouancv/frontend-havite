@@ -7,20 +7,46 @@ export const NewPublicationContext = createContext();
 
 
 export const NewPublicationProvider = (props) => {
-    const [articleStep, setArticleStep] = useState(1);
-    const [dataFrame, setDataFrame] = useState(null);
-    const [dataArticle, setDataArticle] = useState(null);
+    const [dataFrame, setDataFrame] = useState([]);
     const {backendURL, authData} = useContext(AuthContext);
 
-    const changeArticleStep = (data) => {
-        setDataFrame(data);
-        setArticleStep(2);
-    }
+    //-------------------------------------------------------------- widgets ---------------------------------------------------------
 
-    const previousStep = () => {
-        setArticleStep(1);
-    }
+    const UpdateTextWidget = (text, frameIndex, widgetPosition) => {
+        let frames = dataFrame;
+        let frame = frames.at(frameIndex);
+        let widgetIndex = frame.textWidget.findIndex(obj => obj.position === widgetPosition);
+        let textWidget = frame.textWidget.at(widgetIndex);
+        textWidget.text = text;
 
+        frame.textWidget.map(obj =>
+            obj.position === widgetPosition ? textWidget : obj
+        );
+        frames.map(obj =>
+            obj.index === frameIndex ? frame : obj
+        );
+
+        setDataFrame(frames);
+    }   
+
+    const UpdateImagesWidget = (images, frameIndex, widgetPosition) => {
+        let frames = dataFrame;
+        let frame = frames.at(frameIndex);
+        let widgetIndex = frame.imagesWidget.findIndex(obj => obj.position === widgetPosition);
+        let imagesWidget = frame.imagesWidget.at(widgetIndex);
+        imagesWidget.images = images;
+
+        frame.imagesWidget.map(obj =>
+            obj.position === widgetPosition ? imagesWidget : obj
+        );
+        frames.map(obj =>
+            obj.index === frameIndex ? frame : obj
+        );
+
+        setDataFrame(frames);
+    }   
+
+    //-------------------------------------------------------------- images ---------------------------------------------------------
     async function uploadImage(image) {
         try {
           // Create a new FormData object
@@ -58,7 +84,28 @@ export const NewPublicationProvider = (props) => {
         }
     }
 
+    const publishImages = () => {
+        let frames = dataFrame;
+        frames.forEach(frame => {
+            let imagesWidget = frame.imagesWidget;
+            imagesWidget.forEach(widget => {
+                let images = widget.images;
+                let newImages = [];
+                images.forEach(async image => {
+                    let res = await uploadImage(image);
+                    newImages.push(res.image);
+                })
+                widget.images = newImages;
+            })
+        });
+        console.log("end of publishImages")
+        return frames
+    }
+
+    //-------------------------------------------------------------- articles ---------------------------------------------------------
+
     const postArticle = async (article, token) => {
+        console.log("postArticle:")
         let response = await axios.post(
             backendURL + 'api/articles/',
             article, 
@@ -68,22 +115,22 @@ export const NewPublicationProvider = (props) => {
                 }
             }
         )
-        .catch(error => console.error('POST Article Error logging in:', error.request.response));
+        .catch(error => console.error('POST Article Error logging in:', error.response.data));
     }
 
     const publish = (authors, sources, tags, title) =>{
+        let frames = publishImages();
         let article = {
             id: 1,
             title: title,
             tags: tags,
             authors: authors,
             sources: sources,
-            frames: dataFrame
+            media: authData.name,
+            frames: frames,
         }
-        console.log(dataFrame);
-        console.log(article);
         let token = authData.accessToken;
-        //postArticle(article, token);
+        postArticle(article, token);
     }
 
     const update = (authors, sources, tags, title, data) =>{
@@ -111,12 +158,12 @@ export const NewPublicationProvider = (props) => {
 
     const value = {
         dataFrame,
-        articleStep,
-        changeArticleStep,
-        previousStep,
         publish,
         update,
         uploadImage,
+        setDataFrame,
+        UpdateTextWidget,
+        UpdateImagesWidget,
     }
     return (
         <NewPublicationContext.Provider value={value} >
